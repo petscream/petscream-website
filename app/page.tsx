@@ -1,10 +1,15 @@
+import Image from "next/image";
+
+const INSTAGRAM = "https://www.instagram.com/petscreamnyc/";
+const EMAIL = "mailto:info@petscream.com";
+const PHONE = "tel:7189732552";
+
 export default function Home() {
   const BRAND = {
-    bg: "#FFF6E9",       // krem
-    ink: "#2B1B12",      // koyu kahve
-    orange: "#F4A63A",   // petscream turuncu
-    teal: "#2FB7B5",     // arka halkalar vibe
-    panel: "#FFFFFF",    // kart beyazı
+    bg: "#FFF6E9",
+    ink: "#2B1B12",
+    orange: "#F4A63A",
+    panel: "#FFFFFF",
   };
 
   return (
@@ -19,7 +24,7 @@ export default function Home() {
           'ui-rounded, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif',
       }}
     >
-      {/* Top bar */}
+      {/* Header */}
       <header
         style={{
           maxWidth: 1100,
@@ -32,13 +37,13 @@ export default function Home() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          {/* Logo */}
-          <img
+          <Image
             src="/app/petscream-logo.jpg"
             alt="Petscream logo"
+            width={54}
+            height={54}
+            priority
             style={{
-              width: 54,
-              height: 54,
               borderRadius: 14,
               objectFit: "cover",
               boxShadow: "0 10px 22px rgba(43,27,18,0.12)",
@@ -47,13 +52,7 @@ export default function Home() {
             }}
           />
           <div style={{ lineHeight: 1.1 }}>
-            <div
-              style={{
-                fontSize: 18,
-                fontWeight: 900,
-                letterSpacing: 0.2,
-              }}
-            >
+            <div style={{ fontSize: 18, fontWeight: 900, letterSpacing: 0.2 }}>
               Petscream
             </div>
             <div style={{ fontSize: 12, opacity: 0.8 }}>
@@ -63,7 +62,7 @@ export default function Home() {
         </div>
 
         <a
-          href="https://www.instagram.com/"
+          href={INSTAGRAM}
           target="_blank"
           rel="noreferrer"
           style={{
@@ -90,11 +89,12 @@ export default function Home() {
           margin: "0 auto",
           padding: "34px 18px 64px",
           display: "grid",
-          gridTemplateColumns: "1.2fr 0.8fr",
+          gridTemplateColumns: "1.1fr 0.9fr",
           gap: 24,
           alignItems: "center",
         }}
       >
+        {/* Left */}
         <div>
           <div
             style={{
@@ -124,12 +124,11 @@ export default function Home() {
 
           <h1
             style={{
-              margin: "16px 0 8px",
+              margin: "16px 0 10px",
               fontSize: 54,
               lineHeight: 1.02,
               letterSpacing: -0.6,
               fontWeight: 950,
-              textTransform: "none",
             }}
           >
             Not essential.
@@ -137,13 +136,20 @@ export default function Home() {
             Intentional.
           </h1>
 
-          <p style={{ margin: "10px 0 0", fontSize: 18, lineHeight: 1.5, opacity: 0.9 }}>
+          <p style={{ margin: 0, fontSize: 18, lineHeight: 1.5, opacity: 0.9 }}>
             Extra. On purpose.
+          </p>
+
+          <p style={{ margin: "14px 0 0", fontSize: 14, opacity: 0.82, lineHeight: 1.5 }}>
+            Our signature blend is goat milk + yogurt + peanut butter + fruit.
+            Simple ingredients, thoughtfully picked, made for happy tails and purrs.
           </p>
 
           <div style={{ marginTop: 22, display: "flex", gap: 12, flexWrap: "wrap" }}>
             <a
-              href="#share"
+              href={INSTAGRAM}
+              target="_blank"
+              rel="noreferrer"
               style={{
                 textDecoration: "none",
                 color: BRAND.ink,
@@ -159,7 +165,7 @@ export default function Home() {
             </a>
 
             <a
-              href="https://www.instagram.com/"
+              href={INSTAGRAM}
               target="_blank"
               rel="noreferrer"
               style={{
@@ -175,6 +181,36 @@ export default function Home() {
             >
               Share the joy with your pet 🐾
             </a>
+
+            <a
+              href={EMAIL}
+              style={{
+                textDecoration: "none",
+                color: BRAND.ink,
+                fontWeight: 900,
+                padding: "13px 18px",
+                borderRadius: 16,
+                background: "rgba(255,255,255,0.65)",
+                border: "1px solid rgba(43,27,18,0.12)",
+              }}
+            >
+              Email us
+            </a>
+
+            <a
+              href={PHONE}
+              style={{
+                textDecoration: "none",
+                color: BRAND.ink,
+                fontWeight: 900,
+                padding: "13px 18px",
+                borderRadius: 16,
+                background: "rgba(255,255,255,0.65)",
+                border: "1px solid rgba(43,27,18,0.12)",
+              }}
+            >
+              Call 718-973-2552
+            </a>
           </div>
 
           <p style={{ marginTop: 14, fontSize: 13, opacity: 0.78, lineHeight: 1.45 }}>
@@ -182,75 +218,33 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Right card */}
+        {/* Right logo */}
         <div
           style={{
-            background: "rgba(255,255,255,0.72)",
-            border: "1px solid rgba(43,27,18,0.10)",
-            borderRadius: 22,
-            padding: 18,
-            boxShadow: "0 20px 45px rgba(43,27,18,0.10)",
+            display: "grid",
+            placeItems: "center",
+            padding: 10,
           }}
         >
-          <div
+          <Image
+            src="/app/petscream-logo.jpg"
+            alt="Petscream logo"
+            width={520}
+            height={520}
+            priority
             style={{
-              borderRadius: 18,
-              padding: 16,
-              background:
-                "radial-gradient(240px 180px at 20% 20%, rgba(47,183,181,0.22), transparent 60%)," +
-                "radial-gradient(260px 200px at 80% 10%, rgba(244,166,58,0.22), transparent 60%)," +
-                "rgba(255,255,255,0.85)",
-              border: "1px solid rgba(43,27,18,0.08)",
+              maxWidth: "100%",
+              height: "auto",
+              borderRadius: 22,
+              boxShadow: "0 20px 45px rgba(43,27,18,0.12)",
+              border: "1px solid rgba(43,27,18,0.10)",
+              background: "rgba(255,255,255,0.55)",
             }}
-          >
-            <div style={{ fontWeight: 950, fontSize: 16 }}>Quick vibe check 🍦</div>
-            <div style={{ marginTop: 8, fontSize: 13, opacity: 0.85, lineHeight: 1.45 }}>
-              Cute treats. Happy pets. Clean ingredients.
-              <br />
-              Small batches, big smiles.
-            </div>
-
-            <div
-              style={{
-                marginTop: 14,
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: 10,
-              }}
-            >
-              <div
-                style={{
-                  borderRadius: 14,
-                  padding: 12,
-                  background: "rgba(255,255,255,0.85)",
-                  border: "1px solid rgba(43,27,18,0.08)",
-                }}
-              >
-                <div style={{ fontWeight: 950, fontSize: 13 }}>Pets first</div>
-                <div style={{ fontSize: 12, opacity: 0.82, marginTop: 6 }}>
-                  Made for dogs, cats, and all the cuties in between.
-                </div>
-              </div>
-
-              <div
-                style={{
-                  borderRadius: 14,
-                  padding: 12,
-                  background: "rgba(255,255,255,0.85)",
-                  border: "1px solid rgba(43,27,18,0.08)",
-                }}
-              >
-                <div style={{ fontWeight: 950, fontSize: 13 }}>Joy energy</div>
-                <div style={{ fontSize: 12, opacity: 0.82, marginTop: 6 }}>
-                  Simple, sweet, and a little extra.
-                </div>
-              </div>
-            </div>
-          </div>
+          />
         </div>
       </section>
 
-      {/* Anchor section for next steps */}
+      {/* Next section placeholder */}
       <section
         id="share"
         style={{
