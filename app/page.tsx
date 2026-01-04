@@ -6,10 +6,10 @@ const PHONE = "tel:7189732552";
 
 export default function Home() {
   const BRAND = {
-    bg: "#FFF6E9", // krem
-    ink: "#2B1B12", // koyu kahve
-    orange: "#F4A63A", // Petscream turuncu
-    teal: "#2FB7B5", // halkalar vibe
+    bg: "#FFF6E9",
+    ink: "#2B1B12",
+    orange: "#F4A63A",
+    teal: "#2FB7B5",
     panel: "#FFFFFF",
   };
 
@@ -45,8 +45,6 @@ export default function Home() {
             height={54}
             priority
             style={{
-              width: 54,
-              height: 54,
               borderRadius: 14,
               objectFit: "cover",
               boxShadow: "0 10px 22px rgba(43,27,18,0.12)",
@@ -54,6 +52,7 @@ export default function Home() {
               background: BRAND.panel,
             }}
           />
+
           <div style={{ lineHeight: 1.1 }}>
             <div style={{ fontSize: 18, fontWeight: 900, letterSpacing: 0.2 }}>
               Petscream
@@ -81,7 +80,7 @@ export default function Home() {
           }}
           title="Open Instagram"
         >
-          Feedback 💬
+          Leave feedback 💬
         </a>
       </header>
 
@@ -90,14 +89,13 @@ export default function Home() {
         style={{
           maxWidth: 1100,
           margin: "0 auto",
-          padding: "34px 18px 70px",
+          padding: "34px 18px 64px",
           display: "grid",
           gridTemplateColumns: "1.15fr 0.85fr",
           gap: 24,
           alignItems: "center",
         }}
       >
-        {/* Left */}
         <div>
           <div
             style={{
@@ -139,16 +137,31 @@ export default function Home() {
             Intentional.
           </h1>
 
-          <p style={{ margin: 0, fontSize: 18, lineHeight: 1.55, opacity: 0.92, maxWidth: 560 }}>
+          <p style={{ margin: 0, fontSize: 18, lineHeight: 1.55, opacity: 0.92 }}>
             Extra joy. On purpose.
           </p>
 
-          <p style={{ margin: "14px 0 0", fontSize: 14, opacity: 0.82, lineHeight: 1.6, maxWidth: 560 }}>
-            Our signature blend is goat milk + yogurt + peanut butter + fruit.
-            Simple ingredients, thoughtfully picked, made for happy tails and purrs.
+          <p
+            style={{
+              margin: "14px 0 0",
+              fontSize: 14,
+              opacity: 0.82,
+              lineHeight: 1.5,
+              maxWidth: 560,
+            }}
+          >
+            Our signature blend is goat milk + yogurt + peanut butter + fruit. Simple
+            ingredients, thoughtfully picked, made for happy tails and purrs.
           </p>
 
-          <div style={{ marginTop: 22, display: "flex", gap: 12, flexWrap: "wrap" }}>
+          <div
+            style={{
+              marginTop: 22,
+              display: "flex",
+              gap: 12,
+              flexWrap: "wrap",
+            }}
+          >
             <a
               href={INSTAGRAM}
               target="_blank"
@@ -182,7 +195,7 @@ export default function Home() {
                 border: "1px solid rgba(43,27,18,0.12)",
               }}
             >
-              Share the joy with your pet 🐾🍦📸
+              Share the joy 🐾🍦📸
             </a>
 
             <a
@@ -216,26 +229,34 @@ export default function Home() {
             </a>
           </div>
 
-          <p style={{ marginTop: 14, fontSize: 13, opacity: 0.78, lineHeight: 1.45, maxWidth: 560 }}>
+          <p
+            style={{
+              marginTop: 14,
+              fontSize: 13,
+              opacity: 0.78,
+              lineHeight: 1.45,
+              maxWidth: 560,
+            }}
+          >
             Tag us or drop a quick “approved!” on Instagram. We might feature your pet 💛
           </p>
         </div>
 
-        {/* Right */}
+        {/* Right: Logo card */}
         <div
           style={{
             background: "rgba(255,255,255,0.72)",
             border: "1px solid rgba(43,27,18,0.10)",
             borderRadius: 22,
-            padding: 18,
-            boxShadow: "0 20px 45px rgba(43,27,18,0.10)",
+            padding: 10,
+            boxShadow: "0 18px 40px rgba(43,27,18,0.12)",
             display: "grid",
             placeItems: "center",
           }}
         >
           <Image
             src="/petscream-logo.jpg"
-            alt="Petscream logo large"
+            alt="Petscream logo"
             width={520}
             height={520}
             priority
@@ -244,7 +265,6 @@ export default function Home() {
               width: "100%",
               height: "auto",
               borderRadius: 22,
-              boxShadow: "0 18px 40px rgba(43,27,18,0.12)",
               border: "1px solid rgba(43,27,18,0.10)",
               background: BRAND.panel,
             }}
