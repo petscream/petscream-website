@@ -1,14 +1,13 @@
 import Image from "next/image";
 
 const INSTAGRAM = "https://www.instagram.com/petscreamnyc/";
-const EMAIL = "mailto:info@petscream.com";
-const PHONE = "tel:7189732552";
 
 export default function Home() {
   const BRAND = {
     bg: "#FFF6E9",
     ink: "#2B1B12",
     orange: "#F4A63A",
+    teal: "#2FB7B5",
     panel: "#FFFFFF",
   };
 
@@ -37,13 +36,12 @@ export default function Home() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <Image
+          <img
             src="/app/petscream-logo.jpg"
             alt="Petscream logo"
-            width={54}
-            height={54}
-            priority
             style={{
+              width: 54,
+              height: 54,
               borderRadius: 14,
               objectFit: "cover",
               boxShadow: "0 10px 22px rgba(43,27,18,0.12)",
@@ -52,7 +50,13 @@ export default function Home() {
             }}
           />
           <div style={{ lineHeight: 1.1 }}>
-            <div style={{ fontSize: 18, fontWeight: 900, letterSpacing: 0.2 }}>
+            <div
+              style={{
+                fontSize: 18,
+                fontWeight: 900,
+                letterSpacing: 0.2,
+              }}
+            >
               Petscream
             </div>
             <div style={{ fontSize: 12, opacity: 0.8 }}>
@@ -68,7 +72,7 @@ export default function Home() {
           style={{
             textDecoration: "none",
             color: BRAND.ink,
-            fontWeight: 800,
+            fontWeight: 900,
             fontSize: 13,
             padding: "10px 12px",
             borderRadius: 999,
@@ -89,7 +93,7 @@ export default function Home() {
           margin: "0 auto",
           padding: "34px 18px 64px",
           display: "grid",
-          gridTemplateColumns: "1.1fr 0.9fr",
+          gridTemplateColumns: "1.15fr 0.85fr",
           gap: 24,
           alignItems: "center",
         }}
@@ -106,7 +110,7 @@ export default function Home() {
               background: "rgba(255,255,255,0.7)",
               border: "1px solid rgba(43,27,18,0.10)",
               boxShadow: "0 10px 22px rgba(43,27,18,0.08)",
-              fontWeight: 800,
+              fontWeight: 900,
               fontSize: 13,
             }}
           >
@@ -119,15 +123,15 @@ export default function Home() {
                 boxShadow: "0 0 0 3px rgba(244,166,58,0.18)",
               }}
             />
-            Beyond basics
+            Beyond Basics
           </div>
 
           <h1
             style={{
               margin: "16px 0 10px",
-              fontSize: 54,
+              fontSize: 56,
               lineHeight: 1.02,
-              letterSpacing: -0.6,
+              letterSpacing: -0.7,
               fontWeight: 950,
             }}
           >
@@ -136,16 +140,26 @@ export default function Home() {
             Intentional.
           </h1>
 
-          <p style={{ margin: 0, fontSize: 18, lineHeight: 1.5, opacity: 0.9 }}>
-            Extra. On purpose.
+          <p
+            style={{
+              margin: 0,
+              fontSize: 18,
+              lineHeight: 1.55,
+              opacity: 0.92,
+              maxWidth: 560,
+            }}
+          >
+            Extra joy. On purpose.
           </p>
 
-          <p style={{ margin: "14px 0 0", fontSize: 14, opacity: 0.82, lineHeight: 1.5 }}>
-            Our signature blend is goat milk + yogurt + peanut butter + fruit.
-            Simple ingredients, thoughtfully picked, made for happy tails and purrs.
-          </p>
-
-          <div style={{ marginTop: 22, display: "flex", gap: 12, flexWrap: "wrap" }}>
+          <div
+            style={{
+              marginTop: 22,
+              display: "flex",
+              gap: 12,
+              flexWrap: "wrap",
+            }}
+          >
             <a
               href={INSTAGRAM}
               target="_blank"
@@ -153,7 +167,7 @@ export default function Home() {
               style={{
                 textDecoration: "none",
                 color: BRAND.ink,
-                fontWeight: 900,
+                fontWeight: 950,
                 padding: "13px 18px",
                 borderRadius: 16,
                 background: BRAND.orange,
@@ -171,7 +185,7 @@ export default function Home() {
               style={{
                 textDecoration: "none",
                 color: BRAND.ink,
-                fontWeight: 900,
+                fontWeight: 950,
                 padding: "13px 18px",
                 borderRadius: 16,
                 background: "rgba(255,255,255,0.85)",
@@ -179,51 +193,33 @@ export default function Home() {
                 border: "1px solid rgba(43,27,18,0.12)",
               }}
             >
-              Share the joy with your pet 🐾
-            </a>
-
-            <a
-              href={EMAIL}
-              style={{
-                textDecoration: "none",
-                color: BRAND.ink,
-                fontWeight: 900,
-                padding: "13px 18px",
-                borderRadius: 16,
-                background: "rgba(255,255,255,0.65)",
-                border: "1px solid rgba(43,27,18,0.12)",
-              }}
-            >
-              Email us
-            </a>
-
-            <a
-              href={PHONE}
-              style={{
-                textDecoration: "none",
-                color: BRAND.ink,
-                fontWeight: 900,
-                padding: "13px 18px",
-                borderRadius: 16,
-                background: "rgba(255,255,255,0.65)",
-                border: "1px solid rgba(43,27,18,0.12)",
-              }}
-            >
-              Call 718-973-2552
+              Share the joy 🐾🍦📸
             </a>
           </div>
 
-          <p style={{ marginTop: 14, fontSize: 13, opacity: 0.78, lineHeight: 1.45 }}>
-            Drop a pic, a tiny review, or a “my pet approved” message. We might feature you 💛
+          <p
+            style={{
+              marginTop: 14,
+              fontSize: 13,
+              opacity: 0.78,
+              lineHeight: 1.45,
+              maxWidth: 560,
+            }}
+          >
+            Tag us or drop a quick “approved!” on Instagram. We might feature your pet 💛
           </p>
         </div>
 
-        {/* Right logo */}
+        {/* Right: Logo card */}
         <div
           style={{
+            background: "rgba(255,255,255,0.72)",
+            border: "1px solid rgba(43,27,18,0.10)",
+            borderRadius: 22,
+            padding: 18,
+            boxShadow: "0 20px 45px rgba(43,27,18,0.10)",
             display: "grid",
             placeItems: "center",
-            padding: 10,
           }}
         >
           <Image
@@ -233,43 +229,14 @@ export default function Home() {
             height={520}
             priority
             style={{
-              maxWidth: "100%",
+              width: "100%",
               height: "auto",
               borderRadius: 22,
-              boxShadow: "0 20px 45px rgba(43,27,18,0.12)",
               border: "1px solid rgba(43,27,18,0.10)",
-              background: "rgba(255,255,255,0.55)",
+              boxShadow: "0 18px 40px rgba(43,27,18,0.12)",
+              background: BRAND.panel,
             }}
           />
-        </div>
-      </section>
-
-      {/* Next section placeholder */}
-      <section
-        id="share"
-        style={{
-          maxWidth: 1100,
-          margin: "0 auto",
-          padding: "0 18px 80px",
-        }}
-      >
-        <div
-          style={{
-            background: "rgba(255,255,255,0.70)",
-            border: "1px solid rgba(43,27,18,0.10)",
-            borderRadius: 22,
-            padding: 18,
-            boxShadow: "0 18px 40px rgba(43,27,18,0.10)",
-          }}
-        >
-          <div style={{ fontWeight: 950, fontSize: 18 }}>
-            Got a cute moment? Share it 🐾📸
-          </div>
-          <div style={{ marginTop: 8, opacity: 0.86, lineHeight: 1.5 }}>
-            Post a photo with your pet and tag us, or send a quick note like “approved!”
-            <br />
-            We love seeing happy pets.
-          </div>
         </div>
       </section>
     </main>
