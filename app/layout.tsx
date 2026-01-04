@@ -1,15 +1,8 @@
-import type { Metadata } from "next";
-import { Fredoka } from "next/font/google";
 import "./globals.css";
 
-const brandFont = Fredoka({
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-});
-
-export const metadata: Metadata = {
+export const metadata = {
   title: "Petscream",
-  description: "Not essential. Intentional. Beyond basics.",
+  description: "Not essential. Intentional.",
 };
 
 export default function RootLayout({
@@ -19,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={brandFont.className}>{children}</body>
+      <body style={{ margin: 0 }}>{children}</body>
     </html>
   );
 }
