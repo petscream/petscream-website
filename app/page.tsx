@@ -49,14 +49,9 @@ export default function Home() {
               background: BRAND.panel,
             }}
           />
+
           <div style={{ lineHeight: 1.1 }}>
-            <div
-              style={{
-                fontSize: 18,
-                fontWeight: 900,
-                letterSpacing: 0.2,
-              }}
-            >
+            <div style={{ fontSize: 18, fontWeight: 900, letterSpacing: 0.2 }}>
               Petscream
             </div>
             <div style={{ fontSize: 12, opacity: 0.8 }}>
