@@ -1,5 +1,10 @@
 import "./globals.css";
 
+export const metadata = {
+  title: "Petscream",
+  description: "Not essential. Intentional. Beyond basics.",
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -7,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body style={{ margin: 0 }}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
