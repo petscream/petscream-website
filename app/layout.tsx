@@ -1,4 +1,4 @@
-import "./global.css";
+import "./globals.css";
 
 export const metadata = {
   title: "Petscream",
@@ -12,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body style={{ margin: 0 }}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
