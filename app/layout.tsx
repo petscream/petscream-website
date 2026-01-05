@@ -1,8 +1,8 @@
-import "./globals.css";
+import "./global.css";
 
 export const metadata = {
   title: "Petscream",
-  description: "Not essential. Intentional. Beyond basics.",
+  description: "Extra joy. On purpose.",
 };
 
 export default function RootLayout({
@@ -12,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body style={{ margin: 0 }}>{children}</body>
     </html>
   );
 }
