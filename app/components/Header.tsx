@@ -32,7 +32,7 @@ export default function Header() {
         }}
       >
         <Image
-          src="/petscream-logo.jpg"
+          src="/icon.png"
           alt="Petscream logo"
           width={56}
           height={56}
