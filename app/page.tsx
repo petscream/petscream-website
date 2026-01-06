@@ -1,60 +1,54 @@
 import Image from "next/image";
-
-const LOGO_SRC = "/petscream-logo.jpg"; // public'teki gerçek dosya adı neyse onu yaz (ör: /petscream-logo.jpg)
+import WaitlistButton from "./components/WaitlistButton";
 
 export default function HomePage() {
   return (
     <main
       style={{
-        minHeight: "calc(100vh - 84px)",
+        minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
         justifyContent: "center",
-        padding: "32px 20px",
-        textAlign: "center",
+        alignItems: "center",
         background: "#FFF6E9",
         color: "#2B1B12",
+        textAlign: "center",
+        padding: "24px",
       }}
     >
+      {/* LOGO */}
       <div
         style={{
-          width: 280,
-          height: 280,
-          borderRadius: 28,
-          overflow: "hidden",
-          background: "rgba(255,255,255,0.35)",
-          border: "1px solid rgba(43,27,18,0.10)",
-          boxShadow: "0 22px 50px rgba(0,0,0,0.12)",
-          display: "grid",
-          placeItems: "center",
+          background: "#FFF",
+          borderRadius: "20px",
+          padding: "24px",
+          boxShadow: "0 20px 50px rgba(43,27,18,0.15)",
         }}
       >
         <Image
-          src={LOGO_SRC}
+          src="/petscream-logo-transparent.png"
           alt="Petscream logo"
-          width={520}
-          height={520}
+          width={220}
+          height={220}
           priority
-          style={{ width: "100%", height: "100%", objectFit: "contain" }}
         />
       </div>
 
-      <p style={{ marginTop: 18, fontSize: 18, fontWeight: 650, opacity: 0.9 }}>
-        <span
-          style={{
-            padding: "8px 12px",
-            borderRadius: 12,
-            background: "rgba(255,255,255,0.35)",
-            border: "1px solid rgba(43,27,18,0.10)",
-          }}
-        >
-          Extra joy. On purpose.
-        </span>
+      {/* SLOGAN */}
+      <p
+        style={{
+          marginTop: "20px",
+          fontSize: "1.1rem",
+          fontWeight: 500,
+          opacity: 0.9,
+        }}
+      >
+        Extra joy. On purpose.
       </p>
 
-      <div style={{ marginTop: 14, fontSize: 14, opacity: 0.7 }}>
-       <WaitlistButton />;
+      {/* WAITLIST BUTONU */}
+      <div style={{ marginTop: "18px" }}>
+        <WaitlistButton />
       </div>
     </main>
   );
