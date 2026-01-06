@@ -54,7 +54,7 @@ export default function HomePage() {
       </p>
 
       <div style={{ marginTop: 14, fontSize: 14, opacity: 0.7 }}>
-        Coming soon
+       <WaitlistButton />;
       </div>
     </main>
   );
