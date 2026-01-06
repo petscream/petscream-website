@@ -1,3 +1,5 @@
+"use client";
+
 const INSTAGRAM = "https://www.instagram.com/petscreamnyc/";
 
 function scrollToId(id: string) {
@@ -15,7 +17,7 @@ export default function Header() {
         zIndex: 50,
         width: "100%",
         backdropFilter: "blur(10px)",
-        background: "rgba(255, 246, 233, 0.78)",
+        background: "rgba(255, 246, 233, 0.86)",
         borderBottom: "1px solid rgba(43, 27, 18, 0.10)",
       }}
     >
@@ -41,9 +43,10 @@ export default function Header() {
             cursor: "pointer",
             color: "#2B1B12",
           }}
+          aria-label="Go to top"
         >
           <img
-            src="/petscream-logo-transparent.png"
+            src="/logo.png"
             alt="Petscream"
             style={{
               width: 42,
@@ -74,8 +77,6 @@ export default function Header() {
                 padding: "8px 10px",
                 borderRadius: 10,
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-              onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
             >
               {label}
             </button>
