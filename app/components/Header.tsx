@@ -17,5 +17,5 @@ export default function Header() {
       {/* Left: Logo + Brand */}
       <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
         <Image
-          src="/logo.png"
+          src="/petscream-logo.jpg"
           al
