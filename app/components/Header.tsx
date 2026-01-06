@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const LOGO_SRC = "/logo.png"; // sende hangi dosya çalışıyorsa onu bırak
+const LOGO_SRC = "/petscream-logo.jpg"; // sende hangi dosya çalışıyorsa onu bırak
 const INSTAGRAM_URL = "https://www.instagram.com/petscreamnyc/";
 
 function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
