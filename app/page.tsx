@@ -25,11 +25,11 @@ export default function HomePage() {
         }}
       >
         <img
-          src="/petscream-logo-transparent.png"
+          src="/logo.png"
           alt="Petscream logo"
           style={{
-            width: 260,
-            height: 260,
+            width: 280,
+            height: 280,
             objectFit: "contain",
             filter: "drop-shadow(0 18px 28px rgba(0,0,0,0.12))",
           }}
