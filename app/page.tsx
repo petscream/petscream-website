@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const LOGO_SRC = "//petscream-logo.jpg"; // public'teki gerçek dosya adı neyse onu yaz (ör: /petscream-logo.jpg)
+const LOGO_SRC = "/petscream-logo.jpg"; // public'teki gerçek dosya adı neyse onu yaz (ör: /petscream-logo.jpg)
 
 export default function HomePage() {
   return (
