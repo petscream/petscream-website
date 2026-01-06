@@ -8,7 +8,7 @@ export default function AboutPage() {
       }}
     >
       <h1 style={{ fontSize: 44, margin: 0, letterSpacing: -0.5 }}>
-        This is where it began
+        Bringing an idea to life
       </h1>
 
       <p style={{ marginTop: 16, fontSize: 18, lineHeight: 1.8, opacity: 0.92 }}>
