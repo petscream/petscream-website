@@ -26,7 +26,7 @@ export default function HomePage() {
         }}
       >
         <Image
-          src="/petscream-logo-transparent.png"
+          src="/petscream-logo.png"
           alt="Petscream logo"
           width={220}
           height={220}
