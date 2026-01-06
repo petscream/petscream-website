@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Header from "./components/Header";
 
 export default function HomePage() {
   return (
@@ -7,59 +7,55 @@ export default function HomePage() {
         minHeight: "100vh",
         background: "#FFF6E9",
         color: "#2B1B12",
-        padding: "24px",
       }}
     >
+      <Header />
+
       {/* HERO */}
       <section
+        id="home"
         style={{
-          maxWidth: "980px",
-          margin: "0 auto",
-          minHeight: "55vh",
+          minHeight: "70vh",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
           textAlign: "center",
-          gap: "18px",
+          padding: "96px 24px 48px",
         }}
       >
-        <Image
-          src="/logo.png"
-          alt="Petscream"
-          width={320}
-          height={320}
-          priority
-          style={{ display: "block" }}
+        <img
+          src="/petscream-logo-transparent.png"
+          alt="Petscream logo"
+          style={{
+            width: 260,
+            height: 260,
+            objectFit: "contain",
+            filter: "drop-shadow(0 18px 28px rgba(0,0,0,0.12))",
+          }}
         />
 
-        <p style={{ fontSize: "18px", margin: 0, opacity: 0.9 }}>
+        <p style={{ marginTop: 18, fontSize: "1.05rem" }}>
           Extra joy. On purpose.
         </p>
 
-        <div style={{ fontSize: "14px", opacity: 0.7 }}>Coming soon</div>
+        <div style={{ marginTop: 18, fontSize: "0.95rem", opacity: 0.7 }}>
+          Coming soon
+        </div>
       </section>
 
-      {/* HOW IT STARTED */}
+      {/* ABOUT */}
       <section
-        id="how-it-started"
+        id="about"
         style={{
-          maxWidth: "980px",
+          maxWidth: 860,
           margin: "0 auto",
-          padding: "56px 0 24px",
+          padding: "72px 24px",
         }}
       >
-        <h2 style={{ fontSize: "28px", margin: "0 0 18px" }}>
-          How It Started
-        </h2>
+        <h2 style={{ fontSize: "2.2rem", margin: "0 0 18px" }}>About</h2>
 
-        <div
-          style={{
-            fontSize: "16px",
-            lineHeight: 1.75,
-            maxWidth: "720px",
-          }}
-        >
+        <div style={{ lineHeight: 1.75, fontSize: "1.05rem" }}>
           <p style={{ marginTop: 0 }}>
             Petscream didn’t start as a business idea. It started from everyday
             life with animals, and from paying attention to the small moments
@@ -80,33 +76,105 @@ export default function HomePage() {
             ways, but in the quiet confidence of giving something you trust.
           </p>
 
-          <p style={{ fontWeight: 700 }}>
-            Because to us, happiness starts with balance.
-          </p>
-
           <p>
             Petscream grew out of this belief. No unnecessary extras. No
-            exaggerated claims. Just mindful choices, made with care and
-            respect.
+            exaggerated claims. Just mindful choices, made with care and respect.
           </p>
 
-          <p>
-            We want pets to feel good. Safe. Comfortable. Truly cared for.
-          </p>
-
-          <p>
+          <p style={{ marginBottom: 0 }}>
             If this way of thinking feels familiar, you’re already part of the
-            community we’re building.
+            community we’re building. That’s why Petscream exists: to go Beyond
+            Basics.
           </p>
 
-          <p>
-            That’s why Petscream exists. To go{" "}
-            <span style={{ fontWeight: 700 }}>beyond the basics</span>.
-          </p>
-
-          <p style={{ fontWeight: 700, marginBottom: 0 }}>
+          <p style={{ marginTop: 18, fontWeight: 700 }}>
             Extra joy. On purpose.
           </p>
+        </div>
+      </section>
+
+      {/* FAQS */}
+      <section
+        id="faqs"
+        style={{
+          maxWidth: 860,
+          margin: "0 auto",
+          padding: "72px 24px",
+        }}
+      >
+        <h2 style={{ fontSize: "2.2rem", margin: "0 0 18px" }}>FAQs</h2>
+
+        <div style={{ lineHeight: 1.7 }}>
+          <div style={{ marginBottom: 18 }}>
+            <h3 style={{ margin: "0 0 6px" }}>When are you launching?</h3>
+            <p style={{ margin: 0, opacity: 0.85 }}>
+              Soon. We’re finalizing recipes, packaging, and the first small batch.
+            </p>
+          </div>
+
+          <div style={{ marginBottom: 18 }}>
+            <h3 style={{ margin: "0 0 6px" }}>Where will you be available?</h3>
+            <p style={{ margin: 0, opacity: 0.85 }}>
+              New York first. We’ll share updates on Instagram.
+            </p>
+          </div>
+
+          <div>
+            <h3 style={{ margin: "0 0 6px" }}>Is it made with clean ingredients?</h3>
+            <p style={{ margin: 0, opacity: 0.85 }}>
+              That’s the goal: simple choices, no unnecessary extras.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* CONTACT */}
+      <section
+        id="contact"
+        style={{
+          maxWidth: 860,
+          margin: "0 auto",
+          padding: "72px 24px 96px",
+        }}
+      >
+        <h2 style={{ fontSize: "2.2rem", margin: "0 0 18px" }}>Contact</h2>
+
+        <p style={{ marginTop: 0, opacity: 0.9 }}>
+          Want to collaborate, ask a question, or say hi?
+        </p>
+
+        <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginTop: 14 }}>
+          <a
+            href="mailto:info@petscream.com"
+            style={{
+              padding: "10px 14px",
+              borderRadius: 10,
+              background: "rgba(255,255,255,0.7)",
+              border: "1px solid rgba(0,0,0,0.08)",
+              textDecoration: "none",
+              color: "#2B1B12",
+              fontWeight: 600,
+            }}
+          >
+            Email us
+          </a>
+
+          <a
+            href="https://www.instagram.com/petscreamnyc/"
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              padding: "10px 14px",
+              borderRadius: 10,
+              background: "rgba(255,255,255,0.7)",
+              border: "1px solid rgba(0,0,0,0.08)",
+              textDecoration: "none",
+              color: "#2B1B12",
+              fontWeight: 600,
+            }}
+          >
+            Instagram
+          </a>
         </div>
       </section>
     </main>
