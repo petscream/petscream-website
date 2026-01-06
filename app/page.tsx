@@ -1,74 +1,61 @@
-import FAQ from "./components/FAQ";
+import Image from "next/image";
+
+const LOGO_SRC = "/logo.png"; // public'teki gerçek dosya adı neyse onu yaz (ör: /petscream-logo.jpg)
 
 export default function HomePage() {
   return (
-    <main style={styles.main}>
-      <section style={styles.hero} aria-label="Petscream hero">
-        <div style={styles.card}>
-          <img
-            src="/petscream-logo-transparent.png"
-            alt="Petscream logo"
-            style={styles.logo}
-          />
+    <main
+      style={{
+        minHeight: "calc(100vh - 84px)",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "32px 20px",
+        textAlign: "center",
+        background: "#FFF6E9",
+        color: "#2B1B12",
+      }}
+    >
+      <div
+        style={{
+          width: 280,
+          height: 280,
+          borderRadius: 28,
+          overflow: "hidden",
+          background: "rgba(255,255,255,0.35)",
+          border: "1px solid rgba(43,27,18,0.10)",
+          boxShadow: "0 22px 50px rgba(0,0,0,0.12)",
+          display: "grid",
+          placeItems: "center",
+        }}
+      >
+        <Image
+          src={LOGO_SRC}
+          alt="Petscream logo"
+          width={520}
+          height={520}
+          priority
+          style={{ width: "100%", height: "100%", objectFit: "contain" }}
+        />
+      </div>
 
-          <div style={styles.tagWrap}>
-            <span style={styles.tagline}>Extra joy. On purpose.</span>
-          </div>
+      <p style={{ marginTop: 18, fontSize: 18, fontWeight: 650, opacity: 0.9 }}>
+        <span
+          style={{
+            padding: "8px 12px",
+            borderRadius: 12,
+            background: "rgba(255,255,255,0.35)",
+            border: "1px solid rgba(43,27,18,0.10)",
+          }}
+        >
+          Extra joy. On purpose.
+        </span>
+      </p>
 
-          <div style={styles.comingSoon}>Coming soon</div>
-        </div>
-      </section>
-
-      <FAQ />
+      <div style={{ marginTop: 14, fontSize: 14, opacity: 0.7 }}>
+        Coming soon
+      </div>
     </main>
   );
 }
-
-const styles: Record<string, React.CSSProperties> = {
-  main: {
-    minHeight: "100vh",
-    background: "#FFF6E9",
-    color: "#2B1B12",
-  },
-  hero: {
-    minHeight: "calc(100vh - 84px)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "40px 24px",
-  },
-  card: {
-    width: "min(520px, 92vw)",
-    borderRadius: "22px",
-    background: "rgba(255,255,255,0.35)",
-    border: "1px solid rgba(43,27,18,0.10)",
-    boxShadow: "0 18px 50px rgba(43,27,18,0.10)",
-    padding: "28px 24px 22px",
-    textAlign: "center",
-  },
-  logo: {
-    width: "min(340px, 70vw)",
-    height: "auto",
-    display: "block",
-    margin: "0 auto 14px",
-    filter: "drop-shadow(0 18px 22px rgba(0,0,0,0.15))",
-  },
-  tagWrap: {
-    display: "flex",
-    justifyContent: "center",
-    marginTop: "8px",
-  },
-  tagline: {
-    display: "inline-block",
-    padding: "10px 14px",
-    borderRadius: "999px",
-    border: "1px solid rgba(43,27,18,0.14)",
-    background: "rgba(255,255,255,0.45)",
-    fontWeight: 600,
-  },
-  comingSoon: {
-    marginTop: "14px",
-    opacity: 0.75,
-    fontSize: "0.95rem",
-  },
-};
