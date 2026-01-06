@@ -17,12 +17,14 @@ export default function Header() {
       {/* LOGO */}
       <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
         <Image
-          src="/petscream-logo.jpg" // veya /logo.png
-          alt="Petscream logo"
-          width={64}
-          height={64}
-          style={{ borderRadius: "12px" }}
-          priority
+  src="/logo.png"          // şeffaf png kullan
+  alt="Petscream logo"
+  width={64}
+  height={64}
+  priority
+  style={{ borderRadius: "12px" }}
+/>
+
         />
         <strong style={{ fontSize: "20px" }}>Petscream</strong>
       </div>
