@@ -4,7 +4,7 @@ export default function HomePage() {
   return (
     <main
       style={{
-        minHeight: "calc(100vh - 80px)",
+        minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -17,13 +17,14 @@ export default function HomePage() {
     >
       <Image
         src="/logo.png"
-        alt="Petscream logo"
-        width={260}
-        height={260}
+        alt="Petscream"
+        width={320}
+        height={320}
         priority
         style={{
-          borderRadius: "28px",
-          boxShadow: "0 18px 45px rgba(0,0,0,0.12)",
+          background: "transparent",
+          borderRadius: 0,
+          boxShadow: "none",
         }}
       />
 
@@ -34,6 +35,22 @@ export default function HomePage() {
       <div style={{ marginTop: "18px", fontSize: "0.95rem", opacity: 0.7 }}>
         Coming soon
       </div>
+
+      <a
+        href="https://www.instagram.com/petscreamnyc/"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          marginTop: "22px",
+          fontSize: "14px",
+          fontWeight: 600,
+          textDecoration: "none",
+          color: "#2B1B12",
+          opacity: 0.9,
+        }}
+      >
+        Instagram
+      </a>
     </main>
   );
 }
