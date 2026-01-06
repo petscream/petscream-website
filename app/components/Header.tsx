@@ -17,7 +17,7 @@ export default function Header() {
         zIndex: 50,
         width: "100%",
         backdropFilter: "blur(10px)",
-        background: "rgba(255, 246, 233, 0.86)",
+        backgroundColor: "rgba(255, 246, 233, 0.86)",
         borderBottom: "1px solid rgba(43, 27, 18, 0.10)",
       }}
     >
@@ -32,7 +32,9 @@ export default function Header() {
           gap: 16,
         }}
       >
+        {/* Left: Brand */}
         <button
+          type="button"
           onClick={() => scrollToId("home")}
           style={{
             display: "flex",
@@ -42,6 +44,7 @@ export default function Header() {
             background: "transparent",
             cursor: "pointer",
             color: "#2B1B12",
+            padding: 0,
           }}
           aria-label="Go to top"
         >
@@ -58,29 +61,58 @@ export default function Header() {
           <span style={{ fontWeight: 800, fontSize: "1.1rem" }}>Petscream</span>
         </button>
 
-        <nav style={{ display: "flex", alignItems: "center", gap: 14 }}>
-          {[
-            ["About", "about"],
-            ["FAQs", "faqs"],
-            ["Contact", "contact"],
-          ].map(([label, id]) => (
-            <button
-              key={id}
-              onClick={() => scrollToId(id)}
-              style={{
-                border: "none",
-                background: "transparent",
-                cursor: "pointer",
-                color: "#2B1B12",
-                fontWeight: 600,
-                opacity: 0.85,
-                padding: "8px 10px",
-                borderRadius: 10,
-              }}
-            >
-              {label}
-            </button>
-          ))}
+        {/* Right: Nav */}
+        <nav style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <button
+            type="button"
+            onClick={() => scrollToId("about")}
+            style={{
+              border: "none",
+              background: "transparent",
+              cursor: "pointer",
+              color: "#2B1B12",
+              fontWeight: 600,
+              opacity: 0.85,
+              padding: "8px 10px",
+              borderRadius: 10,
+            }}
+          >
+            About
+          </button>
+
+          <button
+            type="button"
+            onClick={() => scrollToId("faqs")}
+            style={{
+              border: "none",
+              background: "transparent",
+              cursor: "pointer",
+              color: "#2B1B12",
+              fontWeight: 600,
+              opacity: 0.85,
+              padding: "8px 10px",
+              borderRadius: 10,
+            }}
+          >
+            FAQs
+          </button>
+
+          <button
+            type="button"
+            onClick={() => scrollToId("contact")}
+            style={{
+              border: "none",
+              background: "transparent",
+              cursor: "pointer",
+              color: "#2B1B12",
+              fontWeight: 600,
+              opacity: 0.85,
+              padding: "8px 10px",
+              borderRadius: 10,
+            }}
+          >
+            Contact
+          </button>
 
           <a
             href={INSTAGRAM}
@@ -93,7 +125,7 @@ export default function Header() {
               padding: "8px 10px",
               borderRadius: 10,
               border: "1px solid rgba(43, 27, 18, 0.15)",
-              background: "rgba(255,255,255,0.55)",
+              backgroundColor: "rgba(255,255,255,0.55)",
             }}
           >
             Instagram
