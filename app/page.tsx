@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export default function HomePage() {
   return (
     <main
@@ -13,40 +11,24 @@ export default function HomePage() {
         color: "#2B1B12",
         textAlign: "center",
         padding: "24px",
-        userSelect: "none",
       }}
     >
-      {/* MAIN LOGO */}
-      <Image
-        src="/logo.png"
-        alt="Petscream"
-        width={320}
-        height={320}
-        priority
+      <img
+        src="/logo.png?v=3"
+        alt="Petscream logo"
+        width={260}
+        height={260}
         style={{
+          display: "block",
           borderRadius: "24px",
-          marginBottom: "24px",
         }}
       />
 
-      {/* TAGLINE */}
-      <p
-        style={{
-          fontSize: "18px",
-          margin: 0,
-        }}
-      >
+      <p style={{ fontSize: "1.1rem", marginTop: "18px" }}>
         Extra joy. On purpose.
       </p>
 
-      {/* COMING SOON */}
-      <div
-        style={{
-          marginTop: "28px",
-          fontSize: "14px",
-          opacity: 0.7,
-        }}
-      >
+      <div style={{ marginTop: "16px", fontSize: "0.95rem", opacity: 0.7 }}>
         Coming soon
       </div>
     </main>
