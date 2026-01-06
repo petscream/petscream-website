@@ -1,8 +1,10 @@
+import Image from "next/image";
+
 export default function HomePage() {
   return (
     <main
       style={{
-        minHeight: "100vh",
+        minHeight: "calc(100vh - 80px)",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -13,14 +15,15 @@ export default function HomePage() {
         padding: "24px",
       }}
     >
-      <img
-        src="/logo.png?v=3"
+      <Image
+        src="/logo.png"
         alt="Petscream logo"
         width={260}
         height={260}
+        priority
         style={{
-          display: "block",
-          borderRadius: "24px",
+          borderRadius: "28px",
+          boxShadow: "0 18px 45px rgba(0,0,0,0.12)",
         }}
       />
 
@@ -28,7 +31,7 @@ export default function HomePage() {
         Extra joy. On purpose.
       </p>
 
-      <div style={{ marginTop: "16px", fontSize: "0.95rem", opacity: 0.7 }}>
+      <div style={{ marginTop: "18px", fontSize: "0.95rem", opacity: 0.7 }}>
         Coming soon
       </div>
     </main>
