@@ -11,17 +11,21 @@ export default function HomePage() {
         color: "#2B1B12",
         textAlign: "center",
         padding: "24px",
+        userSelect: "none",
       }}
     >
-      <h1 style={{ fontSize: "3rem", marginBottom: "12px" }}>
-        Petscream 🐾
+      <h1 style={{ fontSize: "64px", margin: 0, fontWeight: 800 }}>
+        Petscream{" "}
+        <span aria-hidden="true" style={{ fontSize: "44px" }}>
+          🐾🐾
+        </span>
       </h1>
 
-      <p style={{ fontSize: "1.25rem", maxWidth: "480px" }}>
+      <p style={{ fontSize: "18px", marginTop: "16px", marginBottom: "0" }}>
         Extra joy. On purpose.
       </p>
 
-      <div style={{ marginTop: "32px", fontSize: "0.95rem", opacity: 0.7 }}>
+      <div style={{ marginTop: "28px", fontSize: "14px", opacity: 0.7 }}>
         Coming soon
       </div>
     </main>
