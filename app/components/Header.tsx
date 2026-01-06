@@ -112,7 +112,7 @@ export default function Header() {
               fontWeight: 650,
             }}
           >
-            This is where it began
+            Our Story
           </Link>
 
           <Link
