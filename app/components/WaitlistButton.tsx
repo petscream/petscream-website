@@ -1,77 +1,87 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
-type Props = {
-  buttonText?: string;
-  formTitle?: string;
-  subtitle?: string;
+const FORM_ENDPOINT = "https://formspree.io/f/xzdznbwq";
+
+const BRAND = {
+  ink: "#2B1B12",
+  line: "rgba(43,27,18,0.18)",
+  panel: "#FFFFFF",
 };
 
-export default function WaitlistButton({
-  buttonText = "Notify me",
-  formTitle = "When will your pup’s tail wag a little happier?",
-  subtitle = "Leave your email and be the first to know when Petscream arrives.",
-}: Props) {
+function isValidEmail(email: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+}
+
+export default function WaitlistButton() {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
     "idle"
   );
+  const [errorMsg, setErrorMsg] = useState("");
 
-  // Formspree endpoint (senin ekran görüntüsündeki)
-  const actionUrl = useMemo(() => "https://formspree.io/f/xzdznbwq", []);
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setErrorMsg("");
 
-    if (!email.trim()) return;
+    if (!isValidEmail(email)) {
+      setStatus("error");
+      setErrorMsg("Please enter a valid email.");
+      return;
+    }
 
     try {
       setStatus("loading");
 
-      const res = await fetch(actionUrl, {
+      const res = await fetch(FORM_ENDPOINT, {
         method: "POST",
         headers: {
-          "Accept": "application/json",
           "Content-Type": "application/json",
+          Accept: "application/json",
         },
         body: JSON.stringify({ email }),
       });
 
-      if (!res.ok) throw new Error("Request failed");
+      if (!res.ok) {
+        setStatus("error");
+        setErrorMsg("Something went wrong. Please try again.");
+        return;
+      }
 
       setStatus("success");
       setEmail("");
     } catch {
       setStatus("error");
+      setErrorMsg("Network error. Please try again.");
     }
   }
 
   return (
     <>
-      {/* Button */}
       <button
         type="button"
         onClick={() => {
           setStatus("idle");
+          setErrorMsg("");
           setOpen(true);
         }}
         style={{
-          border: "1px solid rgba(43,27,18,0.18)",
-          background: "#FFF6E9",
-          color: "#2B1B12",
-          borderRadius: 999,
-          padding: "10px 16px",
-          fontWeight: 700,
+          padding: "12px 18px",
+          borderRadius: 14,
+          background: BRAND.panel,
+          border: `1px solid ${BRAND.line}`,
+          color: BRAND.ink,
+          fontWeight: 800,
           cursor: "pointer",
-          boxShadow: "0 6px 18px rgba(0,0,0,0.06)",
+          boxShadow: "0 14px 30px rgba(43,27,18,0.10)",
         }}
+        aria-label="Open waitlist form"
       >
-        {buttonText}
+        When will your pup’s tail wag a little happier?
       </button>
 
-      {/* Modal */}
       {open && (
         <div
           role="dialog"
@@ -79,11 +89,11 @@ export default function WaitlistButton({
           style={{
             position: "fixed",
             inset: 0,
-            background: "rgba(0,0,0,0.35)",
+            background: "rgba(43,27,18,0.35)",
             display: "grid",
             placeItems: "center",
             padding: 16,
-            zIndex: 9999,
+            zIndex: 999,
           }}
           onClick={() => setOpen(false)}
         >
@@ -91,58 +101,29 @@ export default function WaitlistButton({
             style={{
               width: "min(520px, 100%)",
               background: "#FFF6E9",
-              borderRadius: 20,
-              border: "1px solid rgba(43,27,18,0.18)",
-              boxShadow: "0 20px 60px rgba(0,0,0,0.20)",
+              border: `1px solid ${BRAND.line}`,
+              borderRadius: 18,
               padding: 18,
+              boxShadow: "0 30px 80px rgba(43,27,18,0.25)",
             }}
-            onClick={(ev) => ev.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
           >
-            <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-              <div
-                style={{
-                  width: 46,
-                  height: 46,
-                  borderRadius: 14,
-                  background: "#FFFFFF",
-                  border: "1px solid rgba(43,27,18,0.10)",
-                  display: "grid",
-                  placeItems: "center",
-                  overflow: "hidden",
-                }}
-                aria-hidden="true"
-              >
-                {/* Logo path sabit: /app/public/petscream-logo.jpg */}
-                <img
-                  src="/petscream-logo.jpg"
-                  alt="Petscream"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-              </div>
-
-              <div style={{ flex: 1 }}>
-                <div
-                  style={{
-                    fontSize: 18,
-                    fontWeight: 800,
-                    color: "#2B1B12",
-                    lineHeight: 1.2,
-                  }}
-                >
-                  {formTitle}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                justifyContent: "space-between",
+                gap: 12,
+                marginBottom: 8,
+              }}
+            >
+              <div>
+                <div style={{ fontSize: "1.15rem", fontWeight: 900 }}>
+                  Leave your email
                 </div>
-                <div
-                  style={{
-                    marginTop: 6,
-                    fontSize: 14,
-                    color: "rgba(43,27,18,0.80)",
-                  }}
-                >
-                  {subtitle}
+                <div style={{ opacity: 0.8, marginTop: 6, lineHeight: 1.4 }}>
+                  Be the first to know when Petscream arrives. Extra joy. On
+                  purpose.
                 </div>
               </div>
 
@@ -150,12 +131,12 @@ export default function WaitlistButton({
                 type="button"
                 onClick={() => setOpen(false)}
                 style={{
-                  border: "none",
                   background: "transparent",
-                  fontSize: 18,
+                  border: `1px solid ${BRAND.line}`,
+                  borderRadius: 12,
+                  padding: "8px 10px",
                   cursor: "pointer",
-                  color: "rgba(43,27,18,0.70)",
-                  padding: 6,
+                  fontWeight: 800,
                 }}
                 aria-label="Close"
               >
@@ -163,76 +144,97 @@ export default function WaitlistButton({
               </button>
             </div>
 
-            <form
-              onSubmit={handleSubmit}
-              style={{
-                marginTop: 14,
-                display: "flex",
-                gap: 10,
-                alignItems: "center",
-              }}
-            >
-              <input
-                type="email"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Your email"
-                required
+            {status === "success" ? (
+              <div
                 style={{
-                  flex: 1,
-                  height: 44,
-                  borderRadius: 12,
-                  border: "1px solid rgba(43,27,18,0.18)",
-                  padding: "0 12px",
+                  marginTop: 14,
                   background: "#FFFFFF",
-                  outline: "none",
-                }}
-              />
-
-              <button
-                type="submit"
-                disabled={status === "loading"}
-                style={{
-                  height: 44,
-                  borderRadius: 12,
-                  border: "1px solid rgba(43,27,18,0.18)",
-                  background: "#2B1B12",
-                  color: "#FFF6E9",
-                  padding: "0 14px",
-                  fontWeight: 800,
-                  cursor: status === "loading" ? "not-allowed" : "pointer",
-                  opacity: status === "loading" ? 0.7 : 1,
+                  border: `1px solid ${BRAND.line}`,
+                  borderRadius: 16,
+                  padding: 14,
+                  textAlign: "left",
                 }}
               >
-                {status === "loading" ? "Sending..." : "Notify me"}
-              </button>
-            </form>
+                <div style={{ fontWeight: 900 }}>You’re on the list.</div>
+                <div style={{ marginTop: 6, opacity: 0.85 }}>
+                  Thanks for joining. We’ll email you when we launch.
+                </div>
 
-            <div style={{ marginTop: 10, minHeight: 18 }}>
-              {status === "success" && (
-                <div style={{ color: "#1f7a3a", fontWeight: 700, fontSize: 13 }}>
-                  You are on the list. Thank you.
-                </div>
-              )}
-              {status === "error" && (
-                <div style={{ color: "#a11b1b", fontWeight: 700, fontSize: 13 }}>
-                  Something went wrong. Please try again.
-                </div>
-              )}
-              {status === "idle" && (
-                <div style={{ color: "rgba(43,27,18,0.70)", fontSize: 12 }}>
-                  We will email you only for Petscream updates.
-                </div>
-              )}
-            </div>
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  style={{
+                    marginTop: 12,
+                    padding: "10px 14px",
+                    borderRadius: 12,
+                    background: "#2B1B12",
+                    color: "#FFF6E9",
+                    border: "none",
+                    fontWeight: 900,
+                    cursor: "pointer",
+                  }}
+                >
+                  Done
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} style={{ marginTop: 14 }}>
+                <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                  <input
+                    type="email"
+                    name="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="your@email.com"
+                    autoComplete="email"
+                    style={{
+                      flex: "1 1 240px",
+                      padding: "12px 14px",
+                      borderRadius: 12,
+                      border: `1px solid ${BRAND.line}`,
+                      background: "#FFFFFF",
+                      color: BRAND.ink,
+                      outline: "none",
+                      fontSize: "1rem",
+                    }}
+                  />
 
-            {/* Hidden fallback: İstersen JS çalışmazsa formspree action ile gitsin diye burada tutuyoruz.
-               Şu an handleSubmit fetch kullandığı için bu alan gerekmiyor, ama zararsız.
-            */}
-            <form action={actionUrl} method="POST" style={{ display: "none" }}>
-              <input type="email" name="email" />
-            </form>
+                  <button
+                    type="submit"
+                    disabled={status === "loading"}
+                    style={{
+                      padding: "12px 14px",
+                      borderRadius: 12,
+                      background: "#2B1B12",
+                      color: "#FFF6E9",
+                      border: "none",
+                      fontWeight: 900,
+                      cursor: status === "loading" ? "not-allowed" : "pointer",
+                      opacity: status === "loading" ? 0.75 : 1,
+                      minWidth: 140,
+                    }}
+                  >
+                    {status === "loading" ? "Sending..." : "Notify me"}
+                  </button>
+                </div>
+
+                {status === "error" && (
+                  <div
+                    style={{
+                      marginTop: 10,
+                      color: "#7A2E1E",
+                      fontWeight: 700,
+                    }}
+                  >
+                    {errorMsg || "Please try again."}
+                  </div>
+                )}
+
+                <div style={{ marginTop: 10, opacity: 0.7, fontSize: 13 }}>
+                  We only email for launch updates. No spam.
+                </div>
+              </form>
+            )}
           </div>
         </div>
       )}
