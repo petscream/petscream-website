@@ -1,16 +1,32 @@
 import "./globals.css";
+import type { Metadata } from "next";
 import { ReactNode } from "react";
+import Header from "./components/Header";
 
-export const metadata = {
+export const metadata: Metadata = {
+  metadataBase: new URL("https://www.petscream.com"),
   title: "Petscream",
   description: "Extra joy. On purpose.",
+  icons: {
+    icon: [{ url: "/favicon.ico" }, { url: "/icon.png", type: "image/png" }],
+    apple: [{ url: "/apple-touch-icon.png", type: "image/png" }],
+  },
+  openGraph: {
+    type: "website",
+    url: "https://www.petscream.com",
+    title: "Petscream",
+    description: "Extra joy. On purpose.",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Petscream" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Petscream",
+    description: "Extra joy. On purpose.",
+    images: ["/og.png"],
+  },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -21,6 +37,7 @@ export default function RootLayout({
           color: "#2B1B12",
         }}
       >
+        <Header />
         {children}
       </body>
     </html>
