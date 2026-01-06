@@ -14,8 +14,40 @@ export default function Header() {
         boxSizing: "border-box",
       }}
     >
-      {/* Left: Logo + Brand */}
       <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
         <Image
-          src="/petscream-logo.jpg"
-          al
+          src="/logo.png"
+          alt="Petscream logo"
+          width={64}
+          height={64}
+          priority
+          style={{ display: "block" }}
+        />
+        <span
+          style={{
+            fontSize: "20px",
+            fontWeight: 700,
+            color: "#2B1B12",
+            lineHeight: 1,
+          }}
+        >
+          Petscream
+        </span>
+      </div>
+
+      <a
+        href={INSTAGRAM}
+        target="_blank"
+        rel="noreferrer"
+        style={{
+          textDecoration: "none",
+          color: "#2B1B12",
+          fontSize: "14px",
+          fontWeight: 600,
+        }}
+      >
+        Instagram
+      </a>
+    </header>
+  );
+}
