@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     url: "https://www.petscream.com",
     title: "Petscream",
     description: "Extra joy. On purpose.",
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Petscream" }],
+    images: [{ url: "/og.png", width: 1500, height: 800, alt: "Petscream" }],
   },
   twitter: {
     card: "summary_large_image",
