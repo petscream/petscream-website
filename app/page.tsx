@@ -18,7 +18,7 @@ export default function HomePage() {
     >
       {/* MAIN LOGO */}
       <Image
-        src="/petscream-logo.jpg"
+        src="/logo.png"
         alt="Petscream"
         width={320}
         height={320}
