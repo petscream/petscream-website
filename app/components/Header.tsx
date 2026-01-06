@@ -12,29 +12,39 @@ export default function Header() {
         alignItems: "center",
         justifyContent: "space-between",
         boxSizing: "border-box",
+        background: "rgba(255, 246, 233, 0.85)",
+        backdropFilter: "blur(6px)",
+        borderBottom: "1px solid rgba(43, 27, 18, 0.10)",
+        position: "sticky",
+        top: 0,
+        zIndex: 10,
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+      {/* Left: Logo only */}
+      <a
+        href="/"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "12px",
+          textDecoration: "none",
+          color: "inherit",
+        }}
+      >
         <Image
-          src="/logo.png"
+          src="/petscream-logo.jpg"
           alt="Petscream logo"
-          width={64}
-          height={64}
+          width={56}
+          height={56}
           priority
-          style={{ display: "block" }}
-        />
-        <span
           style={{
-            fontSize: "20px",
-            fontWeight: 700,
-            color: "#2B1B12",
-            lineHeight: 1,
+            display: "block",
+            borderRadius: "8px",
           }}
-        >
-          Petscream
-        </span>
-      </div>
+        />
+      </a>
 
+      {/* Right: Instagram */}
       <a
         href={INSTAGRAM}
         target="_blank"
