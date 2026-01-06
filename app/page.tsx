@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function HomePage() {
   return (
     <main
@@ -14,20 +16,10 @@ export default function HomePage() {
         userSelect: "none",
       }}
     >
-      <h1 style={{ fontSize: "64px", margin: 0, fontWeight: 800 }}>
-        Petscream{" "}
-        <span aria-hidden="true" style={{ fontSize: "44px" }}>
-          🐾🐾
-        </span>
-      </h1>
-
-      <p style={{ fontSize: "18px", marginTop: "16px", marginBottom: "0" }}>
-        Extra joy. On purpose.
-      </p>
-
-      <div style={{ marginTop: "28px", fontSize: "14px", opacity: 0.7 }}>
-        Coming soon
-      </div>
-    </main>
-  );
-}
+      {/* MAIN LOGO */}
+      <Image
+        src="/petscream-logo.jpg"
+        alt="Petscream"
+        width={320}
+        height={320}
+        priority
