@@ -17,10 +17,11 @@ export default function WhatsInItPage() {
         Simple choices. Clean ingredients. No unnecessary extras.
       </p>
 
+      {/* Grid without styled-jsx (Server Component safe) */}
       <section
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
           gap: 14,
         }}
       >
@@ -57,19 +58,6 @@ export default function WhatsInItPage() {
       <p style={{ maxWidth: 820, lineHeight: 1.8, opacity: 0.92, margin: 0 }}>
         Every pet is different. Treats are best enjoyed in balanced portions and with attention to your pet’s individual needs and sensitivities.
       </p>
-
-      <style jsx>{`
-        @media (max-width: 980px) {
-          section {
-            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-          }
-        }
-        @media (max-width: 560px) {
-          section {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
     </main>
   );
 }
