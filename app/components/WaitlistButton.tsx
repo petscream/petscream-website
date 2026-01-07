@@ -1,110 +1,151 @@
 "use client";
 
-import { useState } from "react";
-
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/xzdznbwq";
+import { useMemo, useState } from "react";
 
 export default function WaitlistButton() {
+  const FORM_ENDPOINT = "https://formspree.io/f/xzdznbwq";
+
   const [open, setOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
+    "idle"
+  );
+
+  const isValidEmail = useMemo(() => {
+    const v = email.trim();
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  }, [email]);
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!isValidEmail) return;
+
+    try {
+      setStatus("loading");
+
+      const res = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+
+      if (!res.ok) throw new Error("Form submit failed");
+
+      setStatus("success");
+      setEmail("");
+      // İstersen 2 saniye sonra kapanacak:
+      // setTimeout(() => setOpen(false), 2000);
+    } catch {
+      setStatus("error");
+    }
+  }
 
   return (
-    <div style={{ display: "grid", gap: 12, justifyItems: "center" }}>
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        style={{
-          border: "1px solid rgba(43,27,18,0.18)",
-          background: "#FFF",
-          borderRadius: 14,
-          padding: "10px 14px",
-          fontWeight: 800,
-          cursor: "pointer",
-          boxShadow: "0 10px 24px rgba(43,27,18,0.10)",
-        }}
-      >
-        When will your pup’s tail wag a little happier?
-      </button>
-
-      {open ? (
-        <form
-          action={FORMSPREE_ENDPOINT}
-          method="POST"
+    <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+      {!open ? (
+        <button
+          type="button"
+          onClick={() => {
+            setOpen(true);
+            setStatus("idle");
+          }}
           style={{
-            width: "min(520px, 92vw)",
+            padding: "10px 16px",
+            borderRadius: "999px",
+            border: "1px solid rgba(43,27,18,0.18)",
+            background: "#FFFFFF",
+            fontWeight: 700,
+            cursor: "pointer",
+            boxShadow: "0 10px 25px rgba(43,27,18,0.10)",
+          }}
+        >
+          When will your pup’s tail wag a little happier?
+        </button>
+      ) : (
+        <form
+          onSubmit={onSubmit}
+          style={{
             display: "flex",
-            gap: 10,
+            gap: "10px",
             alignItems: "center",
             justifyContent: "center",
             flexWrap: "wrap",
-            background: "#FFF",
-            border: "1px solid rgba(43,27,18,0.12)",
-            borderRadius: 16,
-            padding: 14,
-            boxShadow: "0 16px 40px rgba(43,27,18,0.10)",
           }}
         >
           <input
             type="email"
             name="email"
-            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Your email"
+            autoComplete="email"
             style={{
-              flex: "1 1 240px",
-              minWidth: 220,
-              padding: "12px 12px",
-              borderRadius: 12,
-              border: "1px solid rgba(43,27,18,0.16)",
+              width: "260px",
+              maxWidth: "78vw",
+              padding: "10px 12px",
+              borderRadius: "999px",
+              border: "1px solid rgba(43,27,18,0.18)",
+              background: "#FFF",
               outline: "none",
-              fontSize: "1rem",
+              fontSize: "14px",
             }}
           />
 
-          <input type="hidden" name="source" value="petscream.com homepage" />
-          <input type="hidden" name="type" value="waitlist" />
-
           <button
             type="submit"
+            disabled={!isValidEmail || status === "loading"}
             style={{
-              padding: "12px 14px",
-              borderRadius: 12,
+              padding: "10px 14px",
+              borderRadius: "999px",
               border: "1px solid rgba(43,27,18,0.18)",
-              background: "#F4A63A",
-              color: "#2B1B12",
-              fontWeight: 900,
-              cursor: "pointer",
+              background: !isValidEmail || status === "loading" ? "#F2EBE6" : "#FFFFFF",
+              fontWeight: 700,
+              cursor: !isValidEmail || status === "loading" ? "not-allowed" : "pointer",
+              boxShadow: "0 10px 25px rgba(43,27,18,0.10)",
             }}
           >
-            Notify me
+            {status === "loading" ? "Sending..." : "Notify me"}
           </button>
 
           <button
             type="button"
-            onClick={() => setOpen(false)}
+            onClick={() => {
+              setOpen(false);
+              setStatus("idle");
+              setEmail("");
+            }}
             style={{
-              padding: "12px 14px",
-              borderRadius: 12,
+              padding: "10px 12px",
+              borderRadius: "999px",
               border: "1px solid rgba(43,27,18,0.12)",
-              background: "#FFF",
-              fontWeight: 800,
+              background: "transparent",
+              fontWeight: 600,
               cursor: "pointer",
+              opacity: 0.8,
             }}
           >
-            Close
+            Cancel
           </button>
 
-          <p
-            style={{
-              margin: 0,
-              width: "100%",
-              fontSize: "0.92rem",
-              opacity: 0.85,
-              textAlign: "center",
-            }}
-          >
-            Leave your email and be the first to know when Petscream arrives.
-          </p>
+          <div style={{ width: "100%", marginTop: "6px" }}>
+            {status === "success" && (
+              <div style={{ fontSize: "13px", opacity: 0.9 }}>
+                Thanks, you’re on the list.
+              </div>
+            )}
+            {status === "error" && (
+              <div style={{ fontSize: "13px", opacity: 0.9 }}>
+                Something went wrong. Please try again.
+              </div>
+            )}
+            {status === "idle" && (
+              <div style={{ fontSize: "13px", opacity: 0.75 }}>
+                Leave your email and be the first to know when Petscream arrives.
+              </div>
+            )}
+          </div>
         </form>
-      ) : null}
+      )}
     </div>
   );
 }
