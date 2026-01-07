@@ -1,74 +1,75 @@
-export const metadata = {
-  title: "What’s in it | Petscream",
-  description:
-    "Clean, simple ingredients. No unnecessary extras. A calmer approach to treats.",
+const cardStyle: React.CSSProperties = {
+  background: "#FFF",
+  border: "1px solid rgba(43,27,18,0.12)",
+  borderRadius: 18,
+  padding: 18,
+  boxShadow: "0 16px 40px rgba(43,27,18,0.10)",
+  minHeight: 140,
 };
-
-const cards = [
-  {
-    title: "Clean, simple ingredients",
-    text: "We keep recipes straightforward and intentional, with ingredients you can recognize.",
-  },
-  {
-    title: "No unnecessary additives",
-    text: "No fillers for the sake of it. If it doesn’t need to be there, we leave it out.",
-  },
-  {
-    title: "Made in small, mindful portions",
-    text: "Petscream is meant to be a treat, a small moment of joy you can feel good about.",
-  },
-  {
-    title: "A calmer approach",
-    text: "No exaggerated claims. Just thoughtful choices made with care and respect.",
-  },
-];
 
 export default function WhatsInItPage() {
   return (
-    <main style={{ maxWidth: 1050, margin: "0 auto", padding: "46px 20px" }}>
-      <h1 style={{ fontSize: "2.2rem", margin: 0, letterSpacing: "-0.02em" }}>
+    <main style={{ maxWidth: 1100, margin: "0 auto", padding: "42px 18px 70px" }}>
+      <h1 style={{ fontSize: "3rem", margin: "0 0 6px", letterSpacing: "-0.5px" }}>
         What’s in it
       </h1>
-      <p style={{ marginTop: 10, opacity: 0.85, lineHeight: 1.6 }}>
+      <p style={{ margin: "0 0 22px", opacity: 0.85 }}>
         Simple choices. Clean ingredients. No unnecessary extras.
       </p>
 
-      <div
+      <section
         style={{
-          marginTop: 20,
           display: "grid",
+          gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
           gap: 14,
-          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
         }}
       >
-        {cards.map((c) => (
-          <div
-            key={c.title}
-            style={{
-              background: "#FFFFFF",
-              border: "1px solid rgba(43,27,18,0.12)",
-              borderRadius: 18,
-              padding: 16,
-              boxShadow: "0 16px 35px rgba(43,27,18,0.08)",
-            }}
-          >
-            <div style={{ fontWeight: 900, fontSize: "1.05rem" }}>
-              {c.title}
-            </div>
-            <div style={{ marginTop: 8, opacity: 0.9, lineHeight: 1.7 }}>
-              {c.text}
-            </div>
-          </div>
-        ))}
-      </div>
+        <div style={cardStyle}>
+          <h3 style={{ margin: "0 0 10px" }}>Clean, simple ingredients</h3>
+          <p style={{ margin: 0, lineHeight: 1.75, opacity: 0.9 }}>
+            We keep recipes straightforward and intentional, with ingredients you can recognize.
+          </p>
+        </div>
 
-      <div style={{ marginTop: 26, opacity: 0.85, lineHeight: 1.7 }}>
-        <h2 style={{ fontSize: "1.4rem", marginBottom: 8 }}>A quick note</h2>
-        <p style={{ margin: 0 }}>
-          Every pet is different. Treats are best enjoyed in balanced portions
-          and with attention to your pet’s individual needs and sensitivities.
-        </p>
-      </div>
+        <div style={cardStyle}>
+          <h3 style={{ margin: "0 0 10px" }}>No unnecessary additives</h3>
+          <p style={{ margin: 0, lineHeight: 1.75, opacity: 0.9 }}>
+            No fillers for the sake of it. If it doesn’t need to be there, we leave it out.
+          </p>
+        </div>
+
+        <div style={cardStyle}>
+          <h3 style={{ margin: "0 0 10px" }}>Made in small, mindful portions</h3>
+          <p style={{ margin: 0, lineHeight: 1.75, opacity: 0.9 }}>
+            Petscream is meant to be a treat, a small moment of joy you can feel good about.
+          </p>
+        </div>
+
+        <div style={cardStyle}>
+          <h3 style={{ margin: "0 0 10px" }}>A calmer approach</h3>
+          <p style={{ margin: 0, lineHeight: 1.75, opacity: 0.9 }}>
+            No exaggerated claims. Just thoughtful choices made with care and respect.
+          </p>
+        </div>
+      </section>
+
+      <h2 style={{ marginTop: 28, marginBottom: 8, fontSize: "1.9rem" }}>A quick note</h2>
+      <p style={{ maxWidth: 820, lineHeight: 1.8, opacity: 0.92, margin: 0 }}>
+        Every pet is different. Treats are best enjoyed in balanced portions and with attention to your pet’s individual needs and sensitivities.
+      </p>
+
+      <style jsx>{`
+        @media (max-width: 980px) {
+          section {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+          }
+        }
+        @media (max-width: 560px) {
+          section {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </main>
   );
 }
