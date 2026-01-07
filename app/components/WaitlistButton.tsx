@@ -10,7 +10,7 @@ export default function WaitlistButton() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
     "idle"
   );
-  const [showPop, setShowPop] = useState(false);
+  const [showToast, setShowToast] = useState(false);
 
   const isValidEmail = useMemo(() => {
     const v = email.trim();
@@ -19,7 +19,7 @@ export default function WaitlistButton() {
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!isValidEmail) return;
+    if (!isValidEmail || status === "loading") return;
 
     try {
       setStatus("loading");
@@ -30,33 +30,38 @@ export default function WaitlistButton() {
         body: JSON.stringify({ email: email.trim() }),
       });
 
-      if (!res.ok) throw new Error("Form submit failed");
+      if (!res.ok) throw new Error("Submit failed");
 
       setStatus("success");
       setEmail("");
 
-      setShowPop(true);
-      window.setTimeout(() => setShowPop(false), 2800);
-      window.setTimeout(() => setOpen(false), 900);
+      // show toast bottom-right (doesn't cover header logo)
+      setShowToast(true);
+      window.setTimeout(() => setShowToast(false), 3200);
     } catch {
       setStatus("error");
     }
   }
 
+  function closeAll() {
+    setOpen(false);
+    setStatus("idle");
+    setEmail("");
+  }
+
   return (
     <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-      {/* POP TOAST */}
-      {showPop && (
+      {/* TOAST (bottom-right) */}
+      {showToast && (
         <div
           role="status"
           aria-live="polite"
           style={{
             position: "fixed",
-            left: "50%",
-            top: "84px",
-            transform: "translateX(-50%)",
+            right: 16,
+            bottom: 16,
             zIndex: 60,
-            width: "min(560px, 92vw)",
+            width: "min(520px, calc(100vw - 32px))",
             background: "#FFFFFF",
             border: "1px solid rgba(43,27,18,0.14)",
             borderRadius: 18,
@@ -65,10 +70,10 @@ export default function WaitlistButton() {
             display: "flex",
             alignItems: "center",
             gap: 12,
-            animation: "ps_popIn 220ms ease-out",
+            animation: "ps_toastIn 220ms ease-out",
           }}
         >
-          {/* BRAND MINI ANIMATION */}
+          {/* Mini brand animation */}
           <div
             aria-hidden="true"
             style={{
@@ -80,11 +85,10 @@ export default function WaitlistButton() {
               display: "grid",
               placeItems: "center",
               overflow: "hidden",
+              flex: "0 0 auto",
             }}
           >
-            {/* mini scene */}
             <div style={{ position: "relative", width: 52, height: 52 }}>
-              {/* pup head */}
               <div
                 style={{
                   position: "absolute",
@@ -99,7 +103,6 @@ export default function WaitlistButton() {
                   animation: "ps_bob 700ms ease-in-out infinite",
                 }}
               />
-              {/* ear */}
               <div
                 style={{
                   position: "absolute",
@@ -114,7 +117,6 @@ export default function WaitlistButton() {
                   animation: "ps_bob 700ms ease-in-out infinite",
                 }}
               />
-              {/* eye */}
               <div
                 style={{
                   position: "absolute",
@@ -124,10 +126,9 @@ export default function WaitlistButton() {
                   height: 4,
                   borderRadius: 999,
                   background: "rgba(43,27,18,0.85)",
-                  animation: "ps_blink 3000ms ease-in-out infinite",
+                  animation: "ps_blink 3200ms ease-in-out infinite",
                 }}
               />
-              {/* nose */}
               <div
                 style={{
                   position: "absolute",
@@ -139,7 +140,6 @@ export default function WaitlistButton() {
                   background: "rgba(43,27,18,0.75)",
                 }}
               />
-              {/* tongue lick */}
               <div
                 style={{
                   position: "absolute",
@@ -154,7 +154,6 @@ export default function WaitlistButton() {
                 }}
               />
 
-              {/* popsicle */}
               <div
                 style={{
                   position: "absolute",
@@ -170,7 +169,6 @@ export default function WaitlistButton() {
                   animation: "ps_sway 700ms ease-in-out infinite",
                 }}
               />
-              {/* stick */}
               <div
                 style={{
                   position: "absolute",
@@ -184,7 +182,6 @@ export default function WaitlistButton() {
                   animation: "ps_sway 700ms ease-in-out infinite",
                 }}
               />
-              {/* tiny sparkle */}
               <div
                 style={{
                   position: "absolute",
@@ -201,18 +198,25 @@ export default function WaitlistButton() {
             </div>
           </div>
 
-          <div style={{ textAlign: "left" }}>
+          <div style={{ textAlign: "left", minWidth: 0 }}>
             <div style={{ fontWeight: 900, fontSize: 14, color: "#2B1B12" }}>
               You’re on the list.
             </div>
-            <div style={{ fontSize: 13, opacity: 0.82, marginTop: 2 }}>
-              No doubt, you’ll be one of the first to hear from us.
+            <div
+              style={{
+                fontSize: 13,
+                opacity: 0.82,
+                marginTop: 2,
+                lineHeight: 1.35,
+              }}
+            >
+              Thanks for the love. You’ll hear from us first.
             </div>
           </div>
 
           <button
             type="button"
-            onClick={() => setShowPop(false)}
+            onClick={() => setShowToast(false)}
             aria-label="Close"
             style={{
               marginLeft: "auto",
@@ -222,47 +226,27 @@ export default function WaitlistButton() {
               fontSize: 18,
               opacity: 0.65,
               padding: 6,
+              flex: "0 0 auto",
             }}
           >
             ×
           </button>
 
-          {/* Plain <style> works in Next, avoids styled-jsx */}
           <style>{`
-            @keyframes ps_popIn {
-              from { opacity: 0; transform: translateX(-50%) translateY(-10px) scale(0.98); }
-              to   { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+            @keyframes ps_toastIn {
+              from { opacity: 0; transform: translateY(10px) scale(0.98); }
+              to   { opacity: 1; transform: translateY(0) scale(1); }
             }
-            @keyframes ps_bob {
-              0% { transform: translateY(0); }
-              50% { transform: translateY(-2px); }
-              100% { transform: translateY(0); }
-            }
-            @keyframes ps_sway {
-              0% { transform: rotate(0deg); }
-              50% { transform: rotate(5deg); }
-              100% { transform: rotate(0deg); }
-            }
-            @keyframes ps_lick {
-              0% { transform: rotate(0deg) scaleX(0.85); }
-              50% { transform: rotate(-10deg) scaleX(1); }
-              100% { transform: rotate(0deg) scaleX(0.85); }
-            }
-            @keyframes ps_twinkle {
-              0% { transform: scale(0.85); opacity: 0.6; }
-              50% { transform: scale(1.05); opacity: 1; }
-              100% { transform: scale(0.85); opacity: 0.6; }
-            }
-            @keyframes ps_blink {
-              0%, 96%, 100% { transform: scaleY(1); }
-              97% { transform: scaleY(0.1); }
-              98% { transform: scaleY(1); }
-            }
+            @keyframes ps_bob { 0%{transform:translateY(0)} 50%{transform:translateY(-2px)} 100%{transform:translateY(0)} }
+            @keyframes ps_sway { 0%{transform:rotate(0)} 50%{transform:rotate(5deg)} 100%{transform:rotate(0)} }
+            @keyframes ps_lick { 0%{transform:rotate(0) scaleX(0.85)} 50%{transform:rotate(-10deg) scaleX(1)} 100%{transform:rotate(0) scaleX(0.85)} }
+            @keyframes ps_twinkle { 0%{transform:scale(0.85);opacity:0.6} 50%{transform:scale(1.05);opacity:1} 100%{transform:scale(0.85);opacity:0.6} }
+            @keyframes ps_blink { 0%, 96%, 100%{transform:scaleY(1)} 97%{transform:scaleY(0.1)} 98%{transform:scaleY(1)} }
           `}</style>
         </div>
       )}
 
-      {/* BUTTON OR FORM */}
+      {/* MAIN BUTTON / PANEL */}
       {!open ? (
         <button
           type="button"
@@ -283,85 +267,122 @@ export default function WaitlistButton() {
           When will your pup’s tail wag a little happier?
         </button>
       ) : (
-        <form
-          onSubmit={onSubmit}
-          style={{
-            display: "flex",
-            gap: 10,
-            alignItems: "center",
-            justifyContent: "center",
-            flexWrap: "wrap",
-          }}
-        >
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Your email"
-            autoComplete="email"
-            style={{
-              width: 260,
-              maxWidth: "78vw",
-              padding: "10px 12px",
-              borderRadius: 999,
-              border: "1px solid rgba(43,27,18,0.18)",
-              background: "#FFF",
-              outline: "none",
-              fontSize: 14,
-            }}
-          />
-
-          <button
-            type="submit"
-            disabled={!isValidEmail || status === "loading"}
-            style={{
-              padding: "10px 14px",
-              borderRadius: 999,
-              border: "1px solid rgba(43,27,18,0.18)",
-              background:
-                !isValidEmail || status === "loading" ? "#F2EBE6" : "#FFFFFF",
-              fontWeight: 800,
-              cursor:
-                !isValidEmail || status === "loading" ? "not-allowed" : "pointer",
-              boxShadow: "0 10px 25px rgba(43,27,18,0.10)",
-            }}
-          >
-            {status === "loading" ? "Sending..." : "Notify me"}
-          </button>
-
-          <button
-            type="button"
-            onClick={() => {
-              setOpen(false);
-              setStatus("idle");
-              setEmail("");
-            }}
-            style={{
-              padding: "10px 12px",
-              borderRadius: 999,
-              border: "1px solid rgba(43,27,18,0.12)",
-              background: "transparent",
-              fontWeight: 700,
-              cursor: "pointer",
-              opacity: 0.8,
-            }}
-          >
-            Cancel
-          </button>
-
-          <div style={{ width: "100%", marginTop: 6 }}>
-            {status === "error" ? (
-              <div style={{ fontSize: 13, opacity: 0.9 }}>
-                Something went wrong. Please try again.
+        <div style={{ width: "min(560px, 92vw)" }}>
+          {/* SUCCESS STATE replaces form */}
+          {status === "success" ? (
+            <div
+              style={{
+                background: "#FFFFFF",
+                border: "1px solid rgba(43,27,18,0.12)",
+                borderRadius: 18,
+                padding: 14,
+                boxShadow: "0 16px 40px rgba(43,27,18,0.10)",
+                textAlign: "center",
+              }}
+            >
+              <div style={{ fontWeight: 900, fontSize: 14 }}>
+                Welcome to the Petscream list.
               </div>
-            ) : (
-              <div style={{ fontSize: 13, opacity: 0.75 }}>
-                Leave your email and be the first to know when Petscream arrives.
+              <div style={{ fontSize: 13, opacity: 0.82, marginTop: 4 }}>
+                We’ll email you as soon as we’re ready.
               </div>
-            )}
-          </div>
-        </form>
+
+              <button
+                type="button"
+                onClick={closeAll}
+                style={{
+                  marginTop: 10,
+                  padding: "10px 14px",
+                  borderRadius: 999,
+                  border: "1px solid rgba(43,27,18,0.18)",
+                  background: "#FFFFFF",
+                  fontWeight: 800,
+                  cursor: "pointer",
+                }}
+              >
+                Done
+              </button>
+            </div>
+          ) : (
+            <form
+              onSubmit={onSubmit}
+              style={{
+                display: "flex",
+                gap: 10,
+                alignItems: "center",
+                justifyContent: "center",
+                flexWrap: "wrap",
+              }}
+            >
+              <input
+                type="email"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Your email"
+                autoComplete="email"
+                style={{
+                  width: 260,
+                  maxWidth: "78vw",
+                  padding: "10px 12px",
+                  borderRadius: 999,
+                  border: "1px solid rgba(43,27,18,0.18)",
+                  background: "#FFF",
+                  outline: "none",
+                  fontSize: 14,
+                }}
+              />
+
+              <button
+                type="submit"
+                disabled={!isValidEmail || status === "loading"}
+                style={{
+                  padding: "10px 14px",
+                  borderRadius: 999,
+                  border: "1px solid rgba(43,27,18,0.18)",
+                  background:
+                    !isValidEmail || status === "loading" ? "#F2EBE6" : "#FFFFFF",
+                  fontWeight: 800,
+                  cursor:
+                    !isValidEmail || status === "loading"
+                      ? "not-allowed"
+                      : "pointer",
+                  boxShadow: "0 10px 25px rgba(43,27,18,0.10)",
+                }}
+              >
+                {status === "loading" ? "Sending..." : "Notify me"}
+              </button>
+
+              <button
+                type="button"
+                onClick={closeAll}
+                style={{
+                  padding: "10px 12px",
+                  borderRadius: 999,
+                  border: "1px solid rgba(43,27,18,0.12)",
+                  background: "transparent",
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  opacity: 0.8,
+                }}
+              >
+                Cancel
+              </button>
+
+              <div style={{ width: "100%", marginTop: 6, textAlign: "center" }}>
+                {status === "error" ? (
+                  <div style={{ fontSize: 13, opacity: 0.9 }}>
+                    Something went wrong. Please try again.
+                  </div>
+                ) : (
+                  <div style={{ fontSize: 13, opacity: 0.75 }}>
+                    Leave your email and be the first to know when Petscream arrives.
+                  </div>
+                )}
+              </div>
+            </form>
+          )}
+        </div>
       )}
     </div>
   );
