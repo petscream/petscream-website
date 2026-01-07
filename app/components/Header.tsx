@@ -1,11 +1,13 @@
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 
-const BRAND = {
-  bg: "#FFF6E9",
-  ink: "#2B1B12",
-  line: "rgba(43,27,18,0.12)",
-  panel: "#FFFFFF",
+const linkStyle: React.CSSProperties = {
+  textDecoration: "none",
+  color: "#2B1B12",
+  fontWeight: 600,
+  fontSize: "0.95rem",
+  padding: "8px 10px",
+  borderRadius: 10,
 };
 
 export default function Header() {
@@ -15,121 +17,64 @@ export default function Header() {
         position: "sticky",
         top: 0,
         zIndex: 50,
-        width: "100%",
-        background: BRAND.bg,
-        borderBottom: `1px solid ${BRAND.line}`,
+        background: "rgba(255,246,233,0.9)",
+        backdropFilter: "blur(10px)",
+        borderBottom: "1px solid rgba(43,27,18,0.08)",
       }}
     >
       <div
         style={{
           maxWidth: 1100,
           margin: "0 auto",
-          padding: "14px 20px",
+          padding: "14px 18px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
           gap: 16,
         }}
       >
-        {/* Left: Logo + Brand */}
         <Link
           href="/"
           style={{
             display: "flex",
             alignItems: "center",
-            gap: 12,
+            gap: 10,
             textDecoration: "none",
-            color: BRAND.ink,
+            color: "#2B1B12",
+            fontWeight: 800,
+            letterSpacing: "-0.2px",
           }}
-          aria-label="Go to home"
         >
-          <div
-            style={{
-              width: 36,
-              height: 36,
-              borderRadius: 12,
-              background: BRAND.panel,
-              boxShadow: "0 10px 25px rgba(43,27,18,0.12)",
-              display: "grid",
-              placeItems: "center",
-              overflow: "hidden",
-            }}
-          >
-            <Image
-              src="/petscream-logo.jpg"
-              alt="Petscream – clean, mindful treats for dogs"
-              width={36}
-              height={36}
-              priority
-            />
-          </div>
-
-          <span
-            style={{
-              fontSize: "1.15rem",
-              fontWeight: 800,
-              letterSpacing: "-0.02em",
-            }}
-          >
-            Petscream
-          </span>
+          <Image
+            src="/petscream-logo.jpg"
+            alt="Petscream"
+            width={36}
+            height={36}
+            style={{ borderRadius: 12 }}
+            priority
+          />
+          <span style={{ fontSize: "1.2rem" }}>Petscream</span>
         </Link>
 
-        {/* Right: Nav */}
         <nav
           style={{
             display: "flex",
             alignItems: "center",
-            gap: 18,
+            gap: 4,
             flexWrap: "wrap",
             justifyContent: "flex-end",
           }}
         >
-          <Link
-            href="/about"
-            style={{
-              textDecoration: "none",
-              color: BRAND.ink,
-              fontWeight: 600,
-              opacity: 0.9,
-            }}
-          >
+          <Link href="/about" style={linkStyle}>
             Our story
           </Link>
-
-          <Link
-            href="/whats-in-it"
-            style={{
-              textDecoration: "none",
-              color: BRAND.ink,
-              fontWeight: 600,
-              opacity: 0.9,
-            }}
-          >
+          <Link href="/whats-in-it" style={linkStyle}>
             What’s in it
           </Link>
-
-          <Link
-            href="/faqs"
-            style={{
-              textDecoration: "none",
-              color: BRAND.ink,
-              fontWeight: 600,
-              opacity: 0.9,
-            }}
-          >
+          <Link href="/faqs" style={linkStyle}>
             FAQs
           </Link>
-
-          <Link
-            href="/contact"
-            style={{
-              textDecoration: "none",
-              color: BRAND.ink,
-              fontWeight: 600,
-              opacity: 0.9,
-            }}
-          >
+          <Link href="/contact" style={linkStyle}>
             Chat with us
           </Link>
 
@@ -138,22 +83,18 @@ export default function Header() {
             target="_blank"
             rel="noreferrer"
             style={{
+              ...linkStyle,
               display: "inline-flex",
               alignItems: "center",
-              gap: 10,
-              padding: "10px 14px",
-              borderRadius: 12,
-              background: BRAND.panel,
-              border: `1px solid ${BRAND.line}`,
-              boxShadow: "0 10px 25px rgba(43,27,18,0.10)",
-              textDecoration: "none",
-              color: BRAND.ink,
-              fontWeight: 700,
+              gap: 8,
+              border: "1px solid rgba(43,27,18,0.18)",
+              background: "#FFF",
+              boxShadow: "0 10px 24px rgba(43,27,18,0.10)",
+              padding: "9px 12px",
+              marginLeft: 6,
             }}
           >
-            <span style={{ fontSize: 16 }} aria-hidden>
-              ⎋
-            </span>
+            <span style={{ fontSize: "1rem" }}>◌</span>
             Share the joy
           </a>
         </nav>
