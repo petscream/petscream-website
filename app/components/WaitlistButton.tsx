@@ -10,6 +10,7 @@ export default function WaitlistButton() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
     "idle"
   );
+  const [showPop, setShowPop] = useState(false);
 
   const isValidEmail = useMemo(() => {
     const v = email.trim();
@@ -33,8 +34,13 @@ export default function WaitlistButton() {
 
       setStatus("success");
       setEmail("");
-      // İstersen 2 saniye sonra kapanacak:
-      // setTimeout(() => setOpen(false), 2000);
+
+      // POP göster
+      setShowPop(true);
+      // kısa süre sonra kapat
+      window.setTimeout(() => setShowPop(false), 2600);
+      // formu da kapat (istersen kapatmayalım, ama temiz duruyor)
+      window.setTimeout(() => setOpen(false), 900);
     } catch {
       setStatus("error");
     }
@@ -42,6 +48,107 @@ export default function WaitlistButton() {
 
   return (
     <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+      {/* POP */}
+      {showPop && (
+        <div
+          role="status"
+          aria-live="polite"
+          style={{
+            position: "fixed",
+            left: "50%",
+            top: "84px",
+            transform: "translateX(-50%)",
+            zIndex: 50,
+            width: "min(520px, 92vw)",
+            background: "#FFFFFF",
+            border: "1px solid rgba(43,27,18,0.14)",
+            borderRadius: "18px",
+            boxShadow: "0 18px 55px rgba(43,27,18,0.18)",
+            padding: "14px 14px",
+            display: "flex",
+            alignItems: "center",
+            gap: "12px",
+            animation: "popIn 220ms ease-out",
+          }}
+        >
+          {/* Mini animasyon */}
+          <div
+            aria-hidden="true"
+            style={{
+              width: "54px",
+              height: "54px",
+              borderRadius: "16px",
+              background: "#FFF6E9",
+              display: "grid",
+              placeItems: "center",
+              border: "1px solid rgba(43,27,18,0.08)",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                fontSize: "26px",
+                lineHeight: 1,
+                animation: "bob 700ms ease-in-out infinite",
+              }}
+              title="Pup + ice cream"
+            >
+              🐶🍦
+            </div>
+          </div>
+
+          <div style={{ textAlign: "left" }}>
+            <div style={{ fontWeight: 800, fontSize: "14px" }}>
+              Teşekkürler, listemize eklendin!
+            </div>
+            <div style={{ fontSize: "13px", opacity: 0.82, marginTop: "2px" }}>
+              İlk siz bilgilendirileceksiniz, şüpheniz olmasın.
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setShowPop(false)}
+            aria-label="Close"
+            style={{
+              marginLeft: "auto",
+              border: "none",
+              background: "transparent",
+              cursor: "pointer",
+              fontSize: "18px",
+              opacity: 0.65,
+            }}
+          >
+            ×
+          </button>
+
+          {/* Animasyon CSS */}
+          <style jsx global>{`
+            @keyframes popIn {
+              from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-10px) scale(0.98);
+              }
+              to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0) scale(1);
+              }
+            }
+            @keyframes bob {
+              0% {
+                transform: translateY(0);
+              }
+              50% {
+                transform: translateY(-2px);
+              }
+              100% {
+                transform: translateY(0);
+              }
+            }
+          `}</style>
+        </div>
+      )}
+
       {!open ? (
         <button
           type="button"
@@ -98,9 +205,11 @@ export default function WaitlistButton() {
               padding: "10px 14px",
               borderRadius: "999px",
               border: "1px solid rgba(43,27,18,0.18)",
-              background: !isValidEmail || status === "loading" ? "#F2EBE6" : "#FFFFFF",
+              background:
+                !isValidEmail || status === "loading" ? "#F2EBE6" : "#FFFFFF",
               fontWeight: 700,
-              cursor: !isValidEmail || status === "loading" ? "not-allowed" : "pointer",
+              cursor:
+                !isValidEmail || status === "loading" ? "not-allowed" : "pointer",
               boxShadow: "0 10px 25px rgba(43,27,18,0.10)",
             }}
           >
@@ -128,17 +237,12 @@ export default function WaitlistButton() {
           </button>
 
           <div style={{ width: "100%", marginTop: "6px" }}>
-            {status === "success" && (
-              <div style={{ fontSize: "13px", opacity: 0.9 }}>
-                Thanks, you’re on the list.
-              </div>
-            )}
             {status === "error" && (
               <div style={{ fontSize: "13px", opacity: 0.9 }}>
                 Something went wrong. Please try again.
               </div>
             )}
-            {status === "idle" && (
+            {status !== "error" && (
               <div style={{ fontSize: "13px", opacity: 0.75 }}>
                 Leave your email and be the first to know when Petscream arrives.
               </div>
