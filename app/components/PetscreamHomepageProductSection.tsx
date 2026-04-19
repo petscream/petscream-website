@@ -24,7 +24,7 @@ export const featuredProduct: Product = {
 export default function PetscreamHomepageProductSection() {
   return (
     <section className="bg-[#FFF6E9] text-[#2B1B12]">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 py-12 md:px-10 lg:grid-cols-2 lg:items-center lg:gap-14 lg:py-20">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-6 py-8 md:px-10 lg:grid-cols-2 lg:items-center lg:gap-10 lg:py-12">
         <div className="order-2 lg:order-1">
           <div className="mb-4 inline-flex rounded-full bg-white px-4 py-1.5 text-sm font-medium shadow-sm ring-1 ring-black/5">
             {featuredProduct.badge}
@@ -76,7 +76,7 @@ export default function PetscreamHomepageProductSection() {
         </div>
 
         <div className="order-1 lg:order-2">
-          <div className="overflow-hidden rounded-[32px] bg-white shadow-[0_20px_60px_rgba(43,27,18,0.10)] ring-1 ring-black/5">
+          <div className="mx-auto w-full max-w-[520px] overflow-hidden rounded-[32px] bg-white shadow-[0_20px_60px_rgba(43,27,18,0.10)] ring-1 ring-black/5">
             <img
               src={featuredProduct.image}
               alt={featuredProduct.name}
