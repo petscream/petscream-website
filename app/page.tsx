@@ -1,22 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
 import WaitlistButton from "./components/WaitlistButton";
-
+import PetscreamHomepageProductSection from "./components/PetscreamHomepageProductSection";
 export default function HomePage() {
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        background: "#FFF6E9",
-        color: "#2B1B12",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        textAlign: "center",
-        padding: "32px 16px",
-      }}
-    >
+   <main
+  style={{
+    minHeight: "100vh",
+    background: "#FFF6E9",
+    color: "#2B1B12",
+    display: "flex",
+    flexDirection: "column",
+    textAlign: "center",
+    padding: "32px 16px",
+  }}
+>
+  <PetscreamHomepageProductSection />
       {/* LOGO */}
       <Image
         src="/petscream-logo.jpg"
