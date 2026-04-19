@@ -65,6 +65,8 @@ export default function Header() {
             justifyContent: "flex-end",
           }}
         >
+         <Link href="/shop" style={linkStyle}> Shop 
+           </Link>
           <Link href="/about" style={linkStyle}>
             Our story
           </Link>
