@@ -15,7 +15,7 @@ export const featuredProduct: Product = {
   subtitle: "Beyond Basics.",
   flavor: "Blueberry & Banana with peanut butter",
   image: "/images/petscream-blueberry-banana-hero.png",
-  price: "From $6",
+  price: "From $10",
   description:
     "A small-batch frozen treat made with real ingredients and a clean, playful Petscream vibe.",
   badge: "Featured Flavor",
