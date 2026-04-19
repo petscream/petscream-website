@@ -10,77 +10,226 @@ type Product = {
 };
 
 export const featuredProduct: Product = {
-  id: 'blueberry-banana-heart',
-  name: 'Blueberry Banana Heart',
-  subtitle: 'Beyond Basics.',
-  flavor: 'Blueberry & Banana with peanut butter',
-  image: '/images/petscream-blueberry-banana-hero.png',
-  price: 'From $6',
+  id: "blueberry-banana-heart",
+  name: "Blueberry Banana Heart",
+  subtitle: "Beyond Basics.",
+  flavor: "Blueberry & Banana with peanut butter",
+  image: "/images/petscream-blueberry-banana-hero.png",
+  price: "From $6",
   description:
-    'A small-batch frozen treat made with real ingredients and a clean, playful Petscream vibe.',
-  badge: 'Featured Flavor',
+    "A small-batch frozen treat made with real ingredients and a clean, playful Petscream vibe.",
+  badge: "Featured Flavor",
 };
 
 export default function PetscreamHomepageProductSection() {
   return (
-    <section className="bg-[#FFF6E9] text-[#2B1B12]">
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-6 py-8 md:px-10 lg:grid-cols-2 lg:items-center lg:gap-10 lg:py-12">
-        <div className="order-2 lg:order-1">
-          <div className="mb-4 inline-flex rounded-full bg-white px-4 py-1.5 text-sm font-medium shadow-sm ring-1 ring-black/5">
+    <section
+      style={{
+        width: "100%",
+        background: "#FFF6E9",
+        color: "#2B1B12",
+        padding: "48px 24px 24px",
+        boxSizing: "border-box",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "1200px",
+          margin: "0 auto",
+          display: "grid",
+          gridTemplateColumns: "1.05fr 1fr",
+          gap: "40px",
+          alignItems: "center",
+        }}
+      >
+        <div style={{ textAlign: "left" }}>
+          <div
+            style={{
+              display: "inline-block",
+              background: "#ffffff",
+              border: "1px solid rgba(43,27,18,0.08)",
+              borderRadius: "999px",
+              padding: "8px 14px",
+              fontSize: "14px",
+              fontWeight: 600,
+              marginBottom: "18px",
+              boxShadow: "0 6px 18px rgba(43,27,18,0.06)",
+            }}
+          >
             {featuredProduct.badge}
           </div>
 
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-[#6C63B5]">
+          <div
+            style={{
+              fontSize: "13px",
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: "#6C63B5",
+              fontWeight: 700,
+              marginBottom: "14px",
+            }}
+          >
             Frozen Treats
-          </p>
+          </div>
 
-          <h1 className="max-w-xl text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
+          <h1
+            style={{
+              fontSize: "56px",
+              lineHeight: 1.05,
+              margin: "0 0 14px 0",
+              fontWeight: 800,
+            }}
+          >
             {featuredProduct.name}
           </h1>
 
-          <p className="mt-4 text-xl italic text-[#5A493F]">{featuredProduct.subtitle}</p>
+          <p
+            style={{
+              fontSize: "28px",
+              lineHeight: 1.2,
+              margin: "0 0 22px 0",
+              color: "#5A493F",
+              fontStyle: "italic",
+            }}
+          >
+            {featuredProduct.subtitle}
+          </p>
 
-          <p className="mt-6 max-w-xl text-lg leading-8 text-[#4A382F]">
+          <p
+            style={{
+              fontSize: "22px",
+              lineHeight: 1.4,
+              margin: "0 0 14px 0",
+              color: "#4A382F",
+            }}
+          >
             {featuredProduct.flavor}
           </p>
 
-          <p className="mt-4 max-w-xl text-base leading-7 text-[#5A493F]">
+          <p
+            style={{
+              fontSize: "18px",
+              lineHeight: 1.7,
+              margin: "0 0 26px 0",
+              color: "#5A493F",
+              maxWidth: "620px",
+            }}
+          >
             {featuredProduct.description}
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          <div
+            style={{
+              display: "flex",
+              gap: "14px",
+              flexWrap: "wrap",
+              marginBottom: "24px",
+            }}
+          >
             <a
               href="/shop"
-              className="inline-flex items-center justify-center rounded-full bg-[#2FB7B5] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "14px 24px",
+                borderRadius: "999px",
+                background: "#2FB7B5",
+                color: "#ffffff",
+                textDecoration: "none",
+                fontWeight: 700,
+                fontSize: "15px",
+              }}
             >
               Shop now
             </a>
+
             <a
               href="/build-your-box"
-              className="inline-flex items-center justify-center rounded-full border border-[#2B1B12]/15 bg-white px-6 py-3 text-sm font-semibold text-[#2B1B12] transition hover:bg-[#FFF1DA]"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "14px 24px",
+                borderRadius: "999px",
+                background: "#ffffff",
+                color: "#2B1B12",
+                textDecoration: "none",
+                fontWeight: 700,
+                fontSize: "15px",
+                border: "1px solid rgba(43,27,18,0.12)",
+              }}
             >
               Build your box
             </a>
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center gap-5 text-sm text-[#5A493F]">
-            <span className="rounded-full bg-white px-4 py-2 shadow-sm ring-1 ring-black/5">
+          <div
+            style={{
+              display: "flex",
+              gap: "12px",
+              flexWrap: "wrap",
+              marginBottom: "22px",
+            }}
+          >
+            <span
+              style={{
+                background: "#ffffff",
+                borderRadius: "999px",
+                padding: "10px 14px",
+                fontSize: "14px",
+                border: "1px solid rgba(43,27,18,0.08)",
+                boxShadow: "0 6px 18px rgba(43,27,18,0.05)",
+              }}
+            >
               Made with real ingredients
             </span>
-            <span className="rounded-full bg-white px-4 py-2 shadow-sm ring-1 ring-black/5">
+
+            <span
+              style={{
+                background: "#ffffff",
+                borderRadius: "999px",
+                padding: "10px 14px",
+                fontSize: "14px",
+                border: "1px solid rgba(43,27,18,0.08)",
+                boxShadow: "0 6px 18px rgba(43,27,18,0.05)",
+              }}
+            >
               Not ice cream. Petscream.
             </span>
           </div>
 
-          <p className="mt-8 text-2xl font-semibold text-[#F4A63A]">{featuredProduct.price}</p>
+          <div
+            style={{
+              fontSize: "32px",
+              fontWeight: 800,
+              color: "#F4A63A",
+            }}
+          >
+            {featuredProduct.price}
+          </div>
         </div>
 
-        <div className="order-1 lg:order-2">
-          <div className="mx-auto w-full max-w-[520px] overflow-hidden rounded-[32px] bg-white shadow-[0_20px_60px_rgba(43,27,18,0.10)] ring-1 ring-black/5">
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "560px",
+              overflow: "hidden",
+              borderRadius: "32px",
+              background: "#ffffff",
+              boxShadow: "0 20px 60px rgba(43,27,18,0.10)",
+              border: "1px solid rgba(43,27,18,0.06)",
+            }}
+          >
             <img
               src={featuredProduct.image}
               alt={featuredProduct.name}
-              className="w-full max-w-[520px] h-auto object-contain mx-auto"
+              style={{
+                display: "block",
+                width: "100%",
+                height: "auto",
+              }}
             />
           </div>
         </div>
