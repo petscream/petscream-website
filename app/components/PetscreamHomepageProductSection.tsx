@@ -80,7 +80,7 @@ export default function PetscreamHomepageProductSection() {
             <img
               src={featuredProduct.image}
               alt={featuredProduct.name}
-              className="h-full w-full object-cover"
+              className="w-full max-w-[520px] h-auto object-contain mx-auto"
             />
           </div>
         </div>
