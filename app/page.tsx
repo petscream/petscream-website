@@ -27,7 +27,33 @@ import { products } from "./data/products";
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-[#FFF6E9] text-[#2B1B12]">
+  <section className="flex flex-col md:flex-row items-center justify-between gap-12 py-20">
+
+  <div className="max-w-xl">
+    <h1 className="text-5xl font-extrabold">
+      Extra joy. On purpose.
+    </h1>
+
+    <p className="mt-4 text-lg text-[#5c4638]">
+      Frozen treats made with real ingredients.
+    </p>
+
+    <a
+      href="/shop"
+      className="inline-block mt-6 rounded-full bg-[#2FB7B5] px-6 py-3 text-white font-semibold"
+    >
+      Shop treats
+    </a>
+  </div>
+
+  <div className="w-full md:w-1/2 flex justify-center">
+    <img
+      src="/images/mini-bone-treats.png"
+      className="w-[320px] md:w-[420px] rounded-[24px] shadow-lg"
+    />
+  </div>
+
+</section>  <main className="min-h-screen bg-[#FFF6E9] text-[#2B1B12]">
       <section className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-24">
         <div className="mb-12 text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#2FB7B5]">
