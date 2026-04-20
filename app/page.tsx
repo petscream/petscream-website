@@ -1,4 +1,28 @@
-import Image from "next/image";
+<section className="flex flex-col md:flex-row items-center justify-between py-20">
+
+  <div className="max-w-xl">
+    <h1 className="text-5xl font-extrabold">
+      Extra joy. On purpose.
+    </h1>
+
+    <p className="mt-4 text-lg text-[#5c4638]">
+      Frozen treats made with real ingredients.
+    </p>
+
+    <a
+      href="/shop"
+      className="inline-block mt-6 rounded-full bg-[#2FB7B5] px-6 py-3 text-white font-semibold"
+    >
+      Shop treats
+    </a>
+  </div>
+
+  <div className="mt-10 md:mt-0">
+    <img src="/images/mini-bone-treats.png" />
+  </div>
+
+</section>
+  import Image from "next/image";
 import { products } from "./data/products";
 
 export default function HomePage() {
