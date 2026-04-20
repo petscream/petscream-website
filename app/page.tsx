@@ -10,64 +10,54 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <>
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-[#2B1B12] focus:shadow-md"
-      >
-        Skip to main content
-      </a>
-
-      <main
-        id="main-content"
-        className="min-h-screen bg-[#FFF6E9] text-[#2B1B12]"
-      >
-        <section className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-12 px-6 py-16 md:flex-row md:px-10 md:py-24">
-          <div className="max-w-xl text-center md:text-left">
+    <main className="min-h-screen bg-[#FFF6E9] text-[#2B1B12]">
+      <section className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-24">
+        <div className="grid items-center gap-12 md:grid-cols-2">
+          <div className="max-w-xl">
             <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#2FB7B5]">
               Frozen Treats
             </p>
 
-            <h1 className="mt-3 text-4xl font-extrabold tracking-tight md:text-6xl">
+            <h1 className="mt-4 text-4xl font-extrabold leading-tight md:text-6xl">
               Extra joy. On purpose.
             </h1>
 
-            <p className="mt-4 text-base text-[#5c4638] md:text-lg">
-              Frozen treats made with real ingredients.
+            <p className="mt-5 text-base leading-7 text-[#5c4638] md:text-lg">
+              Frozen treats made with real ingredients, playful shapes, and
+              simple recipes dogs love.
             </p>
 
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/shop"
-                aria-label="Browse Petscream frozen treats in the shop"
-                className="inline-block rounded-full bg-[#2FB7B5] px-6 py-3 text-base font-semibold text-white transition hover:opacity-90"
+                className="inline-flex items-center justify-center rounded-full bg-[#2FB7B5] px-6 py-3 text-base font-semibold text-white transition hover:opacity-90"
               >
                 Shop treats
               </Link>
 
               <Link
                 href="/whats-in-it"
-                className="inline-block rounded-full border border-[#d8c7b6] px-6 py-3 text-base font-semibold text-[#2B1B12] transition hover:bg-white"
+                className="inline-flex items-center justify-center rounded-full border border-[#d8c7b6] px-6 py-3 text-base font-semibold text-[#2B1B12] transition hover:bg-white"
               >
                 What’s in it
               </Link>
             </div>
           </div>
 
-          <div className="flex w-full justify-center md:w-1/2">
-            <div className="overflow-hidden rounded-[24px] shadow-lg">
+          <div className="flex justify-center">
+            <div className="rounded-[32px] bg-white p-4 shadow-[0_20px_50px_rgba(43,27,18,0.12)]">
               <Image
                 src="/images/mini-bone-treats.png"
-                alt="Blueberry and Banana Mini Bone Treats by Petscream"
-                width={420}
-                height={525}
+                alt="Petscream Mini Bone Treats"
+                width={520}
+                height={650}
                 priority
-                className="h-auto w-[320px] object-cover md:w-[420px]"
+                className="h-auto w-full max-w-[420px] rounded-[24px] object-contain"
               />
             </div>
           </div>
-        </section>
-      </main>
-    </>
+        </div>
+      </section>
+    </main>
   );
 }
