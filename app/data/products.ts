@@ -1,4 +1,11 @@
-export const products = [
+export type Product = {
+  id: string;
+  name: string;
+  subtitle: string;
+  image: string;
+};
+
+export const products: Product[] = [
   {
     id: "heart-pop",
     name: "Heart Pop",
