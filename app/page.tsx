@@ -111,15 +111,16 @@ export default function HomePage() {
                     className="group block focus:outline-none focus:ring-2 focus:ring-[#2FB7B5] focus:ring-offset-2"
                     aria-label={`View ${product.subtitle} ${product.name}`}
                   >
-                    <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#F9F3EA]">
-                      <Image
-                        src={product.image}
-                        alt={`${product.subtitle} ${product.name}`}
-                        fill
-                        className="object-cover transition duration-500 group-hover:scale-[1.02]"
-                        sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                        priority={product.id === "heart-pop"}
-                      />
+                    <div  className="bg-[#F9F3EA] p-4">
+  <Image
+    src={product.image}
+    alt={`${product.subtitle} ${product.name}`}
+    width={500}
+    height={625}
+    className="h-auto w-full rounded-[20px] object-cover transition duration-500 group-hover:scale-[1.02]"
+    sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+    priority={product.id === "heart-pop"}
+  />
                     </div>
                   </Link>
 
