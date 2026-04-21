@@ -1,16 +1,15 @@
 "use client";
 
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const products = [
-  { id: "heart-pop", name: "Heart Pop", subtitle: "Blueberry & Banana", image: "/images/heart-pop.png" },
-  { id: "mini-bone-treats", name: "Mini Bone Treats", subtitle: "Blueberry & Banana", image: "/images/mini-bone-treats.png" },
-  { id: "mini-paw-treats", name: "Mini Paw Treats", subtitle: "Blueberry & Banana", image: "/images/mini-paw-treats.png" },
-  { id: "mini-pop", name: "Mini Pop", subtitle: "Blueberry & Banana", image: "/images/mini-pop.png" },
-  { id: "paw-pop", name: "Paw Pop", subtitle: "Blueberry & Banana", image: "/images/paw-pop.png" },
+  { id: "heart-pop", name: "Heart Pop", image: "/images/heart-pop.png" },
+  { id: "mini-bone-treats", name: "Mini Bone Treats", image: "/images/mini-bone-treats.png" },
+  { id: "mini-paw-treats", name: "Mini Paw Treats", image: "/images/mini-paw-treats.png" },
+  { id: "mini-pop", name: "Mini Pop", image: "/images/mini-pop.png" },
+  { id: "paw-pop", name: "Paw Pop", image: "/images/paw-pop.png" },
 ];
 
 const dogNames = [
@@ -33,10 +32,10 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-[#FFF6E9] text-[#2B1B12]">
       <section className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-24">
-        <div className="grid items-center gap-12 md:grid-cols-2">
+        <div className="flex flex-col items-center gap-12 md:flex-row md:items-center md:justify-between">
 
           {/* Left */}
-          <div className="max-w-xl">
+          <div className="w-full max-w-xl text-center md:text-left">
             <div className="inline-block rounded-full bg-[#FDE8C8] px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[#B05A00]">
               Frozen Treats for Dogs
             </div>
@@ -46,7 +45,7 @@ export default function HomePage() {
             <p className="mt-5 text-base leading-7 text-[#6b4c3b] md:text-lg">
               No added sugar. The fruit takes care of it.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row md:items-start">
               <Link
                 href="/shop"
                 className="inline-flex items-center justify-center rounded-full bg-[#2FB7B5] px-6 py-3 text-base font-semibold text-white transition hover:opacity-90"
@@ -62,7 +61,7 @@ export default function HomePage() {
             </div>
 
             {/* Stats */}
-            <div className="mt-8 flex gap-8">
+            <div className="mt-8 flex justify-center gap-8 md:justify-start">
               <div>
                 <div className="text-2xl font-extrabold text-[#2B1B12]">3</div>
                 <div className="text-xs text-[#8a6a5a]">Real ingredients</div>
@@ -78,30 +77,33 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Right — Product Carousel */}
-          <div className="flex flex-col items-center gap-5">
-            <div className="w-full max-w-[340px] rounded-[32px] bg-[#F4E4C8] p-5 text-center">
-              <div className="overflow-hidden rounded-[24px] bg-white shadow-[0_8px_24px_rgba(43,27,18,0.1)]">
-                <div className="relative aspect-[4/5] w-full">
+          {/* Right — Image only carousel */}
+          <div className="flex w-full flex-col items-center gap-4 md:w-auto">
+            <div
+              className="relative overflow-hidden rounded-[28px] shadow-[0_16px_40px_rgba(43,27,18,0.12)]"
+              style={{ width: 300, height: 375 }}
+            >
+              {products.map((product, i) => (
+                <div
+                  key={product.id}
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    opacity: i === current ? 1 : 0,
+                    transition: "opacity 0.7s ease",
+                    pointerEvents: i === current ? "auto" : "none",
+                  }}
+                >
                   <Image
-                    src={products[current].image}
-                    alt={products[current].name}
+                    src={product.image}
+                    alt={product.name}
                     fill
-                    className="object-cover transition-opacity duration-500"
-                    sizes="340px"
-                    priority={current === 0}
+                    className="object-cover"
+                    sizes="300px"
+                    priority={i === 0}
                   />
                 </div>
-              </div>
-              <div className="mt-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#2FB7B5]">
-                  {products[current].subtitle}
-                </p>
-                <h2 className="mt-1 text-lg font-extrabold text-[#2B1B12]">
-                  {products[current].name}
-                </h2>
-                <p className="mt-1 text-xs text-[#8a6a5a]">Not ice cream. Petscream.</p>
-              </div>
+              ))}
             </div>
 
             {/* Dots */}
@@ -110,19 +112,27 @@ export default function HomePage() {
                 <button
                   key={i}
                   onClick={() => setCurrent(i)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    i === current ? "w-6 bg-[#2FB7B5]" : "w-2 bg-[#d8c7b6]"
-                  }`}
+                  style={{
+                    height: 8,
+                    width: i === current ? 24 : 8,
+                    borderRadius: 999,
+                    background: i === current ? "#2FB7B5" : "#d8c7b6",
+                    border: "none",
+                    cursor: "pointer",
+                    padding: 0,
+                    transition: "all 0.3s ease",
+                  }}
                   aria-label={`Show product ${i + 1}`}
                 />
               ))}
             </div>
           </div>
+
         </div>
       </section>
 
       {/* Marquee */}
-      <div className="border-t border-[#ecdccb] bg-[#FFF6E9] py-5 overflow-hidden">
+      <div className="border-t border-[#ecdccb] py-6 overflow-hidden">
         <p className="mb-3 text-center text-xs font-semibold uppercase tracking-[0.2em] text-[#8a6a5a]">
           Tried &amp; tail-wagged by
         </p>
