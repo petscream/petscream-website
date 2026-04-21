@@ -34,10 +34,16 @@ export default function HomePage() {
 
       {/* Hero */}
       <section style={{ maxWidth: 1200, margin: "0 auto", padding: "80px 24px" }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 48, flexWrap: "wrap" }}>
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 48,
+          flexWrap: "wrap",
+        }}>
 
           {/* Left */}
-          <div style={{ flex: "1 1 340px", maxWidth: 480 }}>
+          <div style={{ flex: "1 1 320px", maxWidth: 480 }}>
             <div style={{
               display: "inline-block",
               background: "#FDE8C8",
@@ -53,7 +59,13 @@ export default function HomePage() {
               Frozen Treats for Dogs
             </div>
 
-            <h1 style={{ fontSize: "clamp(36px, 5vw, 60px)", fontWeight: 800, lineHeight: 1.1, margin: "0 0 20px", color: "#2B1B12" }}>
+            <h1 style={{
+              fontSize: "clamp(36px, 5vw, 60px)",
+              fontWeight: 800,
+              lineHeight: 1.1,
+              margin: "0 0 20px",
+              color: "#2B1B12",
+            }}>
               Extra joy.<br />On purpose.
             </h1>
 
@@ -62,39 +74,33 @@ export default function HomePage() {
             </p>
 
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 40 }}>
-              <Link
-                href="/shop"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: "#2FB7B5",
-                  color: "white",
-                  borderRadius: 999,
-                  padding: "12px 28px",
-                  fontSize: 15,
-                  fontWeight: 600,
-                  textDecoration: "none",
-                }}
-              >
+              <Link href="/shop" style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: "#2FB7B5",
+                color: "white",
+                borderRadius: 999,
+                padding: "12px 28px",
+                fontSize: 15,
+                fontWeight: 600,
+                textDecoration: "none",
+              }}>
                 Make tails wag
               </Link>
-              <Link
-                href="/whats-in-it"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: "transparent",
-                  color: "#2B1B12",
-                  border: "1.5px solid #d8c7b6",
-                  borderRadius: 999,
-                  padding: "12px 28px",
-                  fontSize: 15,
-                  fontWeight: 600,
-                  textDecoration: "none",
-                }}
-              >
+              <Link href="/whats-in-it" style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: "transparent",
+                color: "#2B1B12",
+                border: "1.5px solid #d8c7b6",
+                borderRadius: 999,
+                padding: "12px 28px",
+                fontSize: 15,
+                fontWeight: 600,
+                textDecoration: "none",
+              }}>
                 See what's inside
               </Link>
             </div>
@@ -117,15 +123,23 @@ export default function HomePage() {
           </div>
 
           {/* Right — carousel */}
-          <div style={{ flex: "1 1 280px", display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
+          <div style={{
+            flex: "1 1 300px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 16,
+          }}>
+            {/* Image container — full image visible, no crop */}
             <div style={{
               position: "relative",
-              width: 300,
-              height: 375,
+              width: "100%",
+              maxWidth: 420,
               borderRadius: 28,
               overflow: "hidden",
               boxShadow: "0 16px 40px rgba(43,27,18,0.14)",
-              flexShrink: 0,
+              background: "#F4E4C8",
+              aspectRatio: "4/5",
             }}>
               {products.map((product, i) => (
                 <div
@@ -135,14 +149,17 @@ export default function HomePage() {
                     inset: 0,
                     opacity: i === current ? 1 : 0,
                     transition: "opacity 0.7s ease",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
                   <Image
                     src={product.image}
                     alt={product.name}
                     fill
-                    style={{ objectFit: "cover" }}
-                    sizes="300px"
+                    style={{ objectFit: "contain", padding: 0 }}
+                    sizes="(max-width: 768px) 100vw, 420px"
                     priority={i === 0}
                   />
                 </div>
@@ -188,25 +205,26 @@ export default function HomePage() {
           Tried &amp; tail-wagged by
         </p>
         <div style={{ overflow: "hidden" }}>
-          <div style={{ display: "flex", width: "max-content", animation: "marquee 30s linear infinite" }}>
+          <div style={{
+            display: "flex",
+            width: "max-content",
+            animation: "marquee 30s linear infinite",
+          }}>
             {allNames.map((name, i) => (
-              <span
-                key={i}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 6,
-                  background: "white",
-                  border: "1.5px solid #f1e3d3",
-                  borderRadius: 999,
-                  padding: "6px 16px",
-                  marginRight: 10,
-                  fontSize: 13,
-                  fontWeight: 600,
-                  color: "#2B1B12",
-                  whiteSpace: "nowrap",
-                }}
-              >
+              <span key={i} style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                background: "white",
+                border: "1.5px solid #f1e3d3",
+                borderRadius: 999,
+                padding: "6px 16px",
+                marginRight: 10,
+                fontSize: 13,
+                fontWeight: 600,
+                color: "#2B1B12",
+                whiteSpace: "nowrap",
+              }}>
                 🐾 {name}
               </span>
             ))}
