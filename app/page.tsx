@@ -140,16 +140,16 @@ export default function HomePage() {
   bottom: 22,
   left: "50%",
   transform: "translateX(-50%)",
-  width: "78%",
-  maxWidth: 620,
+  width: "68%",
+  maxWidth: 560,
   background: "rgba(255,255,255,0.96)",
   border: "1px solid rgba(236,220,203,0.9)",
   borderRadius: 24,
-  padding: "16px 24px",
+  padding: "16px 28px",
   display: "flex",
   alignItems: "center",
-  justifyContent: "center",
-  gap: 22,
+  justifyContent: "flex-start",
+  gap: 18,
   boxShadow: "0 16px 36px rgba(43,27,18,0.14)",
   backdropFilter: "blur(10px)",
   zIndex: 5,
@@ -168,7 +168,10 @@ export default function HomePage() {
     🚚
   </div>
 
-  <div style={{ flex: 1 }}>
+  <div style={{  flex: 1,
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center"}}>
     <p style={{
       fontSize: 14,
       fontWeight: 900,
