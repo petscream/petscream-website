@@ -185,7 +185,7 @@ export default function HomePage() {
       </p>
     </div>
   </div>
-</div>
+</div></div>
       {/* MARQUEE */}
       <div style={{
         borderTop: "1px solid #ecdccb",
