@@ -43,7 +43,7 @@ export default function CartPage() {
       note: form.note,
       order: orderSummary,
       total: `$${totalPrice.toFixed(2)}`,
-      payment: "Cash on delivery",
+      payment: "💵 Pay on delivery or pay now at checkout.",
     };
 
     try {
@@ -88,7 +88,7 @@ export default function CartPage() {
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "60px 24px" }}>
         <h1 style={{ fontSize: 36, fontWeight: 800, margin: "0 0 8px" }}>Your cart</h1>
         <p style={{ color: "#8a6a5a", fontSize: 15, marginBottom: 40 }}>
-          Cash on delivery · Brooklyn, Queens, Staten Island, Manhattan
+         Choose how you'd like to pay at checkout — pay now or on delivery.
         </p>
 
         {items.length === 0 ? (
@@ -203,7 +203,7 @@ export default function CartPage() {
                   background: "#FDE8C8", borderRadius: 14, padding: "12px 16px",
                   fontSize: 13, color: "#7a4a00", marginBottom: 20, fontWeight: 500,
                 }}>
-                  💵 Cash on delivery — pay when your treats arrive.
+                  💵 💵 Pay on delivery or pay now at checkout. — pay when your treats arrive.
                 </div>
 
                 <button
