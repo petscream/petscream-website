@@ -194,7 +194,7 @@ export default function HomePage() {
       <span>Sat – Sun · 10AM – 5PM</span>
     </div>
   </div>
-</div></div>
+</div></div></div>
       {/* MARQUEE */}
       <div style={{
         borderTop: "1px solid #ecdccb",
