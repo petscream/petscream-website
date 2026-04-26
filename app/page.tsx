@@ -165,9 +165,9 @@ export default function HomePage() {
             padding: "36px 32px", display: "flex", flexDirection: "column", justifyContent: "center",
           }}>
             <p style={{ fontSize: "clamp(18px, 2vw, 26px)", fontWeight: 800, color: "#2B1B12", margin: "0 0 12px", lineHeight: 1.3 }}>
-              "My dog loses his mind for PetsCream!" 🐾
+              "My dog loses her mind for PetsCream!" 🐾
             </p>
-            <p style={{ fontSize: 13, color: "#8a6a5a", margin: 0, fontWeight: 500 }}>— Luna's Mom</p>
+            <p style={{ fontSize: 13, color: "#8a6a5a", margin: 0, fontWeight: 500 }}>— Nellie's Parents</p>
           </div>
 
           <div style={{ display: "flex", gap: 16 }}>
