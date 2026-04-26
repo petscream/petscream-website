@@ -269,7 +269,7 @@ export default function HomePage() {
           }}>🚚</div>
           <div>
             <p style={{ fontSize: 12, fontWeight: 700, color: "#2B1B12", margin: 0 }}>Local Delivery</p>
-            <p style={{ fontSize: 11, color: "#8a6a5a", margin: 0 }}>Wed, Sat &amp; Sun</p>
+            <p style={{ fontSize: 11, color: "#8a6a5a", margin: 0 }}>Mon–Fri 7PM–9PM · Sat–Sun 10AM–5PM</p>
           </div>
         </div>
 
