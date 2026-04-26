@@ -136,53 +136,59 @@ export default function HomePage() {
   </div>
 
   <div style={{
-    position: "absolute",
-    bottom: 24,
-    left: "50%",
-    transform: "translateX(-50%)",
-    background: "rgba(255,255,255,0.94)",
-    border: "1px solid rgba(236,220,203,0.9)",
-    borderRadius: 22,
-    padding: "14px 24px",
+  position: "absolute",
+  bottom: 22,
+  left: "50%",
+  transform: "translateX(-50%)",
+  width: "78%",
+  maxWidth: 620,
+  background: "rgba(255,255,255,0.96)",
+  border: "1px solid rgba(236,220,203,0.9)",
+  borderRadius: 24,
+  padding: "16px 24px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: 22,
+  boxShadow: "0 16px 36px rgba(43,27,18,0.14)",
+  backdropFilter: "blur(10px)",
+  zIndex: 5,
+}}>
+  <div style={{
+    width: 44,
+    height: 44,
+    borderRadius: 999,
+    background: "#FDE8C8",
     display: "flex",
     alignItems: "center",
-    gap: 16,
-    boxShadow: "0 16px 36px rgba(43,27,18,0.14)",
-    backdropFilter: "blur(10px)",
-    whiteSpace: "nowrap",
-    zIndex: 5,
+    justifyContent: "center",
+    fontSize: 22,
+    flexShrink: 0,
   }}>
-    <div style={{
-      width: 40,
-      height: 40,
-      borderRadius: 999,
-      background: "#FDE8C8",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      fontSize: 20,
-      flexShrink: 0,
-    }}>
-      🚚
-    </div>
+    🚚
+  </div>
 
-    <div>
-      <p style={{
-        fontSize: 13,
-        fontWeight: 900,
-        margin: 0,
-        color: "#2B1B12",
-      }}>
-        Delivery Days &amp; Hours
-      </p>
-      <p style={{
-        fontSize: 12,
-        margin: "3px 0 0",
-        color: "#8a6a5a",
-        fontWeight: 600,
-      }}>
-        Wed, Sat &amp; Sun · 10AM – 6PM
-      </p>
+  <div style={{ flex: 1 }}>
+    <p style={{
+      fontSize: 14,
+      fontWeight: 900,
+      margin: "0 0 6px",
+      color: "#2B1B12",
+    }}>
+      Delivery Days &amp; Hours
+    </p>
+
+    <div style={{
+      display: "flex",
+      flexWrap: "wrap",
+      gap: "8px 18px",
+      fontSize: 12,
+      color: "#8a6a5a",
+      fontWeight: 700,
+      lineHeight: 1.4,
+    }}>
+      <span>Mon – Fri · 7PM – 9PM</span>
+      <span>Sat – Sun · 10AM – 5PM</span>
     </div>
   </div>
 </div></div>
