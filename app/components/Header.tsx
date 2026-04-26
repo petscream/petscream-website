@@ -26,8 +26,8 @@ export default function Header() {
       }}>
         {/* Logo */}
         <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
-          <Image src="/images/logo.png" alt="Petscream" width={32} height={32} />
-          <span style={{ fontSize: 18, fontWeight: 800, color: "#2B1B12" }}>Petscream</span>
+          <Image src="/images/logo.png" alt="PetsCream" width={32} height={32} />
+          <span style={{ fontSize: 18, fontWeight: 800, color: "#2B1B12" }}>PetsCream</span>
         </Link>
 
         {/* Nav */}
