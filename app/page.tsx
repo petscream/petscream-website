@@ -104,39 +104,88 @@ export default function HomePage() {
 
   {/* Right treats visual */}
   <div style={{
+  position: "relative",
+  minHeight: "560px",
+  background: "#FFF6E9",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  padding: "34px 42px 70px 10px",
+  overflow: "hidden",
+}}>
+  <div style={{
     position: "relative",
-    minHeight: "560px",
+    width: "100%",
+    height: "82%",
+    borderRadius: 28,
+    overflow: "hidden",
+    boxShadow: "0 20px 50px rgba(43,27,18,0.12)",
     background: "#FFF6E9",
+  }}>
+    <Image
+      src="/images/treats-grid.png"
+      alt="PetsCream treats collection"
+      fill
+      style={{
+        objectFit: "cover",
+        objectPosition: "center",
+      }}
+      priority
+      sizes="50vw"
+    />
+  </div>
+
+  <div style={{
+    position: "absolute",
+    bottom: 24,
+    left: "50%",
+    transform: "translateX(-50%)",
+    background: "rgba(255,255,255,0.94)",
+    border: "1px solid rgba(236,220,203,0.9)",
+    borderRadius: 22,
+    padding: "14px 24px",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
-    padding: "34px 42px 34px 10px",
-    overflow: "hidden",
+    gap: 16,
+    boxShadow: "0 16px 36px rgba(43,27,18,0.14)",
+    backdropFilter: "blur(10px)",
+    whiteSpace: "nowrap",
+    zIndex: 5,
   }}>
     <div style={{
-      position: "relative",
-      width: "100%",
-      height: "86%",
-      borderRadius: 28,
-      overflow: "hidden",
-      boxShadow: "0 20px 50px rgba(43,27,18,0.12)",
-      background: "#FFF6E9",
+      width: 40,
+      height: 40,
+      borderRadius: 999,
+      background: "#FDE8C8",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: 20,
+      flexShrink: 0,
     }}>
-      <Image
-        src="/images/treats-grid.png"
-        alt="PetsCream treats collection"
-        fill
-        style={{
-          objectFit: "cover",
-          objectPosition: "center",
-        }}
-        priority
-        sizes="50vw"
-      />
+      🚚
+    </div>
+
+    <div>
+      <p style={{
+        fontSize: 13,
+        fontWeight: 900,
+        margin: 0,
+        color: "#2B1B12",
+      }}>
+        Delivery Days &amp; Hours
+      </p>
+      <p style={{
+        fontSize: 12,
+        margin: "3px 0 0",
+        color: "#8a6a5a",
+        fontWeight: 600,
+      }}>
+        Wed, Sat &amp; Sun · 10AM – 6PM
+      </p>
     </div>
   </div>
 </div>
-
       {/* MARQUEE */}
       <div style={{
         borderTop: "1px solid #ecdccb",
