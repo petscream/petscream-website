@@ -23,97 +23,119 @@ export default function HomePage() {
 
       {/* HERO */}
       <div style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        width: "100%",
-        flex: 1,
-        minHeight: "520px",
+  display: "grid",
+  gridTemplateColumns: "50% 50%",
+  width: "100%",
+  flex: 1,
+  minHeight: "560px",
+  background: "#FFF6E9",
+}}>
+
+  {/* Left dog hero */}
+  <div style={{
+    position: "relative",
+    overflow: "hidden",
+    minHeight: "560px",
+  }}>
+    <Image
+      src="/images/dog-hero.png"
+      alt="Happy pet enjoying PetsCream"
+      fill
+      style={{
+        objectFit: "cover",
+        objectPosition: "center 28%",
+      }}
+      priority
+      sizes="50vw"
+    />
+
+    <div style={{
+      position: "absolute",
+      inset: 0,
+      background: `
+        linear-gradient(to right, rgba(0,0,0,0.58) 0%, rgba(0,0,0,0.18) 68%, rgba(255,246,233,0.96) 100%)
+      `,
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      padding: "44px 48px",
+    }}>
+      <h1 style={{
+        fontSize: "clamp(36px, 4.2vw, 64px)",
+        fontWeight: 900,
+        color: "white",
+        lineHeight: 1.05,
+        margin: "0 0 14px",
+        letterSpacing: "-0.04em",
       }}>
+        Frozen Treats.<br />
+        <span style={{ color: "#F4A63A" }}>Happy Pets.</span>
+      </h1>
 
-        {/* Left — dog hero photo */}
-        <div style={{ position: "relative", overflow: "hidden", minHeight: "520px" }}>
-          <Image
-            src="/images/dog-hero.png"
-            alt="Happy pet enjoying PetsCream"
-            fill
-            style={{
-              objectFit: "cover",
-              objectPosition: "center 25%",
-            }}
-            priority
-            sizes="50vw"
-          />
+      <p style={{
+        color: "rgba(255,255,255,0.92)",
+        fontSize: 16,
+        margin: "0 0 28px",
+        maxWidth: 360,
+        lineHeight: 1.6,
+      }}>
+        Homemade daily frozen treats for pets 🐾<br />
+        Fresh, healthy and wag-approved!
+      </p>
 
-          <div style={{
-            position: "absolute",
-            inset: 0,
-            background: "linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.08) 100%)",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            padding: "40px 44px",
-          }}>
-            <h1 style={{
-              fontSize: "clamp(34px, 4vw, 58px)",
-              fontWeight: 900,
-              color: "white",
-              lineHeight: 1.05,
-              margin: "0 0 14px",
-            }}>
-              Frozen Treats.<br />
-              <span style={{ color: "#F4A63A" }}>Happy Pets.</span>
-            </h1>
+      <Link href="/shop" style={{
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "#F4A63A",
+        color: "white",
+        borderRadius: 999,
+        padding: "13px 34px",
+        fontSize: 15,
+        fontWeight: 800,
+        textDecoration: "none",
+        width: "fit-content",
+        boxShadow: "0 12px 26px rgba(244,166,58,0.35)",
+      }}>
+        Shop Now
+      </Link>
+    </div>
+  </div>
 
-            <p style={{
-              color: "rgba(255,255,255,0.9)",
-              fontSize: 16,
-              margin: "0 0 28px",
-              maxWidth: 350,
-              lineHeight: 1.6,
-            }}>
-              Homemade daily frozen treats for pets 🐾<br />
-              Fresh, healthy and wag-approved!
-            </p>
-
-            <Link href="/shop" style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: "#F4A63A",
-              color: "white",
-              borderRadius: 999,
-              padding: "13px 32px",
-              fontSize: 15,
-              fontWeight: 800,
-              textDecoration: "none",
-              width: "fit-content",
-              boxShadow: "0 10px 24px rgba(244,166,58,0.35)",
-            }}>
-              Shop Now
-            </Link>
-          </div>
-        </div>
-
-        {/* Right — treats grid image */}
-        <div style={{
-          position: "relative",
-          overflow: "hidden",
-          minHeight: "520px",
-          background: "#FFF6E9",
-        }}>
-          <Image
-            src="/images/treats-grid.png"
-            alt="PetsCream treats collection"
-            fill
-            style={{
-              objectFit: "contain",
-              objectPosition: "center",
-            }}
-            priority
-            sizes="50vw"
-          />
-        </div>
-      </div>
+  {/* Right treats visual */}
+  <div style={{
+    position: "relative",
+    minHeight: "560px",
+    background: "#FFF6E9",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "34px 42px 34px 10px",
+    overflow: "hidden",
+  }}>
+    <div style={{
+      position: "relative",
+      width: "100%",
+      height: "86%",
+      borderRadius: 28,
+      overflow: "hidden",
+      boxShadow: "0 20px 50px rgba(43,27,18,0.12)",
+      background: "#FFF6E9",
+    }}>
+      <Image
+        src="/images/treats-grid.png"
+        alt="PetsCream treats collection"
+        fill
+        style={{
+          objectFit: "cover",
+          objectPosition: "center",
+        }}
+        priority
+        sizes="50vw"
+      />
+    </div>
+  </div>
+</div>
 
       {/* MARQUEE */}
       <div style={{
