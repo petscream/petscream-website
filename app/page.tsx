@@ -21,37 +21,37 @@ export default function HomePage() {
       fontFamily: "ui-rounded, system-ui, sans-serif",
     }}>
 
-      {/* ── TOP: Hero + Right panel ── */}
-      <div style={{ display: "grid", gridTemplateColumns: "58% 42%", flex: 1, minHeight: 0 }}>
+      {/* ── HERO ── */}
+      <div style={{ display: "grid", gridTemplateColumns: "55% 45%", flex: 1, minHeight: 0 }}>
 
         {/* Left — dog hero photo */}
         <div style={{ position: "relative", overflow: "hidden" }}>
           <Image
             src="/images/dog-hero.png"
-            alt="Happy pet enjoying Petscream"
+            alt="Happy pet enjoying PetsCream"
             fill
             style={{ objectFit: "cover", objectPosition: "center 25%" }}
             priority
-            sizes="58vw"
+            sizes="55vw"
           />
           <div style={{
             position: "absolute", inset: 0,
-            background: "linear-gradient(to right, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.05) 100%)",
+            background: "linear-gradient(to right, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0.05) 100%)",
             display: "flex", flexDirection: "column", justifyContent: "center",
-            padding: "40px 36px",
+            padding: "40px 40px",
           }}>
-            <h1 style={{ fontSize: "clamp(26px, 3.2vw, 50px)", fontWeight: 900, color: "white", lineHeight: 1.1, margin: "0 0 10px" }}>
+            <h1 style={{ fontSize: "clamp(28px, 3.4vw, 52px)", fontWeight: 900, color: "white", lineHeight: 1.1, margin: "0 0 12px" }}>
               Frozen Treats.<br />
               <span style={{ color: "#F4A63A" }}>Happy Pets.</span>
             </h1>
-            <p style={{ color: "rgba(255,255,255,0.88)", fontSize: 14, margin: "0 0 24px", maxWidth: 300, lineHeight: 1.6 }}>
+            <p style={{ color: "rgba(255,255,255,0.88)", fontSize: 15, margin: "0 0 28px", maxWidth: 320, lineHeight: 1.6 }}>
               Homemade daily frozen treats for pets 🐾<br />
               Fresh, healthy and wag-approved!
             </p>
             <Link href="/shop" style={{
               display: "inline-flex", alignItems: "center", justifyContent: "center",
               background: "#F4A63A", color: "white",
-              borderRadius: 999, padding: "11px 28px",
+              borderRadius: 999, padding: "12px 30px",
               fontSize: 15, fontWeight: 700, textDecoration: "none",
               width: "fit-content",
             }}>
@@ -60,72 +60,15 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Right panel */}
-        <div style={{ display: "flex", flexDirection: "column", background: "#FFF6E9", overflow: "hidden" }}>
-
-          {/* Top: small dog photo + feature cards side by side */}
-          <div style={{ display: "grid", gridTemplateColumns: "120px 1fr", flex: 1, minHeight: 0 }}>
-
-            {/* Small dog photo */}
-            <div style={{ position: "relative", overflow: "hidden" }}>
-              <Image
-                src="/images/dog-1.png"
-                alt="Happy pet"
-                fill
-                style={{ objectFit: "cover", objectPosition: "center 20%" }}
-                sizes="120px"
-              />
-            </div>
-
-            {/* Feature cards */}
-            <div style={{ padding: "20px 20px", display: "flex", flexDirection: "column", justifyContent: "center", gap: 16 }}>
-              {[
-                { icon: "🌿", title: "100% Natural", desc: "Real ingredients your pet deserves" },
-                { icon: "🤍", title: "Made with Love", desc: "Freshly made every day" },
-                { icon: "🐾", title: "Wag Approved", desc: "Tested by happy pets everywhere" },
-              ].map((f) => (
-                <div key={f.title} style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                  <div style={{
-                    width: 38, height: 38, borderRadius: 999, flexShrink: 0,
-                    background: "white", border: "1px solid #ecdccb",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: 17,
-                  }}>
-                    {f.icon}
-                  </div>
-                  <div>
-                    <p style={{ fontSize: 13, fontWeight: 700, color: "#2B1B12", margin: "0 0 1px" }}>{f.title}</p>
-                    <p style={{ fontSize: 11, color: "#8a6a5a", margin: 0 }}>{f.desc}</p>
-                  </div>
-                </div>
-              ))}
-
-              {/* Ingredient pills */}
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 4 }}>
-                {["Probiotic", "Live Cultures", "Goat Milk Blend"].map((pill) => (
-                  <span key={pill} style={{
-                    background: "white", border: "1.5px solid #ecdccb",
-                    borderRadius: 999, padding: "4px 12px",
-                    fontSize: 11, fontWeight: 600, color: "#5c4638",
-                  }}>
-                    {pill}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Testimonial */}
-          <div style={{
-            background: "#E8F7F7", margin: "12px 16px 16px",
-            borderRadius: 18, padding: "16px 20px",
-            flexShrink: 0,
-          }}>
-            <p style={{ fontSize: "clamp(12px, 1.1vw, 16px)", fontWeight: 800, color: "#2B1B12", margin: "0 0 6px", lineHeight: 1.4 }}>
-              "My dog loses her mind for PetsCream!" 🐾
-            </p>
-            <p style={{ fontSize: 11, color: "#8a6a5a", margin: 0, fontWeight: 500 }}>— Nellie's Parents</p>
-          </div>
+        {/* Right — treats grid image */}
+        <div style={{ position: "relative", overflow: "hidden" }}>
+          <Image
+            src="/images/treats-grid.png"
+            alt="PetsCream treats collection"
+            fill
+            style={{ objectFit: "cover", objectPosition: "center" }}
+            sizes="45vw"
+          />
         </div>
       </div>
 
