@@ -33,7 +33,7 @@ export default function Header() {
         {/* Nav */}
         <nav style={{ display: "flex", alignItems: "center", gap: 28 }}>
           <Link href="/shop" style={{ fontSize: 14, fontWeight: 600, color: "#2B1B12", textDecoration: "none" }}>Shop</Link>
-          <Link href="/our-story" style={{ fontSize: 14, fontWeight: 600, color: "#2B1B12", textDecoration: "none" }}>Our story</Link>
+          <<Link href="/about" ...>Our story</Link> style={{ fontSize: 14, fontWeight: 600, color: "#2B1B12", textDecoration: "none" }}>Our story</Link>
           <Link href="/whats-in-it" style={{ fontSize: 14, fontWeight: 600, color: "#2B1B12", textDecoration: "none" }}>What's in it</Link>
           <Link href="/faqs" style={{ fontSize: 14, fontWeight: 600, color: "#2B1B12", textDecoration: "none" }}>FAQs</Link>
         </nav>
