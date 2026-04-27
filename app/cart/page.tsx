@@ -7,6 +7,11 @@ import { useCart } from "../context/CartContext";
 
 const BOROUGHS = ["Brooklyn", "Queens", "Staten Island", "Manhattan"];
 
+const DELIVERY_OPTIONS = [
+  { label: "Monday – Friday", hours: "7PM – 9PM", value: "weekday" },
+  { label: "Saturday – Sunday", hours: "10AM – 5PM", value: "weekend" },
+];
+
 export default function CartPage() {
   const { items, updateQuantity, removeItem, clearCart, totalPrice } = useCart();
 
@@ -16,6 +21,7 @@ export default function CartPage() {
     phone: "",
     borough: "",
     address: "",
+    deliveryDay: "",
     note: "",
   });
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
@@ -24,8 +30,10 @@ export default function CartPage() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const selectedDelivery = DELIVERY_OPTIONS.find(o => o.value === form.deliveryDay);
+
   const handleSubmit = async () => {
-    if (!form.name || !form.email || !form.phone || !form.borough || !form.address) return;
+    if (!form.name || !form.email || !form.phone || !form.borough || !form.address || !form.deliveryDay) return;
     if (items.length === 0) return;
 
     setStatus("sending");
@@ -40,10 +48,11 @@ export default function CartPage() {
       phone: form.phone,
       borough: form.borough,
       address: form.address,
+      delivery_day: selectedDelivery ? `${selectedDelivery.label} · ${selectedDelivery.hours}` : "",
       note: form.note,
       order: orderSummary,
       total: `$${totalPrice.toFixed(2)}`,
-      payment: "💵 Pay on delivery or pay now at checkout.",
+      payment: "Cash on delivery",
     };
 
     try {
@@ -63,15 +72,22 @@ export default function CartPage() {
     }
   };
 
+  const isFormValid = form.name && form.email && form.phone && form.borough && form.address && form.deliveryDay;
+
   if (status === "success") {
     return (
       <main style={{ minHeight: "100vh", background: "#FFF6E9", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <div style={{ textAlign: "center", padding: 40 }}>
           <div style={{ fontSize: 56 }}>🐾</div>
           <h1 style={{ fontSize: 32, fontWeight: 800, color: "#2B1B12", margin: "16px 0 8px" }}>Order received!</h1>
-          <p style={{ color: "#6b4c3b", fontSize: 16, marginBottom: 32 }}>
-            We'll be in touch soon to confirm your delivery. Get ready for some tail wags.
+          <p style={{ color: "#6b4c3b", fontSize: 16, marginBottom: 8 }}>
+            We'll be in touch soon to confirm your delivery.
           </p>
+          {selectedDelivery && (
+            <p style={{ color: "#2FB7B5", fontSize: 15, fontWeight: 600, marginBottom: 32 }}>
+              Delivery: {selectedDelivery.label} · {selectedDelivery.hours}
+            </p>
+          )}
           <Link href="/shop" style={{
             background: "#2FB7B5", color: "white", borderRadius: 999,
             padding: "12px 28px", fontWeight: 600, textDecoration: "none", fontSize: 15,
@@ -84,11 +100,11 @@ export default function CartPage() {
   }
 
   return (
-    <main style={{ minHeight: "100vh", background: "#FFF6E9", color: "#2B1B12" }}>
+    <main style={{ minHeight: "100vh", background: "#FFF6E9", color: "#2B1B12", fontFamily: "ui-rounded, system-ui, sans-serif" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "60px 24px" }}>
         <h1 style={{ fontSize: 36, fontWeight: 800, margin: "0 0 8px" }}>Your cart</h1>
         <p style={{ color: "#8a6a5a", fontSize: 15, marginBottom: 40 }}>
-         Choose how you'd like to pay at checkout — pay now or on delivery.
+          Cash on delivery · Brooklyn, Queens, Staten Island, Manhattan
         </p>
 
         {items.length === 0 ? (
@@ -109,17 +125,12 @@ export default function CartPage() {
             <div style={{ flex: "1 1 420px" }}>
 
               {/* Cart Items */}
-              <div style={{ marginBottom: 40 }}>
+              <div style={{ marginBottom: 32 }}>
                 {items.map((item) => (
                   <div key={item.id} style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 16,
-                    background: "white",
-                    borderRadius: 20,
-                    padding: 16,
-                    marginBottom: 12,
-                    border: "1px solid #f1e3d3",
+                    display: "flex", alignItems: "center", gap: 16,
+                    background: "white", borderRadius: 20, padding: 16,
+                    marginBottom: 12, border: "1px solid #f1e3d3",
                   }}>
                     <div style={{ position: "relative", width: 72, height: 72, borderRadius: 14, overflow: "hidden", flexShrink: 0, background: "#F9F3EA" }}>
                       <Image src={item.image} alt={item.name} fill style={{ objectFit: "contain" }} sizes="72px" />
@@ -135,10 +146,7 @@ export default function CartPage() {
                     </div>
                     <div style={{ textAlign: "right" }}>
                       <p style={{ fontSize: 16, fontWeight: 800, margin: "0 0 8px" }}>${(item.price * item.quantity).toFixed(2)}</p>
-                      <button onClick={() => removeItem(item.id)} style={{
-                        background: "none", border: "none", cursor: "pointer",
-                        fontSize: 12, color: "#c0a898", fontWeight: 500,
-                      }}>Remove</button>
+                      <button onClick={() => removeItem(item.id)} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 12, color: "#c0a898", fontWeight: 500 }}>Remove</button>
                     </div>
                   </div>
                 ))}
@@ -175,6 +183,32 @@ export default function CartPage() {
                   <input name="address" value={form.address} onChange={handleChange} placeholder="123 Main St, Apt 4B" style={inputStyle} />
                 </div>
 
+                {/* Delivery Day Selection */}
+                <div style={{ marginBottom: 14 }}>
+                  <label style={labelStyle}>Delivery day</label>
+                  <div style={{ display: "flex", gap: 10 }}>
+                    {DELIVERY_OPTIONS.map((opt) => (
+                      <button
+                        key={opt.value}
+                        onClick={() => setForm(prev => ({ ...prev, deliveryDay: opt.value }))}
+                        style={{
+                          flex: 1,
+                          padding: "12px 16px",
+                          borderRadius: 14,
+                          border: form.deliveryDay === opt.value ? "2px solid #2FB7B5" : "1.5px solid #e8d8c8",
+                          background: form.deliveryDay === opt.value ? "#E8F7F7" : "white",
+                          cursor: "pointer",
+                          textAlign: "left",
+                          transition: "all 0.15s",
+                        }}
+                      >
+                        <p style={{ fontSize: 13, fontWeight: 700, color: "#2B1B12", margin: "0 0 2px" }}>{opt.label}</p>
+                        <p style={{ fontSize: 11, color: "#8a6a5a", margin: 0 }}>{opt.hours}</p>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
                 <div>
                   <label style={labelStyle}>Note (optional)</label>
                   <textarea name="note" value={form.note} onChange={handleChange} placeholder="Leave at door, buzz #4B, etc." rows={3} style={{ ...inputStyle, resize: "none" }} />
@@ -199,16 +233,21 @@ export default function CartPage() {
                   <span style={{ fontSize: 18, fontWeight: 800 }}>${totalPrice.toFixed(2)}</span>
                 </div>
 
-                <div style={{
-                  background: "#FDE8C8", borderRadius: 14, padding: "12px 16px",
-                  fontSize: 13, color: "#7a4a00", marginBottom: 20, fontWeight: 500,
-                }}>
-                  💵 💵 Pay on delivery or pay now at checkout. — pay when your treats arrive.
+                {/* Selected delivery day */}
+                {selectedDelivery && (
+                  <div style={{ background: "#E8F7F7", borderRadius: 12, padding: "10px 14px", marginBottom: 14 }}>
+                    <p style={{ fontSize: 12, fontWeight: 700, color: "#2B1B12", margin: "0 0 2px" }}>🚚 Delivery</p>
+                    <p style={{ fontSize: 12, color: "#6b4c3b", margin: 0 }}>{selectedDelivery.label} · {selectedDelivery.hours}</p>
+                  </div>
+                )}
+
+                <div style={{ background: "#FDE8C8", borderRadius: 14, padding: "12px 16px", fontSize: 13, color: "#7a4a00", marginBottom: 20, fontWeight: 500 }}>
+                  💵 Cash on delivery — pay when your treats arrive.
                 </div>
 
                 <button
                   onClick={handleSubmit}
-                  disabled={status === "sending" || !form.name || !form.email || !form.phone || !form.borough || !form.address}
+                  disabled={status === "sending" || !isFormValid}
                   style={{
                     width: "100%",
                     background: "#2FB7B5",
@@ -218,8 +257,8 @@ export default function CartPage() {
                     padding: "14px 0",
                     fontSize: 16,
                     fontWeight: 700,
-                    cursor: "pointer",
-                    opacity: (!form.name || !form.email || !form.phone || !form.borough || !form.address) ? 0.5 : 1,
+                    cursor: isFormValid ? "pointer" : "not-allowed",
+                    opacity: isFormValid ? 1 : 0.5,
                     transition: "opacity 0.2s",
                   }}
                 >
