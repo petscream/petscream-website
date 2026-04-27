@@ -22,11 +22,12 @@ export default function HomePage() {
     }}>
 
       {/* ── HERO ── */}
-      <div style={{
+      <divstyle={{
   display: "grid",
   gridTemplateColumns: "1fr",
   flex: 1,
-  minHeight: 0,>
+  minHeight: 0,
+}}
 
         {/* Left — dog hero photo */}
         <div style={{ position: "relative", overflow: "hidden" }}>
