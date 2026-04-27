@@ -7,9 +7,17 @@ import { useCart } from "../context/CartContext";
 
 const BOROUGHS = ["Brooklyn", "Queens", "Staten Island", "Manhattan"];
 
-const DELIVERY_OPTIONS = [
-  { label: "Monday – Friday", hours: "7PM – 9PM", value: "weekday" },
-  { label: "Saturday – Sunday", hours: "10AM – 5PM", value: "weekend" },
+const WEEKDAYS = [
+  { label: "Monday", hours: "7PM – 9PM" },
+  { label: "Tuesday", hours: "7PM – 9PM" },
+  { label: "Wednesday", hours: "7PM – 9PM" },
+  { label: "Thursday", hours: "7PM – 9PM" },
+  { label: "Friday", hours: "7PM – 9PM" },
+];
+
+const WEEKENDS = [
+  { label: "Saturday", hours: "10AM – 5PM" },
+  { label: "Sunday", hours: "10AM – 5PM" },
 ];
 
 export default function CartPage() {
@@ -30,7 +38,8 @@ export default function CartPage() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const selectedDelivery = DELIVERY_OPTIONS.find(o => o.value === form.deliveryDay);
+  const allDays = [...WEEKDAYS, ...WEEKENDS];
+  const selectedDay = allDays.find(d => d.label === form.deliveryDay);
 
   const handleSubmit = async () => {
     if (!form.name || !form.email || !form.phone || !form.borough || !form.address || !form.deliveryDay) return;
@@ -48,7 +57,7 @@ export default function CartPage() {
       phone: form.phone,
       borough: form.borough,
       address: form.address,
-      delivery_day: selectedDelivery ? `${selectedDelivery.label} · ${selectedDelivery.hours}` : "",
+      delivery_day: selectedDay ? `${selectedDay.label} · ${selectedDay.hours}` : "",
       note: form.note,
       order: orderSummary,
       total: `$${totalPrice.toFixed(2)}`,
@@ -83,9 +92,9 @@ export default function CartPage() {
           <p style={{ color: "#6b4c3b", fontSize: 16, marginBottom: 8 }}>
             We'll be in touch soon to confirm your delivery.
           </p>
-          {selectedDelivery && (
+          {selectedDay && (
             <p style={{ color: "#2FB7B5", fontSize: 15, fontWeight: 600, marginBottom: 32 }}>
-              Delivery: {selectedDelivery.label} · {selectedDelivery.hours}
+              Delivery: {selectedDay.label} · {selectedDay.hours}
             </p>
           )}
           <Link href="/shop" style={{
@@ -121,7 +130,7 @@ export default function CartPage() {
         ) : (
           <div style={{ display: "flex", gap: 40, flexWrap: "wrap", alignItems: "flex-start" }}>
 
-            {/* Left — Items + Form */}
+            {/* Left */}
             <div style={{ flex: "1 1 420px" }}>
 
               {/* Cart Items */}
@@ -152,7 +161,7 @@ export default function CartPage() {
                 ))}
               </div>
 
-              {/* Delivery Form */}
+              {/* Form */}
               <div style={{ background: "white", borderRadius: 24, padding: 28, border: "1px solid #f1e3d3" }}>
                 <h2 style={{ fontSize: 20, fontWeight: 800, margin: "0 0 20px" }}>Delivery details</h2>
 
@@ -183,27 +192,58 @@ export default function CartPage() {
                   <input name="address" value={form.address} onChange={handleChange} placeholder="123 Main St, Apt 4B" style={inputStyle} />
                 </div>
 
-                {/* Delivery Day Selection */}
+                {/* Delivery Day */}
                 <div style={{ marginBottom: 14 }}>
                   <label style={labelStyle}>Delivery day</label>
-                  <div style={{ display: "flex", gap: 10 }}>
-                    {DELIVERY_OPTIONS.map((opt) => (
+
+                  {/* Weekdays */}
+                  <p style={{ fontSize: 11, color: "#8a6a5a", fontWeight: 600, margin: "0 0 8px", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                    Mon – Fri · 7PM – 9PM
+                  </p>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 14 }}>
+                    {WEEKDAYS.map((day) => (
                       <button
-                        key={opt.value}
-                        onClick={() => setForm(prev => ({ ...prev, deliveryDay: opt.value }))}
+                        key={day.label}
+                        onClick={() => setForm(prev => ({ ...prev, deliveryDay: day.label }))}
                         style={{
-                          flex: 1,
-                          padding: "12px 16px",
-                          borderRadius: 14,
-                          border: form.deliveryDay === opt.value ? "2px solid #2FB7B5" : "1.5px solid #e8d8c8",
-                          background: form.deliveryDay === opt.value ? "#E8F7F7" : "white",
+                          padding: "10px 18px",
+                          borderRadius: 12,
+                          border: form.deliveryDay === day.label ? "2px solid #2FB7B5" : "1.5px solid #e8d8c8",
+                          background: form.deliveryDay === day.label ? "#E8F7F7" : "white",
                           cursor: "pointer",
-                          textAlign: "left",
+                          fontSize: 13,
+                          fontWeight: 700,
+                          color: form.deliveryDay === day.label ? "#1a6b6a" : "#2B1B12",
                           transition: "all 0.15s",
                         }}
                       >
-                        <p style={{ fontSize: 13, fontWeight: 700, color: "#2B1B12", margin: "0 0 2px" }}>{opt.label}</p>
-                        <p style={{ fontSize: 11, color: "#8a6a5a", margin: 0 }}>{opt.hours}</p>
+                        {day.label}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Weekends */}
+                  <p style={{ fontSize: 11, color: "#8a6a5a", fontWeight: 600, margin: "0 0 8px", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                    Sat – Sun · 10AM – 5PM
+                  </p>
+                  <div style={{ display: "flex", gap: 8 }}>
+                    {WEEKENDS.map((day) => (
+                      <button
+                        key={day.label}
+                        onClick={() => setForm(prev => ({ ...prev, deliveryDay: day.label }))}
+                        style={{
+                          padding: "10px 18px",
+                          borderRadius: 12,
+                          border: form.deliveryDay === day.label ? "2px solid #2FB7B5" : "1.5px solid #e8d8c8",
+                          background: form.deliveryDay === day.label ? "#E8F7F7" : "white",
+                          cursor: "pointer",
+                          fontSize: 13,
+                          fontWeight: 700,
+                          color: form.deliveryDay === day.label ? "#1a6b6a" : "#2B1B12",
+                          transition: "all 0.15s",
+                        }}
+                      >
+                        {day.label}
                       </button>
                     ))}
                   </div>
@@ -233,11 +273,10 @@ export default function CartPage() {
                   <span style={{ fontSize: 18, fontWeight: 800 }}>${totalPrice.toFixed(2)}</span>
                 </div>
 
-                {/* Selected delivery day */}
-                {selectedDelivery && (
+                {selectedDay && (
                   <div style={{ background: "#E8F7F7", borderRadius: 12, padding: "10px 14px", marginBottom: 14 }}>
                     <p style={{ fontSize: 12, fontWeight: 700, color: "#2B1B12", margin: "0 0 2px" }}>🚚 Delivery</p>
-                    <p style={{ fontSize: 12, color: "#6b4c3b", margin: 0 }}>{selectedDelivery.label} · {selectedDelivery.hours}</p>
+                    <p style={{ fontSize: 12, color: "#6b4c3b", margin: 0 }}>{selectedDay.label} · {selectedDay.hours}</p>
                   </div>
                 )}
 
