@@ -60,64 +60,22 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Right panel */}
-        <div style={{ display: "flex", flexDirection: "column", background: "#FFF6E9", overflow: "hidden" }}>
-
-          {/* Treats image — top portion */}
-          <div style={{ position: "relative", flex: "0 0 55%", overflow: "hidden" }}>
-            <Image
-              src="/images/treats-grid.png"
-              alt="PetsCream treats"
-              fill
-              style={{ objectFit: "cover", objectPosition: "left center" }}
-              sizes="50vw"
-            />
-          </div>
-
-          {/* Info section */}
-          <div style={{
-            flex: 1,
-            background: "#1e0f3c",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            padding: "16px 24px",
-            gap: 12,
-          }}>
-            {/* Feature icons */}
-            <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
-              {[
-                { icon: "🌿", label: "100% Natural" },
-                { icon: "❄️", label: "Frozen Fresh" },
-                { icon: "🤍", label: "Handmade Daily" },
-                { icon: "🐾", label: "Wag Approved" },
-              ].map((f) => (
-                <div key={f.label} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
-                  <span style={{ fontSize: 20 }}>{f.icon}</span>
-                  <span style={{ fontSize: 10, fontWeight: 600, color: "rgba(255,255,255,0.75)", textAlign: "center", whiteSpace: "nowrap" }}>{f.label}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* Explore Treats button */}
-            <Link href="/shop" style={{
-              display: "inline-flex", alignItems: "center", justifyContent: "center",
-              background: "#2d7d4f", color: "white", borderRadius: 8,
-              padding: "11px 20px", fontSize: 13, fontWeight: 700,
-              textDecoration: "none", width: "fit-content", gap: 8,
-            }}>
-              EXPLORE TREATS →
-            </Link>
-
-            {/* Delivery */}
-            <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 4 }}>
-              <span style={{ fontSize: 16 }}>🚚</span>
-              <div>
-                <p style={{ fontSize: 11, fontWeight: 700, color: "white", margin: "0 0 1px" }}>Delivery Days &amp; Hours</p>
-                <p style={{ fontSize: 10, color: "rgba(255,255,255,0.65)", margin: 0 }}>Mon–Fri · 7PM–9PM &nbsp;|&nbsp; Sat–Sun · 10AM–5PM</p>
-              </div>
-            </div>
-          </div>
+        {/* Right — full treats-grid image */}
+        <div style={{
+          position: "relative",
+          overflow: "hidden",
+          background: "#f5f0e8",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}>
+          <Image
+            src="/images/treats-grid.png"
+            alt="PetsCream treats collection"
+            fill
+            style={{ objectFit: "contain", objectPosition: "center" }}
+            sizes="50vw"
+          />
         </div>
       </div>
 
