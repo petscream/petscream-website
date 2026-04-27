@@ -12,197 +12,145 @@ export default function HomePage() {
   const allNames = [...dogNames, ...dogNames];
 
   return (
-    <main className="page">
-      <section className="heroGrid">
-        <div className="heroLeft">
+    <main style={{ minHeight: "calc(100vh - 64px)", overflow: "hidden", display: "flex", flexDirection: "column", background: "#FFF6E9", fontFamily: "ui-rounded, system-ui, sans-serif" }}>
+
+      {/* ── HERO ── */}
+      <section style={{ display: "grid", gridTemplateColumns: "50% 50%", flex: 1, minHeight: 560 }}>
+
+        {/* Left */}
+        <div style={{ position: "relative", overflow: "hidden", minHeight: 560 }}>
           <Image
             src="/images/dog-hero.png"
             alt="Happy pet enjoying PetsCream"
             fill
-            className="heroImage"
+            style={{ objectFit: "cover", objectPosition: "center 28%" }}
             priority
             sizes="(max-width: 900px) 100vw, 50vw"
           />
-
-          <div className="heroOverlay">
-            <h1 className="heroTitle">
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "linear-gradient(to right, rgba(0,0,0,0.58) 0%, rgba(0,0,0,0.18) 68%, rgba(255,246,233,0.96) 100%)",
+            display: "flex", flexDirection: "column", justifyContent: "center",
+            padding: "44px 48px",
+          }}>
+            <h1 style={{ fontSize: "clamp(36px, 4.2vw, 64px)", fontWeight: 900, color: "white", lineHeight: 1.05, margin: "0 0 14px", letterSpacing: "-0.04em" }}>
               Frozen Treats.<br />
-              <span>Happy Pets.</span>
+              <span style={{ color: "#F4A63A" }}>Happy Pets.</span>
             </h1>
-
-            <p className="heroText">
+            <p style={{ color: "rgba(255,255,255,0.92)", fontSize: 16, margin: "0 0 28px", maxWidth: 360, lineHeight: 1.6 }}>
               Homemade daily frozen treats for pets 🐾<br />
               Fresh, healthy and wag-approved!
             </p>
-
-            <Link href="/shop" className="shopButton">
+            <Link href="/shop" style={{
+              display: "inline-flex", alignItems: "center", justifyContent: "center",
+              background: "#F4A63A", color: "white", borderRadius: 999,
+              padding: "13px 34px", fontSize: 15, fontWeight: 800,
+              textDecoration: "none", width: "fit-content",
+              boxShadow: "0 12px 26px rgba(244,166,58,0.35)",
+            }}>
               Shop Now
             </Link>
           </div>
         </div>
 
-        <div className="heroRight">
-          <div className="treatsCard">
+        {/* Right */}
+        <div style={{ display: "flex", flexDirection: "column", background: "#FFF6E9" }}>
+
+          {/* Treats image */}
+          <div style={{ position: "relative", flex: 1, overflow: "hidden" }}>
             <Image
               src="/images/treats-grid.png"
               alt="PetsCream treats collection"
               fill
-              className="treatsImage"
+              style={{ objectFit: "cover", objectPosition: "center" }}
               priority
               sizes="(max-width: 900px) 92vw, 50vw"
             />
           </div>
 
-          <div className="deliveryCard">
-            <div className="deliveryIcon">🚚</div>
-
-            <div className="deliveryText">
-              <p>Delivery Days &amp; Hours</p>
-              <div>
-                <span>Mon to Fri · 7PM to 9PM</span>
-                <span>Sat to Sun · 10AM to 5PM</span>
+          {/* Delivery card */}
+          <div style={{
+            display: "flex", alignItems: "center", gap: 14,
+            background: "white", padding: "16px 20px",
+            borderTop: "1px solid #ecdccb",
+          }}>
+            <div style={{ fontSize: 28, flexShrink: 0 }}>🚚</div>
+            <div>
+              <p style={{ fontSize: 13, fontWeight: 700, color: "#2B1B12", margin: "0 0 2px" }}>Delivery Days &amp; Hours</p>
+              <div style={{ display: "flex", flexDirection: "column", gap: 1 }}>
+                <span style={{ fontSize: 11, color: "#8a6a5a" }}>Mon to Fri · 7PM to 9PM</span>
+                <span style={{ fontSize: 11, color: "#8a6a5a" }}>Sat to Sun · 10AM to 5PM</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="marqueeSection">
-        <p className="marqueeTitle">Tried &amp; tail-wagged by</p>
-
-        <div className="marqueeWrap">
-          <div className="marqueeTrack">
+      {/* ── MARQUEE ── */}
+      <div style={{ borderTop: "1px solid #ecdccb", borderBottom: "1px solid #ecdccb", padding: "6px 0 8px", overflow: "hidden", background: "white", flexShrink: 0 }}>
+        <p style={{ textAlign: "center", fontSize: 9, fontWeight: 600, letterSpacing: "0.2em", textTransform: "uppercase", color: "#b09a8a", margin: "0 0 6px" }}>
+          Tried &amp; tail-wagged by
+        </p>
+        <div style={{ overflow: "hidden" }}>
+          <div style={{ display: "flex", width: "max-content", animation: "marquee 30s linear infinite" }}>
             {allNames.map((name, i) => (
-              <span key={i} className="namePill">
+              <span key={i} style={{
+                display: "inline-flex", alignItems: "center", gap: 6,
+                background: "#FFF6E9", border: "1.5px solid #f1e3d3",
+                borderRadius: 999, padding: "5px 14px", marginRight: 10,
+                fontSize: 13, fontWeight: 600, color: "#2B1B12", whiteSpace: "nowrap",
+              }}>
                 🐾 {name}
               </span>
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="bottomBar">
-        <div className="infoItem">
-          <div className="infoIcon orange">🚚</div>
+      {/* ── BOTTOM BAR ── */}
+      <div style={{ background: "#FFF6E9", padding: "12px 32px", display: "flex", justifyContent: "center", flexWrap: "wrap", gap: 32, flexShrink: 0 }}>
+
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ width: 36, height: 36, borderRadius: 999, background: "#FDE8C8", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0 }}>🚚</div>
           <div>
-            <p>Local Delivery</p>
-            <span>Mon to Fri 7PM to 9PM · Sat to Sun 10AM to 5PM</span>
+            <p style={{ fontSize: 12, fontWeight: 700, color: "#2B1B12", margin: 0 }}>Local Delivery</p>
+            <p style={{ fontSize: 11, color: "#8a6a5a", margin: 0 }}>Mon–Fri 7–9PM · Sat–Sun 10AM–5PM</p>
           </div>
         </div>
 
-        <div className="infoItem">
-          <div className="infoIcon teal">❄️</div>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ width: 36, height: 36, borderRadius: 999, background: "#E8F7F7", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0 }}>❄️</div>
           <div>
-            <p>Frozen &amp; Fresh</p>
-            <span>Handmade Daily</span>
+            <p style={{ fontSize: 12, fontWeight: 700, color: "#2B1B12", margin: 0 }}>Frozen &amp; Fresh</p>
+            <p style={{ fontSize: 11, color: "#8a6a5a", margin: 0 }}>Handmade Daily</p>
           </div>
         </div>
 
-        <div className="infoItem">
-          <div className="logoIcon">
-            <Image
-              src="/images/logo.png"
-              alt="PetsCream"
-              fill
-              style={{ objectFit: "contain" }}
-              sizes="36px"
-            />
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ width: 36, height: 36, borderRadius: 999, background: "#FDE8C8", overflow: "hidden", position: "relative", flexShrink: 0 }}>
+            <Image src="/images/logo.png" alt="PetsCream" fill style={{ objectFit: "contain" }} sizes="36px" />
           </div>
           <div>
-            <p>Pets Love It</p>
-            <span>Real Taste. Real Joy.</span>
+            <p style={{ fontSize: 12, fontWeight: 700, color: "#2B1B12", margin: 0 }}>Pets Love It</p>
+            <p style={{ fontSize: 11, color: "#8a6a5a", margin: 0 }}>Real Taste. Real Joy.</p>
           </div>
         </div>
 
-        <a
-          href="https://www.instagram.com/petscreamnyc"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="infoItem instagramItem"
-        >
-          <div className="infoIcon purple">📸</div>
+        <a href="https://www.instagram.com/petscreamnyc" target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
+          <div style={{ width: 36, height: 36, borderRadius: 999, background: "#f0e6f6", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0 }}>📸</div>
           <div>
-            <p>Follow Our Adventures</p>
-            <span>@petscreamnyc</span>
+            <p style={{ fontSize: 12, fontWeight: 700, color: "#2B1B12", margin: 0 }}>Follow Our Adventures</p>
+            <p style={{ fontSize: 11, color: "#8a6a5a", margin: 0 }}>@petscreamnyc</p>
           </div>
         </a>
-      </section>
+      </div>
 
-      <style jsx>{`
-        .page {
-          min-height: calc(100vh - 64px);
-          overflow-x: hidden;
-          display: flex;
-          flex-direction: column;
-          background: #FFF6E9;
-          font-family: ui-rounded, system-ui, sans-serif;
+      <style>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
         }
-
-        .heroGrid {
-          display: grid;
-          grid-template-columns: 50% 50%;
-          width: 100%;
-          min-height: 560px;
-          background: #FFF6E9;
-        }
-
-        .heroLeft {
-          position: relative;
-          overflow: hidden;
-          min-height: 560px;
-        }
-
-        .heroImage {
-          object-fit: cover;
-          object-position: center 28%;
-        }
-
-        .heroOverlay {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(
-            to right,
-            rgba(0, 0, 0, 0.58) 0%,
-            rgba(0, 0, 0, 0.18) 68%,
-            rgba(255, 246, 233, 0.96) 100%
-          );
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          padding: 44px 48px;
-        }
-
-        .heroTitle {
-          font-size: clamp(36px, 4.2vw, 64px);
-          font-weight: 900;
-          color: white;
-          line-height: 1.05;
-          margin: 0 0 14px;
-          letter-spacing: -0.04em;
-        }
-
-        .heroTitle span {
-          color: #F4A63A;
-        }
-
-        .heroText {
-          color: rgba(255, 255, 255, 0.92);
-          font-size: 16px;
-          margin: 0 0 28px;
-          max-width: 360px;
-          line-height: 1.6;
-        }
-
-        .shopButton {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          background: #F4A63A;
-          color: white;
-          border-radius: 999px;
-          padding: 13px 34px;
-          font-size: 15px;
-          font-weight: 800;
-          text-decoration: none;
-          width: fit-content;
-          box-shadow: 0 12px 26px rgba(244, 166,
+      `}</style>
+    </main>
+  );
+}
