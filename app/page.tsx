@@ -12,295 +12,94 @@ export default function HomePage() {
   const allNames = [...dogNames, ...dogNames];
 
   return (
-    <main style={{
-      minHeight: "calc(100vh - 64px)",
-      overflowX: "hidden",
-      display: "flex",
-      flexDirection: "column",
-      background: "#FFF6E9",
-      fontFamily: "ui-rounded, system-ui, sans-serif",
-    }}>
+    <main className="page">
+      <section className="heroGrid">
+        <div className="heroLeft">
+          <Image
+            src="/images/dog-hero.png"
+            alt="Happy pet enjoying PetsCream"
+            fill
+            className="heroImage"
+            priority
+            sizes="(max-width: 900px) 100vw, 50vw"
+          />
 
-      {/* HERO */}
-      <div style={{
-  display: "grid",
-  gridTemplateColumns: "50% 50%",
-  width: "100%",
-  flex: 1,
-  minHeight: "560px",
-  background: "#FFF6E9",
-}}>
+          <div className="heroOverlay">
+            <h1 className="heroTitle">
+              Frozen Treats.<br />
+              <span>Happy Pets.</span>
+            </h1>
 
-  {/* Left dog hero */}
-  <div style={{
-    position: "relative",
-    overflow: "hidden",
-    minHeight: "560px",
-  }}>
-    <Image
-      src="/images/dog-hero.png"
-      alt="Happy pet enjoying PetsCream"
-      fill
-      style={{
-        objectFit: "cover",
-        objectPosition: "center 28%",
-      }}
-      priority
-      sizes="50vw"
-    />
+            <p className="heroText">
+              Homemade daily frozen treats for pets 🐾<br />
+              Fresh, healthy and wag-approved!
+            </p>
 
-    <div style={{
-      position: "absolute",
-      inset: 0,
-      background: `
-        linear-gradient(to right, rgba(0,0,0,0.58) 0%, rgba(0,0,0,0.18) 68%, rgba(255,246,233,0.96) 100%)
-      `,
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      padding: "44px 48px",
-    }}>
-      <h1 style={{
-        fontSize: "clamp(36px, 4.2vw, 64px)",
-        fontWeight: 900,
-        color: "white",
-        lineHeight: 1.05,
-        margin: "0 0 14px",
-        letterSpacing: "-0.04em",
-      }}>
-        Frozen Treats.<br />
-        <span style={{ color: "#F4A63A" }}>Happy Pets.</span>
-      </h1>
+            <Link href="/shop" className="shopButton">
+              Shop Now
+            </Link>
+          </div>
+        </div>
 
-      <p style={{
-        color: "rgba(255,255,255,0.92)",
-        fontSize: 16,
-        margin: "0 0 28px",
-        maxWidth: 360,
-        lineHeight: 1.6,
-      }}>
-        Homemade daily frozen treats for pets 🐾<br />
-        Fresh, healthy and wag-approved!
-      </p>
+        <div className="heroRight">
+          <div className="treatsCard">
+            <Image
+              src="/images/treats-grid.png"
+              alt="PetsCream treats collection"
+              fill
+              className="treatsImage"
+              priority
+              sizes="(max-width: 900px) 92vw, 50vw"
+            />
+          </div>
 
-      <Link href="/shop" style={{
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "#F4A63A",
-        color: "white",
-        borderRadius: 999,
-        padding: "13px 34px",
-        fontSize: 15,
-        fontWeight: 800,
-        textDecoration: "none",
-        width: "fit-content",
-        boxShadow: "0 12px 26px rgba(244,166,58,0.35)",
-      }}>
-        Shop Now
-      </Link>
-    </div>
-  </div>
+          <div className="deliveryCard">
+            <div className="deliveryIcon">🚚</div>
 
-  {/* Right treats visual */}
-  <div style={{
-  position: "relative",
-  minHeight: "560px",
-  background: "#FFF6E9",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  padding: "34px 42px 70px 10px",
-  overflow: "hidden",
-}}>
-  <div style={{
-    position: "relative",
-    width: "100%",
-    height: "82%",
-    borderRadius: 28,
-    overflow: "hidden",
-    boxShadow: "0 20px 50px rgba(43,27,18,0.12)",
-    background: "#FFF6E9",
-  }}>
-    <Image
-      src="/images/treats-grid.png"
-      alt="PetsCream treats collection"
-      fill
-      style={{
-        objectFit: "cover",
-        objectPosition: "center",
-      }}
-      priority
-      sizes="50vw"
-    />
-  </div>
+            <div className="deliveryText">
+              <p>Delivery Days &amp; Hours</p>
+              <div>
+                <span>Mon to Fri · 7PM to 9PM</span>
+                <span>Sat to Sun · 10AM to 5PM</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-  <div style={{
-  position: "absolute",
-  bottom: 22,
-  left: "50%",
-  transform: "translateX(-50%)",
-  width: "68%",
-  maxWidth: 560,
-  background: "rgba(255,255,255,0.96)",
-  border: "1px solid rgba(236,220,203,0.9)",
-  borderRadius: 24,
-  padding: "16px 28px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-start",
-  gap: 18,
-  boxShadow: "0 16px 36px rgba(43,27,18,0.14)",
-  backdropFilter: "blur(10px)",
-  zIndex: 5,
-}}>
-  <div style={{
-    width: 44,
-    height: 44,
-    borderRadius: 999,
-    background: "#FDE8C8",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: 22,
-    flexShrink: 0,
-  }}>
-    🚚
-  </div>
+      <section className="marqueeSection">
+        <p className="marqueeTitle">Tried &amp; tail-wagged by</p>
 
-  <div style={{  flex: 1,
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center"}}>
-    <p style={{
-      fontSize: 14,
-      fontWeight: 900,
-      margin: "0 0 6px",
-      color: "#2B1B12",
-    }}>
-      Delivery Days &amp; Hours
-    </p>
-
-    <div style={{
-      display: "flex",
-      flexWrap: "wrap",
-      gap: "8px 18px",
-      fontSize: 12,
-      color: "#8a6a5a",
-      fontWeight: 700,
-      lineHeight: 1.4,
-    }}>
-      <span>Mon – Fri · 7PM – 9PM</span>
-      <span>Sat – Sun · 10AM – 5PM</span>
-    </div>
-  </div>
-</div></div></div>
-      {/* MARQUEE */}
-      <div style={{
-        borderTop: "1px solid #ecdccb",
-        borderBottom: "1px solid #ecdccb",
-        padding: "6px 0 8px",
-        overflow: "hidden",
-        background: "white",
-        flexShrink: 0,
-      }}>
-        <p style={{
-          textAlign: "center",
-          fontSize: 9,
-          fontWeight: 600,
-          letterSpacing: "0.2em",
-          textTransform: "uppercase",
-          color: "#b09a8a",
-          margin: "0 0 6px",
-        }}>
-          Tried &amp; tail-wagged by
-        </p>
-
-        <div style={{ overflow: "hidden" }}>
-          <div style={{
-            display: "flex",
-            width: "max-content",
-            animation: "marquee 30s linear infinite",
-          }}>
+        <div className="marqueeWrap">
+          <div className="marqueeTrack">
             {allNames.map((name, i) => (
-              <span key={i} style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                background: "#FFF6E9",
-                border: "1.5px solid #f1e3d3",
-                borderRadius: 999,
-                padding: "5px 14px",
-                marginRight: 10,
-                fontSize: 13,
-                fontWeight: 600,
-                color: "#2B1B12",
-                whiteSpace: "nowrap",
-              }}>
+              <span key={i} className="namePill">
                 🐾 {name}
               </span>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* BOTTOM BAR */}
-      <div style={{
-        background: "#FFF6E9",
-        padding: "12px 32px",
-        display: "flex",
-        justifyContent: "center",
-        flexWrap: "wrap",
-        gap: 32,
-        flexShrink: 0,
-      }}>
-
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{
-            width: 36,
-            height: 36,
-            borderRadius: 999,
-            background: "#FDE8C8",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 18,
-            flexShrink: 0,
-          }}>🚚</div>
+      <section className="bottomBar">
+        <div className="infoItem">
+          <div className="infoIcon orange">🚚</div>
           <div>
-            <p style={{ fontSize: 12, fontWeight: 700, color: "#2B1B12", margin: 0 }}>Local Delivery</p>
-            <p style={{ fontSize: 11, color: "#8a6a5a", margin: 0 }}>Mon–Fri 7PM–9PM · Sat–Sun 10AM–5PM</p>
+            <p>Local Delivery</p>
+            <span>Mon to Fri 7PM to 9PM · Sat to Sun 10AM to 5PM</span>
           </div>
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{
-            width: 36,
-            height: 36,
-            borderRadius: 999,
-            background: "#E8F7F7",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 18,
-            flexShrink: 0,
-          }}>❄️</div>
+        <div className="infoItem">
+          <div className="infoIcon teal">❄️</div>
           <div>
-            <p style={{ fontSize: 12, fontWeight: 700, color: "#2B1B12", margin: 0 }}>Frozen &amp; Fresh</p>
-            <p style={{ fontSize: 11, color: "#8a6a5a", margin: 0 }}>Handmade Daily</p>
+            <p>Frozen &amp; Fresh</p>
+            <span>Handmade Daily</span>
           </div>
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{
-            width: 36,
-            height: 36,
-            borderRadius: 999,
-            background: "#FDE8C8",
-            overflow: "hidden",
-            position: "relative",
-            flexShrink: 0,
-          }}>
+        <div className="infoItem">
+          <div className="logoIcon">
             <Image
               src="/images/logo.png"
               alt="PetsCream"
@@ -310,8 +109,8 @@ export default function HomePage() {
             />
           </div>
           <div>
-            <p style={{ fontSize: 12, fontWeight: 700, color: "#2B1B12", margin: 0 }}>Pets Love It</p>
-            <p style={{ fontSize: 11, color: "#8a6a5a", margin: 0 }}>Real Taste. Real Joy.</p>
+            <p>Pets Love It</p>
+            <span>Real Taste. Real Joy.</span>
           </div>
         </div>
 
@@ -319,43 +118,91 @@ export default function HomePage() {
           href="https://www.instagram.com/petscreamnyc"
           target="_blank"
           rel="noopener noreferrer"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 10,
-            textDecoration: "none",
-          }}
+          className="infoItem instagramItem"
         >
-          <div style={{
-            width: 36,
-            height: 36,
-            borderRadius: 999,
-            background: "#f0e6f6",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 18,
-            flexShrink: 0,
-          }}>📸</div>
+          <div className="infoIcon purple">📸</div>
           <div>
-            <p style={{ fontSize: 12, fontWeight: 700, color: "#2B1B12", margin: 0 }}>Follow Our Adventures</p>
-            <p style={{ fontSize: 11, color: "#8a6a5a", margin: 0 }}>@petscreamnyc</p>
+            <p>Follow Our Adventures</p>
+            <span>@petscreamnyc</span>
           </div>
         </a>
-      </div>
+      </section>
 
-      <style>{`
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+      <style jsx>{`
+        .page {
+          min-height: calc(100vh - 64px);
+          overflow-x: hidden;
+          display: flex;
+          flex-direction: column;
+          background: #FFF6E9;
+          font-family: ui-rounded, system-ui, sans-serif;
         }
 
-        @media (max-width: 900px) {
-          main > div:first-child {
-            grid-template-columns: 1fr !important;
-          }
+        .heroGrid {
+          display: grid;
+          grid-template-columns: 50% 50%;
+          width: 100%;
+          min-height: 560px;
+          background: #FFF6E9;
         }
-      `}</style>
-    </main>
-  );
-}
+
+        .heroLeft {
+          position: relative;
+          overflow: hidden;
+          min-height: 560px;
+        }
+
+        .heroImage {
+          object-fit: cover;
+          object-position: center 28%;
+        }
+
+        .heroOverlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            to right,
+            rgba(0, 0, 0, 0.58) 0%,
+            rgba(0, 0, 0, 0.18) 68%,
+            rgba(255, 246, 233, 0.96) 100%
+          );
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 44px 48px;
+        }
+
+        .heroTitle {
+          font-size: clamp(36px, 4.2vw, 64px);
+          font-weight: 900;
+          color: white;
+          line-height: 1.05;
+          margin: 0 0 14px;
+          letter-spacing: -0.04em;
+        }
+
+        .heroTitle span {
+          color: #F4A63A;
+        }
+
+        .heroText {
+          color: rgba(255, 255, 255, 0.92);
+          font-size: 16px;
+          margin: 0 0 28px;
+          max-width: 360px;
+          line-height: 1.6;
+        }
+
+        .shopButton {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          background: #F4A63A;
+          color: white;
+          border-radius: 999px;
+          padding: 13px 34px;
+          font-size: 15px;
+          font-weight: 800;
+          text-decoration: none;
+          width: fit-content;
+          box-shadow: 0 12px 26px rgba(244, 166,
