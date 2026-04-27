@@ -92,7 +92,7 @@ export default function ShopPage() {
                   >
                     {added === product.id ? "Added ✓" : "Add to cart"}
                   </button>
-                  <Link href={product.href} style={{
+                  <Link href="/ingredients" style={{
                     display: "inline-flex",
                     alignItems: "center",
                     justifyContent: "center",
