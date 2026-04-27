@@ -24,20 +24,20 @@ export default function HomePage() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+          gridTemplateColumns: "50% 50%",
           flex: 1,
           minHeight: 0,
         }}
       >
         {/* Left — dog hero photo */}
-        <div style={{ position: "relative", overflow: "hidden", minHeight: 260 }}>
+        <div style={{ position: "relative", overflow: "hidden" }}>
           <Image
             src="/images/dog-hero.png"
             alt="Happy pet enjoying PetsCream"
             fill
             style={{ objectFit: "cover", objectPosition: "center 28%" }}
             priority
-            sizes="(max-width: 600px) 100vw, 50vw"
+            sizes="50vw"
           />
           <div
             style={{
@@ -48,16 +48,16 @@ export default function HomePage() {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              padding: "44px 48px",
+              padding: "clamp(20px, 4vw, 48px)",
             }}
           >
             <h1
               style={{
-                fontSize: "clamp(28px, 4vw, 60px)",
+                fontSize: "clamp(14px, 3.5vw, 60px)",
                 fontWeight: 900,
                 color: "white",
                 lineHeight: 1.05,
-                margin: "0 0 14px",
+                margin: "0 0 clamp(6px, 1.5vw, 14px)",
                 letterSpacing: "-0.03em",
               }}
             >
@@ -67,8 +67,8 @@ export default function HomePage() {
             <p
               style={{
                 color: "rgba(255,255,255,0.92)",
-                fontSize: 15,
-                margin: "0 0 28px",
+                fontSize: "clamp(9px, 1.5vw, 15px)",
+                margin: "0 0 clamp(10px, 2vw, 28px)",
                 maxWidth: 340,
                 lineHeight: 1.6,
               }}
@@ -85,8 +85,8 @@ export default function HomePage() {
                 background: "#F4A63A",
                 color: "white",
                 borderRadius: 999,
-                padding: "13px 34px",
-                fontSize: 15,
+                padding: "clamp(7px, 1.2vw, 13px) clamp(12px, 2.5vw, 34px)",
+                fontSize: "clamp(9px, 1.4vw, 15px)",
                 fontWeight: 800,
                 textDecoration: "none",
                 width: "fit-content",
@@ -107,7 +107,6 @@ export default function HomePage() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            minHeight: 260,
           }}
         >
           <Image
@@ -115,7 +114,7 @@ export default function HomePage() {
             alt="PetsCream treats collection"
             fill
             style={{ objectFit: "contain", objectPosition: "center" }}
-            sizes="(max-width: 600px) 100vw, 50vw"
+            sizes="50vw"
           />
         </div>
       </div>
@@ -152,7 +151,6 @@ export default function HomePage() {
               animation: "marquee 30s linear infinite",
             }}
           >
-            {/* Copy 1 — visible */}
             <div style={{ display: "flex" }}>
               {dogNames.map((name, i) => (
                 <span
@@ -176,8 +174,6 @@ export default function HomePage() {
                 </span>
               ))}
             </div>
-
-            {/* Copy 2 — seamless loop, hidden from screen readers */}
             <div aria-hidden="true" style={{ display: "flex" }}>
               {dogNames.map((name, i) => (
                 <span
@@ -209,69 +205,61 @@ export default function HomePage() {
       <div
         style={{
           background: "#FFF6E9",
-          padding: "12px 32px",
+          padding: "clamp(8px, 1.5vw, 12px) clamp(12px, 3vw, 32px)",
           display: "flex",
           justifyContent: "center",
-          flexWrap: "wrap",
-          gap: 32,
+          flexWrap: "nowrap",
+          gap: "clamp(10px, 2vw, 32px)",
           flexShrink: 0,
+          overflowX: "auto",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <div
-            style={{
-              width: 36,
-              height: 36,
-              borderRadius: 999,
-              background: "#FDE8C8",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: 18,
-              flexShrink: 0,
-            }}
-          >
-            🚚
+        {[
+          {
+            bg: "#FDE8C8",
+            icon: "🚚",
+            title: "Local Delivery",
+            sub: "Mon–Fri 7–9PM · Sat–Sun 10AM–5PM",
+          },
+          {
+            bg: "#E8F7F7",
+            icon: "❄️",
+            title: "Frozen & Fresh",
+            sub: "Handmade Daily",
+          },
+        ].map((item) => (
+          <div key={item.title} style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
+            <div
+              style={{
+                width: "clamp(26px, 3vw, 36px)",
+                height: "clamp(26px, 3vw, 36px)",
+                borderRadius: 999,
+                background: item.bg,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "clamp(13px, 1.8vw, 18px)",
+                flexShrink: 0,
+              }}
+            >
+              {item.icon}
+            </div>
+            <div>
+              <p style={{ fontSize: "clamp(9px, 1.1vw, 12px)", fontWeight: 700, color: "#2B1B12", margin: 0 }}>
+                {item.title}
+              </p>
+              <p style={{ fontSize: "clamp(8px, 0.9vw, 11px)", color: "#8a6a5a", margin: 0 }}>
+                {item.sub}
+              </p>
+            </div>
           </div>
-          <div>
-            <p style={{ fontSize: 12, fontWeight: 700, color: "#2B1B12", margin: 0 }}>
-              Local Delivery
-            </p>
-            <p style={{ fontSize: 11, color: "#8a6a5a", margin: 0 }}>
-              Mon–Fri 7–9PM · Sat–Sun 10AM–5PM
-            </p>
-          </div>
-        </div>
+        ))}
 
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
           <div
             style={{
-              width: 36,
-              height: 36,
-              borderRadius: 999,
-              background: "#E8F7F7",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: 18,
-              flexShrink: 0,
-            }}
-          >
-            ❄️
-          </div>
-          <div>
-            <p style={{ fontSize: 12, fontWeight: 700, color: "#2B1B12", margin: 0 }}>
-              Frozen &amp; Fresh
-            </p>
-            <p style={{ fontSize: 11, color: "#8a6a5a", margin: 0 }}>Handmade Daily</p>
-          </div>
-        </div>
-
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <div
-            style={{
-              width: 36,
-              height: 36,
+              width: "clamp(26px, 3vw, 36px)",
+              height: "clamp(26px, 3vw, 36px)",
               borderRadius: 999,
               background: "#FDE8C8",
               overflow: "hidden",
@@ -279,19 +267,13 @@ export default function HomePage() {
               flexShrink: 0,
             }}
           >
-            <Image
-              src="/images/logo.png"
-              alt="PetsCream"
-              fill
-              style={{ objectFit: "contain" }}
-              sizes="36px"
-            />
+            <Image src="/images/logo.png" alt="PetsCream" fill style={{ objectFit: "contain" }} sizes="36px" />
           </div>
           <div>
-            <p style={{ fontSize: 12, fontWeight: 700, color: "#2B1B12", margin: 0 }}>
+            <p style={{ fontSize: "clamp(9px, 1.1vw, 12px)", fontWeight: 700, color: "#2B1B12", margin: 0 }}>
               Pets Love It
             </p>
-            <p style={{ fontSize: 11, color: "#8a6a5a", margin: 0 }}>Real Taste. Real Joy.</p>
+            <p style={{ fontSize: "clamp(8px, 0.9vw, 11px)", color: "#8a6a5a", margin: 0 }}>Real Taste. Real Joy.</p>
           </div>
         </div>
 
@@ -299,33 +281,28 @@ export default function HomePage() {
           href="https://www.instagram.com/petscreamnyc"
           target="_blank"
           rel="noopener noreferrer"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 10,
-            textDecoration: "none",
-          }}
+          style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none", flexShrink: 0 }}
         >
           <div
             style={{
-              width: 36,
-              height: 36,
+              width: "clamp(26px, 3vw, 36px)",
+              height: "clamp(26px, 3vw, 36px)",
               borderRadius: 999,
               background: "#f0e6f6",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              fontSize: 18,
+              fontSize: "clamp(13px, 1.8vw, 18px)",
               flexShrink: 0,
             }}
           >
             📸
           </div>
           <div>
-            <p style={{ fontSize: 12, fontWeight: 700, color: "#2B1B12", margin: 0 }}>
+            <p style={{ fontSize: "clamp(9px, 1.1vw, 12px)", fontWeight: 700, color: "#2B1B12", margin: 0 }}>
               Follow Our Adventures
             </p>
-            <p style={{ fontSize: 11, color: "#8a6a5a", margin: 0 }}>@petscreamnyc</p>
+            <p style={{ fontSize: "clamp(8px, 0.9vw, 11px)", color: "#8a6a5a", margin: 0 }}>@petscreamnyc</p>
           </div>
         </a>
       </div>
@@ -334,12 +311,6 @@ export default function HomePage() {
         @keyframes marquee {
           0%   { transform: translateX(0); }
           100% { transform: translateX(-50%); }
-        }
-
-        @media (max-width: 600px) {
-          main > div:first-child {
-            overflow-y: auto !important;
-          }
         }
       `}</style>
     </main>
