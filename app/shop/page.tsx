@@ -39,228 +39,76 @@ export default function ShopPage() {
   };
 
   return (
-    <main style={{
-      height: "calc(100dvh - 64px)",
-      overflow: "hidden",
-      background: "#FFF6E9",
-      color: "#2B1B12",
-      display: "flex",
-      flexDirection: "column",
-      fontFamily: "ui-rounded, system-ui, sans-serif",
-    }}>
+    <main className="shop-main">
 
       {/* ── HEADER ── */}
-      <div style={{ textAlign: "center", padding: "16px 24px 10px", flexShrink: 0 }}>
-        <p style={{
-          fontSize: 10,
-          fontWeight: 700,
-          textTransform: "uppercase",
-          letterSpacing: "0.28em",
-          color: "#2FB7B5",
-          margin: "0 0 4px",
-        }}>
-          Shop all treats
-        </p>
-        <h1 style={{
-          fontSize: "clamp(18px, 2.2vw, 28px)",
-          fontWeight: 800,
-          color: "#2B1B12",
-          margin: 0,
-        }}>
-          Frozen treats for happy tails 🐾
-        </h1>
+      <div className="shop-header">
+        <p className="shop-label">Shop all treats</p>
+        <h1 className="shop-title">Frozen treats for happy tails 🐾</h1>
       </div>
 
       {/* ── PRODUCT GRID ── */}
-      <div style={{
-        flex: 1,
-        minHeight: 0,
-        display: "grid",
-        gridTemplateColumns: "repeat(5, 1fr)",
-        gap: 12,
-        padding: "8px 16px 16px",
-      }}>
+      <div className="product-grid">
         {products.map((product) => {
           const qty = quantities[product.id];
           const isAdded = added === product.id;
 
           return (
-            <article
-              key={product.id}
-              className="product-card"
-              style={{
-                background: "white",
-                borderRadius: 20,
-                border: "1px solid #ecdccb",
-                overflow: "hidden",
-                boxShadow: "0 4px 16px rgba(43,27,18,0.07)",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
+            <article key={product.id} className="product-card">
+
               {/* Görsel */}
-              <div style={{
-                background: "#F9F3EA",
-                flexShrink: 0,
-                position: "relative",
-                aspectRatio: "4 / 5",
-              }}>
+              <div className="card-image">
                 <Image
                   src={product.image}
                   alt={`${product.subtitle} ${product.name}`}
                   fill
                   style={{ objectFit: "contain", objectPosition: "center" }}
-                  sizes="20vw"
+                  sizes="(max-width: 768px) 50vw, 20vw"
                   priority={product.id === "heart-pop"}
                 />
               </div>
 
               {/* İçerik */}
-              <div style={{
-                padding: "10px 12px 12px",
-                display: "flex",
-                flexDirection: "column",
-                flex: 1,
-              }}>
-                <p style={{
-                  fontSize: 9,
-                  fontWeight: 700,
-                  color: "#2FB7B5",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.1em",
-                  margin: "0 0 2px",
-                }}>
-                  {product.subtitle}
-                </p>
-                <div style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  marginBottom: 8,
-                }}>
-                  <h2 style={{
-                    fontSize: "clamp(12px, 1.1vw, 16px)",
-                    fontWeight: 800,
-                    color: "#2B1B12",
-                    margin: 0,
-                  }}>
-                    {product.name}
-                  </h2>
-                  <span style={{
-                    fontSize: 13,
-                    fontWeight: 800,
-                    color: "#2B1B12",
-                    background: "#FFF6E9",
-                    borderRadius: 999,
-                    padding: "1px 9px",
-                    border: "1px solid #ecdccb",
-                    marginLeft: 4,
-                    flexShrink: 0,
-                  }}>
-                    ${product.price}
-                  </span>
+              <div className="card-body">
+                <p className="card-subtitle">{product.subtitle}</p>
+                <div className="card-row">
+                  <h2 className="card-name">{product.name}</h2>
+                  <span className="card-price">${product.price}</span>
                 </div>
 
-                {/* Adet + Sepet */}
-                <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: 6 }}>
-
-                  {/* Adet seçici */}
-                  <div style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    background: "#FFF6E9",
-                    border: "1.5px solid #ecdccb",
-                    borderRadius: 999,
-                    padding: "4px 6px",
-                  }}>
-                    <button
-                      onClick={() => change(product.id, -1)}
-                      disabled={qty <= 1}
-                      style={{
-                        width: 26,
-                        height: 26,
-                        borderRadius: "50%",
-                        border: "none",
-                        background: qty <= 1 ? "#f0e8df" : "#2FB7B5",
-                        color: qty <= 1 ? "#b0a098" : "white",
-                        fontSize: 16,
-                        fontWeight: 700,
-                        cursor: qty <= 1 ? "default" : "pointer",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        transition: "background 0.15s",
-                        lineHeight: 1,
-                      }}
-                    >
-                      −
-                    </button>
-                    <span style={{
-                      fontSize: 15,
-                      fontWeight: 800,
-                      color: "#2B1B12",
-                      minWidth: 24,
-                      textAlign: "center",
-                    }}>
-                      {qty}
-                    </span>
-                    <button
-                      onClick={() => change(product.id, +1)}
-                      style={{
-                        width: 26,
-                        height: 26,
-                        borderRadius: "50%",
-                        border: "none",
-                        background: "#2FB7B5",
-                        color: "white",
-                        fontSize: 16,
-                        fontWeight: 700,
-                        cursor: "pointer",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        transition: "background 0.15s",
-                        lineHeight: 1,
-                      }}
-                    >
-                      +
-                    </button>
-                  </div>
-
-                  {/* Add to cart */}
+                {/* Adet seçici */}
+                <div className="qty-selector">
                   <button
-                    onClick={() => handleAdd(product)}
-                    disabled={isAdded}
-                    style={{
-                      width: "100%",
-                      background: isAdded ? "#22a09e" : "#2FB7B5",
-                      color: "white",
-                      border: "none",
-                      borderRadius: 999,
-                      padding: "9px 0",
-                      fontSize: "clamp(10px, 0.9vw, 13px)",
-                      fontWeight: 700,
-                      cursor: isAdded ? "default" : "pointer",
-                      transition: "background 0.2s",
-                    }}
+                    className="qty-btn"
+                    onClick={() => change(product.id, -1)}
+                    disabled={qty <= 1}
+                    style={{ opacity: qty <= 1 ? 0.4 : 1 }}
                   >
-                    {isAdded ? `Added ${qty > 1 ? `×${qty}` : ""} ✓` : `Add to cart${qty > 1 ? ` ×${qty}` : ""}`}
+                    −
                   </button>
-
-                  <Link
-                    href="/ingredients"
-                    style={{
-                      textAlign: "center",
-                      fontSize: "clamp(9px, 0.8vw, 11px)",
-                      fontWeight: 600,
-                      color: "#8a6a5a",
-                      textDecoration: "none",
-                    }}
+                  <span className="qty-num">{qty}</span>
+                  <button
+                    className="qty-btn"
+                    onClick={() => change(product.id, +1)}
                   >
-                    Learn more →
-                  </Link>
+                    +
+                  </button>
                 </div>
+
+                {/* Add to cart */}
+                <button
+                  className={`add-btn ${isAdded ? "added" : ""}`}
+                  onClick={() => handleAdd(product)}
+                  disabled={isAdded}
+                >
+                  {isAdded
+                    ? `Added${qty > 1 ? ` ×${qty}` : ""} ✓`
+                    : `Add to cart${qty > 1 ? ` ×${qty}` : ""}`}
+                </button>
+
+                <Link href="/ingredients" className="learn-link">
+                  Learn more →
+                </Link>
               </div>
             </article>
           );
@@ -268,7 +116,55 @@ export default function ShopPage() {
       </div>
 
       <style>{`
+        /* ── LAYOUT ── */
+        .shop-main {
+          min-height: 100dvh;
+          background: #FFF6E9;
+          color: #2B1B12;
+          font-family: ui-rounded, system-ui, sans-serif;
+          display: flex;
+          flex-direction: column;
+        }
+
+        /* ── HEADER ── */
+        .shop-header {
+          text-align: center;
+          padding: 24px 24px 12px;
+          flex-shrink: 0;
+        }
+        .shop-label {
+          font-size: 10px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.28em;
+          color: #2FB7B5;
+          margin: 0 0 6px;
+        }
+        .shop-title {
+          font-size: clamp(20px, 2.5vw, 30px);
+          font-weight: 800;
+          color: #2B1B12;
+          margin: 0;
+        }
+
+        /* ── GRID ── */
+        .product-grid {
+          display: grid;
+          grid-template-columns: repeat(5, 1fr);
+          gap: 14px;
+          padding: 12px 20px 24px;
+          flex: 1;
+        }
+
+        /* ── CARD ── */
         .product-card {
+          background: white;
+          border-radius: 20px;
+          border: 1px solid #ecdccb;
+          overflow: hidden;
+          box-shadow: 0 4px 16px rgba(43,27,18,0.07);
+          display: flex;
+          flex-direction: column;
           transition: transform 0.18s, box-shadow 0.18s;
         }
         .product-card:hover {
@@ -276,14 +172,161 @@ export default function ShopPage() {
           box-shadow: 0 12px 32px rgba(43,27,18,0.13);
         }
 
+        .card-image {
+          background: #F9F3EA;
+          position: relative;
+          aspect-ratio: 4/5;
+          flex-shrink: 0;
+        }
+
+        .card-body {
+          padding: 12px 14px 14px;
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          gap: 6px;
+        }
+
+        .card-subtitle {
+          font-size: 9px;
+          font-weight: 700;
+          color: #2FB7B5;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          margin: 0;
+        }
+
+        .card-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 4px;
+        }
+
+        .card-name {
+          font-size: clamp(13px, 1.1vw, 17px);
+          font-weight: 800;
+          color: #2B1B12;
+          margin: 0;
+        }
+
+        .card-price {
+          font-size: 13px;
+          font-weight: 800;
+          color: #2B1B12;
+          background: #FFF6E9;
+          border-radius: 999px;
+          padding: 2px 10px;
+          border: 1px solid #ecdccb;
+          flex-shrink: 0;
+        }
+
+        /* ── QTY ── */
+        .qty-selector {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          background: #FFF6E9;
+          border: 1.5px solid #ecdccb;
+          border-radius: 999px;
+          padding: 3px 6px;
+          margin-top: 2px;
+        }
+
+        .qty-btn {
+          width: 26px;
+          height: 26px;
+          border-radius: 50%;
+          border: none;
+          background: #2FB7B5;
+          color: white;
+          font-size: 16px;
+          font-weight: 700;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          line-height: 1;
+          transition: background 0.15s;
+        }
+        .qty-btn:disabled {
+          background: #e0d5cc;
+          cursor: default;
+        }
+
+        .qty-num {
+          font-size: 15px;
+          font-weight: 800;
+          color: #2B1B12;
+          min-width: 24px;
+          text-align: center;
+        }
+
+        /* ── BUTTONS ── */
+        .add-btn {
+          width: 100%;
+          background: #2FB7B5;
+          color: white;
+          border: none;
+          border-radius: 999px;
+          padding: 9px 0;
+          font-size: clamp(11px, 0.9vw, 13px);
+          font-weight: 700;
+          cursor: pointer;
+          transition: background 0.2s;
+          margin-top: 2px;
+        }
+        .add-btn.added {
+          background: #22a09e;
+          cursor: default;
+        }
+
+        .learn-link {
+          text-align: center;
+          font-size: 11px;
+          font-weight: 600;
+          color: #8a6a5a;
+          text-decoration: none;
+          margin-top: 2px;
+        }
+
+        /* ── MOBİL ── */
         @media (max-width: 768px) {
-          main {
-            height: auto !important;
-            overflow: auto !important;
+          .shop-main {
+            height: auto;
+            overflow: auto;
           }
-          main > div:last-child {
-            grid-template-columns: repeat(2, 1fr) !important;
-            padding: 0 12px 24px !important;
+
+          .shop-header {
+            padding: 20px 16px 8px;
+          }
+
+          .shop-title {
+            font-size: 20px;
+          }
+
+          .product-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            padding: 8px 14px 28px;
+          }
+
+          .card-name {
+            font-size: 15px;
+          }
+
+          .card-price {
+            font-size: 14px;
+          }
+
+          .add-btn {
+            font-size: 13px;
+            padding: 10px 0;
+          }
+
+          .qty-btn {
+            width: 28px;
+            height: 28px;
           }
         }
       `}</style>
