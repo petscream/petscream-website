@@ -77,7 +77,7 @@ export default function HomePage() {
           <div className="bottom-icon" style={{ background: "#FDE8C8" }}>🚚</div>
           <div>
             <p className="bottom-title">Local Delivery</p>
-            <p className="bottom-sub">Mon–Fri 7–9PM · Sat–Sun 10AM–5PM</p>
+            <p className="bottom-sub">Mon 7–9PM · Thu 7–9PM · Sat 10AM–6PM</p>
           </div>
         </div>
 
