@@ -7,14 +7,13 @@ export type Product = {
   href: string;
   ctaLabel: string;
 };
-
 export const products: Product[] = [
   {
     id: "heart-pop",
     name: "Heart Pop",
     subtitle: "Blueberry & Banana",
     image: "/images/heart-pop.png",
-    price: 10,
+    price: 12,
     href: "/shop",
     ctaLabel: "Add to box",
   },
@@ -23,7 +22,7 @@ export const products: Product[] = [
     name: "Paw Pop",
     subtitle: "Blueberry & Banana",
     image: "/images/paw-pop.png",
-    price: 10,
+    price: 12,
     href: "/shop",
     ctaLabel: "Add to box",
   },
@@ -32,7 +31,7 @@ export const products: Product[] = [
     name: "Mini Pop",
     subtitle: "Blueberry & Banana",
     image: "/images/mini-pop.png",
-    price: 5,
+    price: 6,
     href: "/shop",
     ctaLabel: "Add to box",
   },
@@ -41,7 +40,7 @@ export const products: Product[] = [
     name: "Mini Paw Treats",
     subtitle: "Blueberry & Banana",
     image: "/images/mini-paw-treats.png",
-    price: 5,
+    price: 6,
     href: "/shop",
     ctaLabel: "Add to box",
   },
@@ -50,7 +49,7 @@ export const products: Product[] = [
     name: "Mini Bone Treats",
     subtitle: "Blueberry & Banana",
     image: "/images/mini-bone-treats.png",
-    price: 5,
+    price: 6,
     href: "/shop",
     ctaLabel: "Add to box",
   },
