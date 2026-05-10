@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { CartProvider } from "./context/CartContext";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 export const metadata: Metadata = {
   title: "Petscream | Frozen Treats for Happy Tails",
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <CartProvider>
           <Header />
           {children}
+          <Footer />
         </CartProvider>
       </body>
     </html>
