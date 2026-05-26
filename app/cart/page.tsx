@@ -8,11 +8,8 @@ import { useCart } from "../context/CartContext";
 const BOROUGHS = ["Brooklyn", "Queens", "Staten Island", "Manhattan"];
 
 const WEEKDAYS = [
-  { label: "Monday", hours: "7PM – 9PM" },
   { label: "Tuesday", hours: "7PM – 9PM" },
-  { label: "Wednesday", hours: "7PM – 9PM" },
   { label: "Thursday", hours: "7PM – 9PM" },
-  { label: "Friday", hours: "7PM – 9PM" },
 ];
 
 const WEEKENDS = [
@@ -198,7 +195,7 @@ export default function CartPage() {
 
                   {/* Weekdays */}
                   <p style={{ fontSize: 11, color: "#8a6a5a", fontWeight: 600, margin: "0 0 8px", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                    Mon – Fri · 7PM – 9PM
+                    Tue & Thu · 7PM – 9PM
                   </p>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 14 }}>
                     {WEEKDAYS.map((day) => (
@@ -224,7 +221,7 @@ export default function CartPage() {
 
                   {/* Weekends */}
                   <p style={{ fontSize: 11, color: "#8a6a5a", fontWeight: 600, margin: "0 0 8px", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                    Sat – Sun · 10AM – 5PM
+                    Sat & Sun · 10AM – 5PM
                   </p>
                   <div style={{ display: "flex", gap: 8 }}>
                     {WEEKENDS.map((day) => (
