@@ -19,7 +19,7 @@ export default function HomePage() {
         <div className="hero-left">
           <Image
             src="/images/dog-hero.png"
-            alt="Happy pet enjoying PetsCream"
+            alt="Happy pet enjoying Petscream"
             fill
             style={{ objectFit: "cover", objectPosition: "center 28%" }}
             priority
@@ -44,7 +44,7 @@ export default function HomePage() {
         <div className="hero-right">
           <Image
             src="/images/treats-grid.png"
-            alt="PetsCream treats collection"
+            alt="Petscream treats collection"
             fill
             style={{ objectFit: "contain", objectPosition: "center" }}
             sizes="(max-width: 768px) 100vw, 50vw"
@@ -91,7 +91,7 @@ export default function HomePage() {
 
         <div className="bottom-item">
           <div className="bottom-icon" style={{ background: "#FDE8C8", overflow: "hidden", position: "relative" }}>
-            <Image src="/images/logo.png" alt="PetsCream" fill style={{ objectFit: "contain" }} sizes="36px" />
+            <Image src="/images/logo.png" alt="Petscream" fill style={{ objectFit: "contain" }} sizes="36px" />
           </div>
           <div>
             <p className="bottom-title">Pets Love It</p>
