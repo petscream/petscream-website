@@ -44,12 +44,24 @@ export default function HomePage() {
         <div className="hero-right">
           <Image
             src="/images/treats-grid.png"
-            alt="Petscream treats collection"
-            fill
-            style={{ objectFit: "contain", objectPosition: "center" }}
-            sizes="(max-width: 768px) 100vw, 50vw"
-          />
-        </div>
+    alt="Petscream treats collection"
+    fill
+    style={{ objectFit: "cover", objectPosition: "center" }}
+    sizes="(max-width: 768px) 100vw, 50vw"
+  />
+  <div className="hero-right-fade"{
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    #FFF6E9 0%,
+    rgba(255,246,233,0.6) 15%,
+    transparent 40%
+  );
+  z-index: 1;
+  pointer-events: none;
+} />
+</div>
       </div>
 
       {/* ── MARQUEE ── */}
