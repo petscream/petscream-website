@@ -21,7 +21,7 @@ export default function HomePage() {
             src="/images/dog-hero.png"
             alt="Happy pet enjoying Petscream"
             fill
-            style={{ objectFit: "cover", objectPosition: "center" }}
+            style={{ objectFit: "cover", objectPosition: "center 25%" }}
             priority
             sizes="(max-width: 768px) 100vw, 50vw"
           />
@@ -151,9 +151,9 @@ export default function HomePage() {
           inset: 0;
           background: linear-gradient(
             to right,
-            #FFF6E9 0%,
-            rgba(255,246,233,0.6) 15%,
-            transparent 40%
+            rgba(255,246,233,0.85) 0%,
+            rgba(255,246,233,0.3) 8%,
+            transparent 20%
           );
           z-index: 1;
           pointer-events: none;
