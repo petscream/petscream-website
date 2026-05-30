@@ -21,7 +21,7 @@ export default function HomePage() {
             src="/images/dog-hero.png"
             alt="Happy pet enjoying Petscream"
             fill
-            style={{ objectFit: "cover", objectPosition: "center 28%" }}
+            style={{ objectFit: "cover", objectPosition: "center 26%" }}
             priority
             sizes="(max-width: 768px) 100vw, 50vw"
           />
