@@ -21,7 +21,7 @@ export default function HomePage() {
             src="/images/dog-hero.png"
             alt="Happy pet enjoying Petscream"
             fill
-            style={{ objectFit: "cover", objectPosition: "center 28%" }}
+            style={{ objectFit: "cover", objectPosition: "center" }}
             priority
             sizes="(max-width: 768px) 100vw, 50vw"
           />
@@ -139,10 +139,10 @@ export default function HomePage() {
         }
 
         .hero-right {
-          position: relative;
-          overflow: hidden;
-          background: #f5f0e8;
-        }
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(to right, #f5c842, #c9a0dc);
+}
 
         .hero-overlay {
           position: absolute;
