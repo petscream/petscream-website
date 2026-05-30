@@ -21,7 +21,7 @@ export default function HomePage() {
             src="/images/dog-hero.png"
             alt="Happy pet enjoying Petscream"
             fill
-            style={{ objectFit: "cover", objectPosition: "center 26%" }}
+            style={{ objectFit: "cover", objectPosition: "center 28%" }}
             priority
             sizes="(max-width: 768px) 100vw, 50vw"
           />
@@ -46,7 +46,7 @@ export default function HomePage() {
             src="/images/treats-grid.png"
             alt="Petscream treats collection"
             fill
-            style={{ objectFit: "contain", objectPosition: "center" }}
+            style={{ objectFit: "fill" }}
             sizes="(max-width: 768px) 100vw, 50vw"
           />
           <div className="hero-right-fade" />
