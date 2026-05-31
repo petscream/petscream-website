@@ -66,7 +66,7 @@ export const products: Product[] = [
     id: "mini-mix",
     name: "Mini Bone & Paw Mix",
     subtitle: "Blueberry & Banana",
-    image: "/images/mini-paw-treats.png",
+    image: "/images/pawbone-bites.png",
     price: 6,
     href: "/shop/mini-mix",
     ctaLabel: "Add to cart",
