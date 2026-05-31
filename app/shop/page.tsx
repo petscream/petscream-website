@@ -48,14 +48,11 @@ export default function ShopPage() {
               {/* Görsel — tıklayınca detay sayfasına gider */}
               <Link href={product.href} className="card-image-link">
                 <div className="card-image">
-                  {product.badge && (
-                    <span className="card-badge">{product.badge}</span>
-                  )}
                   <Image
                     src={product.image}
                     alt={`${product.subtitle} ${product.name}`}
                     fill
-                    style={{ objectFit: "contain", objectPosition: "center" }}
+                    style={{ objectFit: "cover", objectPosition: "top center" }}
                     sizes="(max-width: 768px) 50vw, 25vw"
                     priority={product.id === "heart-pop"}
                   />
@@ -134,16 +131,16 @@ export default function ShopPage() {
         .product-card {
           background: white;
           border-radius: 24px;
-          border: 1px solid rgba(236,220,203,0.6);
+          border: none;
           overflow: hidden;
-          box-shadow: 0 2px 12px rgba(43,27,18,0.06);
+          box-shadow: 0 2px 16px rgba(43,27,18,0.09);
           display: flex;
           flex-direction: column;
           transition: transform 0.18s, box-shadow 0.18s;
         }
         .product-card:hover {
           transform: translateY(-4px);
-          box-shadow: 0 12px 32px rgba(43,27,18,0.12);
+          box-shadow: 0 12px 32px rgba(43,27,18,0.14);
         }
 
         .card-image-link {
@@ -154,13 +151,15 @@ export default function ShopPage() {
         .card-image {
           background: #F9F3EA;
           position: relative;
-          aspect-ratio: 1 / 1;
+          aspect-ratio: 3 / 4;
           flex-shrink: 0;
           overflow: hidden;
         }
+        .card-image img {
+          transition: transform 0.3s ease;
+        }
         .card-image:hover img {
           transform: scale(1.04);
-          transition: transform 0.3s ease;
         }
 
         .card-badge {
