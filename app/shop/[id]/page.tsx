@@ -66,9 +66,16 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
           <div className="detail-ingredients">
             <p className="section-label">Ingredients</p>
             <div className="ingredient-pills">
-              {product.ingredients.map((ing) => (
-                <span key={ing} className="ingredient-pill">🌿 {ing}</span>
-              ))}
+              {product.ingredients.map((ing) => {
+                const icon =
+                  ing.toLowerCase().includes("goat") ? "🥛" :
+                  ing.toLowerCase().includes("blueberry") || ing.toLowerCase().includes("banana") || ing.toLowerCase().includes("fruit") ? "🫐" :
+                  ing.toLowerCase().includes("peanut") ? "🥜" : "🌿";
+                return (
+                  <span key={ing} className="ingredient-pill">{icon} {ing}</span>
+                );
+              })}
+              <span className="ingredient-pill">🐾 Safe for Dogs</span>
             </div>
           </div>
 
