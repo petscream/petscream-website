@@ -30,7 +30,6 @@ export const products: Product[] = [
     weightG: 75,
     weightOz: 2.6,
     count: "1 piece",
-    badge: "Best Seller",
   },
   {
     id: "paw-pop",
