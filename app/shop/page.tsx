@@ -14,22 +14,13 @@ export default function ShopPage() {
   const [added, setAdded] = useState<string | null>(null);
 
   const change = (id: string, delta: number) => {
-    setQuantities((prev) => ({
-      ...prev,
-      [id]: Math.max(1, prev[id] + delta),
-    }));
+    setQuantities((prev) => ({ ...prev, [id]: Math.max(1, prev[id] + delta) }));
   };
 
   const handleAdd = (product: typeof products[0]) => {
     const qty = quantities[product.id];
     for (let i = 0; i < qty; i++) {
-      addItem({
-        id: product.id,
-        name: product.name,
-        subtitle: product.subtitle,
-        image: product.image,
-        price: product.price,
-      });
+      addItem({ id: product.id, name: product.name, subtitle: product.subtitle, image: product.image, price: product.price });
     }
     setAdded(product.id);
     setTimeout(() => {
@@ -41,13 +32,11 @@ export default function ShopPage() {
   return (
     <main className="shop-main">
 
-      {/* ── HEADER ── */}
       <div className="shop-header">
         <p className="shop-label">Shop all treats</p>
         <h1 className="shop-title">Frozen treats for happy tails 🐾</h1>
       </div>
 
-      {/* ── PRODUCT GRID ── */}
       <div className="product-grid">
         {products.map((product) => {
           const qty = quantities[product.id];
@@ -56,59 +45,46 @@ export default function ShopPage() {
           return (
             <article key={product.id} className="product-card">
 
-              {/* Görsel */}
-              <div className="card-image">
-                <Image
-                  src={product.image}
-                  alt={`${product.subtitle} ${product.name}`}
-                  fill
-                  style={{ objectFit: "contain", objectPosition: "center" }}
-                  sizes="(max-width: 768px) 50vw, 20vw"
-                  priority={product.id === "heart-pop"}
-                />
-              </div>
+              {/* Görsel — tıklayınca detay sayfasına gider */}
+              <Link href={product.href} className="card-image-link">
+                <div className="card-image">
+                  {product.badge && (
+                    <span className="card-badge">{product.badge}</span>
+                  )}
+                  <Image
+                    src={product.image}
+                    alt={`${product.subtitle} ${product.name}`}
+                    fill
+                    style={{ objectFit: "contain", objectPosition: "center" }}
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    priority={product.id === "heart-pop"}
+                  />
+                </div>
+              </Link>
 
-              {/* İçerik */}
               <div className="card-body">
                 <p className="card-subtitle">{product.subtitle}</p>
                 <div className="card-row">
-                  <h2 className="card-name">{product.name}</h2>
+                  <Link href={product.href} className="card-name-link">
+                    <h2 className="card-name">{product.name}</h2>
+                  </Link>
                   <span className="card-price">${product.price}</span>
                 </div>
 
-                {/* Adet seçici */}
+                {/* Gramaj */}
+                <p className="card-weight">{product.weightG}g · {product.weightOz}oz</p>
+
                 <div className="qty-selector">
-                  <button
-                    className="qty-btn"
-                    onClick={() => change(product.id, -1)}
-                    disabled={qty <= 1}
-                    style={{ opacity: qty <= 1 ? 0.4 : 1 }}
-                  >
-                    −
-                  </button>
+                  <button className="qty-btn" onClick={() => change(product.id, -1)} disabled={qty <= 1} style={{ opacity: qty <= 1 ? 0.4 : 1 }}>−</button>
                   <span className="qty-num">{qty}</span>
-                  <button
-                    className="qty-btn"
-                    onClick={() => change(product.id, +1)}
-                  >
-                    +
-                  </button>
+                  <button className="qty-btn" onClick={() => change(product.id, +1)}>+</button>
                 </div>
 
-                {/* Add to cart */}
-                <button
-                  className={`add-btn ${isAdded ? "added" : ""}`}
-                  onClick={() => handleAdd(product)}
-                  disabled={isAdded}
-                >
-                  {isAdded
-                    ? `Added${qty > 1 ? ` ×${qty}` : ""} ✓`
-                    : `Add to cart${qty > 1 ? ` ×${qty}` : ""}`}
+                <button className={`add-btn ${isAdded ? "added" : ""}`} onClick={() => handleAdd(product)} disabled={isAdded}>
+                  {isAdded ? `Added${qty > 1 ? ` ×${qty}` : ""} ✓` : `Add to cart${qty > 1 ? ` ×${qty}` : ""}`}
                 </button>
 
-                <Link href="/ingredients" className="learn-link">
-                  Learn more →
-                </Link>
+                <Link href={product.href} className="learn-link">Details →</Link>
               </div>
             </article>
           );
@@ -116,7 +92,6 @@ export default function ShopPage() {
       </div>
 
       <style>{`
-        /* ── LAYOUT ── */
         .shop-main {
           min-height: 100dvh;
           background: #FFF6E9;
@@ -126,7 +101,6 @@ export default function ShopPage() {
           flex-direction: column;
         }
 
-        /* ── HEADER ── */
         .shop-header {
           text-align: center;
           padding: 24px 24px 12px;
@@ -147,36 +121,61 @@ export default function ShopPage() {
           margin: 0;
         }
 
-        /* ── GRID ── */
+        /* 4'lü grid */
         .product-grid {
           display: grid;
-          grid-template-columns: repeat(5, 1fr);
-          gap: 14px;
-          padding: 12px 20px 24px;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 16px;
+          padding: 12px 24px 40px;
           flex: 1;
         }
 
-        /* ── CARD ── */
+        /* Kartlar arka planla kaynaşıyor */
         .product-card {
           background: white;
-          border-radius: 20px;
-          border: 1px solid #ecdccb;
+          border-radius: 24px;
+          border: 1px solid rgba(236,220,203,0.6);
           overflow: hidden;
-          box-shadow: 0 4px 16px rgba(43,27,18,0.07);
+          box-shadow: 0 2px 12px rgba(43,27,18,0.06);
           display: flex;
           flex-direction: column;
           transition: transform 0.18s, box-shadow 0.18s;
         }
         .product-card:hover {
           transform: translateY(-4px);
-          box-shadow: 0 12px 32px rgba(43,27,18,0.13);
+          box-shadow: 0 12px 32px rgba(43,27,18,0.12);
+        }
+
+        .card-image-link {
+          display: block;
+          text-decoration: none;
         }
 
         .card-image {
           background: #F9F3EA;
           position: relative;
-          aspect-ratio: 4/5;
+          aspect-ratio: 1 / 1;
           flex-shrink: 0;
+          overflow: hidden;
+        }
+        .card-image:hover img {
+          transform: scale(1.04);
+          transition: transform 0.3s ease;
+        }
+
+        .card-badge {
+          position: absolute;
+          top: 10px;
+          left: 10px;
+          z-index: 2;
+          background: #F4A63A;
+          color: white;
+          font-size: 10px;
+          font-weight: 800;
+          padding: 3px 10px;
+          border-radius: 999px;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
         }
 
         .card-body {
@@ -184,7 +183,7 @@ export default function ShopPage() {
           display: flex;
           flex-direction: column;
           flex: 1;
-          gap: 6px;
+          gap: 5px;
         }
 
         .card-subtitle {
@@ -202,6 +201,8 @@ export default function ShopPage() {
           justify-content: space-between;
           gap: 4px;
         }
+
+        .card-name-link { text-decoration: none; }
 
         .card-name {
           font-size: clamp(13px, 1.1vw, 17px);
@@ -221,7 +222,13 @@ export default function ShopPage() {
           flex-shrink: 0;
         }
 
-        /* ── QTY ── */
+        .card-weight {
+          font-size: 11px;
+          color: #a08070;
+          margin: 0;
+          font-weight: 500;
+        }
+
         .qty-selector {
           display: flex;
           align-items: center;
@@ -246,13 +253,9 @@ export default function ShopPage() {
           display: flex;
           align-items: center;
           justify-content: center;
-          line-height: 1;
           transition: background 0.15s;
         }
-        .qty-btn:disabled {
-          background: #e0d5cc;
-          cursor: default;
-        }
+        .qty-btn:disabled { background: #e0d5cc; cursor: default; }
 
         .qty-num {
           font-size: 15px;
@@ -262,7 +265,6 @@ export default function ShopPage() {
           text-align: center;
         }
 
-        /* ── BUTTONS ── */
         .add-btn {
           width: 100%;
           background: #2FB7B5;
@@ -276,10 +278,7 @@ export default function ShopPage() {
           transition: background 0.2s;
           margin-top: 2px;
         }
-        .add-btn.added {
-          background: #22a09e;
-          cursor: default;
-        }
+        .add-btn.added { background: #22a09e; cursor: default; }
 
         .learn-link {
           text-align: center;
@@ -290,44 +289,15 @@ export default function ShopPage() {
           margin-top: 2px;
         }
 
-        /* ── MOBİL ── */
         @media (max-width: 768px) {
-          .shop-main {
-            height: auto;
-            overflow: auto;
-          }
-
-          .shop-header {
-            padding: 20px 16px 8px;
-          }
-
-          .shop-title {
-            font-size: 20px;
-          }
-
           .product-grid {
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
             padding: 8px 14px 28px;
           }
-
-          .card-name {
-            font-size: 15px;
-          }
-
-          .card-price {
-            font-size: 14px;
-          }
-
-          .add-btn {
-            font-size: 13px;
-            padding: 10px 0;
-          }
-
-          .qty-btn {
-            width: 28px;
-            height: 28px;
-          }
+          .card-name { font-size: 15px; }
+          .qty-btn { width: 28px; height: 28px; }
+          .add-btn { font-size: 13px; padding: 10px 0; }
         }
       `}</style>
     </main>
