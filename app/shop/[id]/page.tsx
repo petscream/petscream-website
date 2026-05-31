@@ -40,7 +40,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
             src={product.image}
             alt={product.name}
             fill
-            style={{ objectFit: "contain", objectPosition: "center" }}
+            style={{ objectFit: "cover", objectPosition: "top center" }}
             sizes="(max-width: 768px) 100vw, 50vw"
             priority
           />
@@ -134,11 +134,10 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
 
         .detail-image-wrap {
           position: relative;
-          aspect-ratio: 1 / 1;
+          aspect-ratio: 3 / 4;
           background: #F9F3EA;
           border-radius: 32px;
           overflow: hidden;
-          border: 1px solid #ecdccb;
         }
 
         .detail-badge {
