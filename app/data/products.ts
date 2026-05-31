@@ -25,8 +25,8 @@ export const products: Product[] = [
     href: "/shop/heart-pop",
     ctaLabel: "Add to cart",
     description:
-      "A heart-shaped frozen treat made with goat milk, fresh blueberries, and banana. Perfect for spoiling your pup with a wholesome, handcrafted snack.",
-    ingredients: ["Goat Milk", "Blueberry", "Banana"],
+      "A heart-shaped frozen pop crafted with a creamy goat dairy blend, real fruit, and a touch of peanut butter. Three wholesome ingredients — endless tail wags.",
+    ingredients: ["Goat Dairy Blend", "Blueberry & Banana", "Peanut Butter"],
     weightG: 75,
     weightOz: 2.6,
     count: "1 piece",
@@ -41,8 +41,8 @@ export const products: Product[] = [
     href: "/shop/paw-pop",
     ctaLabel: "Add to cart",
     description:
-      "A paw-shaped frozen pop bursting with blueberry and banana flavor. Made fresh daily with just three simple, natural ingredients.",
-    ingredients: ["Goat Milk", "Blueberry", "Banana"],
+      "A paw-shaped frozen pop made with a rich goat dairy blend, fresh fruit, and creamy peanut butter. Simple ingredients, serious happiness.",
+    ingredients: ["Goat Dairy Blend", "Blueberry & Banana", "Peanut Butter"],
     weightG: 75,
     weightOz: 2.6,
     count: "1 piece",
@@ -56,8 +56,8 @@ export const products: Product[] = [
     href: "/shop/everyday-pop",
     ctaLabel: "Add to cart",
     description:
-      "A classic stick pop for everyday happiness. Light, refreshing, and made with the same three natural ingredients your dog already loves.",
-    ingredients: ["Goat Milk", "Blueberry", "Banana"],
+      "The everyday treat your dog deserves. A light, refreshing frozen pop made with goat dairy blend, real fruit, and peanut butter — perfect for any occasion.",
+    ingredients: ["Goat Dairy Blend", "Blueberry & Banana", "Peanut Butter"],
     weightG: 35,
     weightOz: 1.2,
     count: "1 piece",
@@ -71,8 +71,8 @@ export const products: Product[] = [
     href: "/shop/mini-mix",
     ctaLabel: "Add to cart",
     description:
-      "Bite-sized bone and paw shaped treats — great for training, sharing, or just because. Same great taste, mini size.",
-    ingredients: ["Goat Milk", "Blueberry", "Banana"],
+      "Bite-sized bone and paw shaped treats packed with goat dairy blend, real fruit, and peanut butter. Great for training, sharing, or just spoiling.",
+    ingredients: ["Goat Dairy Blend", "Blueberry & Banana", "Peanut Butter"],
     weightG: 50,
     weightOz: 1.8,
     count: "Assorted mix",
