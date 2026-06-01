@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "../context/CartContext";
+import { createClient } from " /lib/supabase";;
 
 const BOROUGHS = ["Brooklyn", "Queens", "Staten Island", "Manhattan"];
 
@@ -19,15 +20,10 @@ const WEEKENDS = [
 
 export default function CartPage() {
   const { items, updateQuantity, removeItem, clearCart, totalPrice } = useCart();
+  const supabase = createClient();
 
   const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    borough: "",
-    address: "",
-    deliveryDay: "",
-    note: "",
+    name: "", email: "", phone: "", borough: "", address: "", deliveryDay: "", note: "",
   });
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
@@ -44,35 +40,66 @@ export default function CartPage() {
 
     setStatus("sending");
 
-    const orderSummary = items
-      .map((i) => `${i.name} x${i.quantity} — $${(i.price * i.quantity).toFixed(2)}`)
-      .join("\n");
-
-    const body = {
-      name: form.name,
-      email: form.email,
-      phone: form.phone,
-      borough: form.borough,
-      address: form.address,
-      delivery_day: selectedDay ? `${selectedDay.label} · ${selectedDay.hours}` : "",
-      note: form.note,
-      order: orderSummary,
-      total: `$${totalPrice.toFixed(2)}`,
-      payment: "Cash on delivery",
-    };
-
     try {
-      const res = await fetch("https://formspree.io/f/xzdznbwq", {
+      // 1. Kullanıcı giriş yapmış mı kontrol et
+      const { data: { user } } = await supabase.auth.getUser();
+
+      // 2. Supabase'e sipariş kaydet
+      const { data: order, error: orderError } = await supabase
+        .from("orders")
+        .insert({
+          user_id: user?.id || null,
+          customer_name: form.name,
+          customer_email: form.email,
+          customer_phone: form.phone,
+          borough: form.borough,
+          address: form.address,
+          delivery_day: selectedDay ? `${selectedDay.label} · ${selectedDay.hours}` : form.deliveryDay,
+          note: form.note,
+          total: totalPrice,
+          payment_method: "Cash on delivery",
+          status: "pending",
+        })
+        .select()
+        .single();
+
+      if (!orderError && order) {
+        // 3. Sipariş kalemlerini kaydet
+        await supabase.from("order_items").insert(
+          items.map((item) => ({
+            order_id: order.id,
+            product_id: item.id,
+            product_name: item.name,
+            quantity: item.quantity,
+            price: item.price,
+          }))
+        );
+      }
+
+      // 4. Formspree'ye de gönder (yedek)
+      const orderSummary = items
+        .map((i) => `${i.name} x${i.quantity} — $${(i.price * i.quantity).toFixed(2)}`)
+        .join("\n");
+
+      await fetch("https://formspree.io/f/xzdznbwq", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(body),
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          borough: form.borough,
+          address: form.address,
+          delivery_day: selectedDay ? `${selectedDay.label} · ${selectedDay.hours}` : "",
+          note: form.note,
+          order: orderSummary,
+          total: `$${totalPrice.toFixed(2)}`,
+          payment: "Cash on delivery",
+        }),
       });
-      if (res.ok) {
-        setStatus("success");
-        clearCart();
-      } else {
-        setStatus("error");
-      }
+
+      setStatus("success");
+      clearCart();
     } catch {
       setStatus("error");
     }
@@ -90,14 +117,15 @@ export default function CartPage() {
             We'll be in touch soon to confirm your delivery.
           </p>
           {selectedDay && (
-            <p style={{ color: "#2FB7B5", fontSize: 15, fontWeight: 600, marginBottom: 32 }}>
+            <p style={{ color: "#2FB7B5", fontSize: 15, fontWeight: 600, marginBottom: 16 }}>
               Delivery: {selectedDay.label} · {selectedDay.hours}
             </p>
           )}
-          <Link href="/shop" style={{
-            background: "#2FB7B5", color: "white", borderRadius: 999,
-            padding: "12px 28px", fontWeight: 600, textDecoration: "none", fontSize: 15,
-          }}>
+          <p style={{ color: "#8a6a5a", fontSize: 14, marginBottom: 32 }}>
+            Track your order in{" "}
+            <Link href="/account" style={{ color: "#2FB7B5", fontWeight: 600 }}>My Account</Link>
+          </p>
+          <Link href="/shop" style={{ background: "#2FB7B5", color: "white", borderRadius: 999, padding: "12px 28px", fontWeight: 600, textDecoration: "none", fontSize: 15 }}>
             Shop more treats
           </Link>
         </div>
@@ -117,10 +145,7 @@ export default function CartPage() {
           <div style={{ textAlign: "center", padding: "80px 0" }}>
             <div style={{ fontSize: 48 }}>🛒</div>
             <p style={{ fontSize: 18, color: "#6b4c3b", margin: "16px 0 24px" }}>Your cart is empty.</p>
-            <Link href="/shop" style={{
-              background: "#2FB7B5", color: "white", borderRadius: 999,
-              padding: "12px 28px", fontWeight: 600, textDecoration: "none", fontSize: 15,
-            }}>
+            <Link href="/shop" style={{ background: "#2FB7B5", color: "white", borderRadius: 999, padding: "12px 28px", fontWeight: 600, textDecoration: "none", fontSize: 15 }}>
               Browse treats
             </Link>
           </div>
@@ -133,11 +158,7 @@ export default function CartPage() {
               {/* Cart Items */}
               <div style={{ marginBottom: 32 }}>
                 {items.map((item) => (
-                  <div key={item.id} style={{
-                    display: "flex", alignItems: "center", gap: 16,
-                    background: "white", borderRadius: 20, padding: 16,
-                    marginBottom: 12, border: "1px solid #f1e3d3",
-                  }}>
+                  <div key={item.id} style={{ display: "flex", alignItems: "center", gap: 16, background: "white", borderRadius: 20, padding: 16, marginBottom: 12, border: "1px solid #f1e3d3" }}>
                     <div style={{ position: "relative", width: 72, height: 72, borderRadius: 14, overflow: "hidden", flexShrink: 0, background: "#F9F3EA" }}>
                       <Image src={item.image} alt={item.name} fill style={{ objectFit: "contain" }} sizes="72px" />
                     </div>
@@ -192,54 +213,18 @@ export default function CartPage() {
                 {/* Delivery Day */}
                 <div style={{ marginBottom: 14 }}>
                   <label style={labelStyle}>Delivery day</label>
-
-                  {/* Weekdays */}
-                  <p style={{ fontSize: 11, color: "#8a6a5a", fontWeight: 600, margin: "0 0 8px", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                    Tue & Thu · 7PM – 9PM
-                  </p>
+                  <p style={{ fontSize: 11, color: "#8a6a5a", fontWeight: 600, margin: "0 0 8px", textTransform: "uppercase", letterSpacing: "0.1em" }}>Tue & Thu · 7PM – 9PM</p>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 14 }}>
                     {WEEKDAYS.map((day) => (
-                      <button
-                        key={day.label}
-                        onClick={() => setForm(prev => ({ ...prev, deliveryDay: day.label }))}
-                        style={{
-                          padding: "10px 18px",
-                          borderRadius: 12,
-                          border: form.deliveryDay === day.label ? "2px solid #2FB7B5" : "1.5px solid #e8d8c8",
-                          background: form.deliveryDay === day.label ? "#E8F7F7" : "white",
-                          cursor: "pointer",
-                          fontSize: 13,
-                          fontWeight: 700,
-                          color: form.deliveryDay === day.label ? "#1a6b6a" : "#2B1B12",
-                          transition: "all 0.15s",
-                        }}
-                      >
+                      <button key={day.label} onClick={() => setForm(prev => ({ ...prev, deliveryDay: day.label }))} style={{ padding: "10px 18px", borderRadius: 12, border: form.deliveryDay === day.label ? "2px solid #2FB7B5" : "1.5px solid #e8d8c8", background: form.deliveryDay === day.label ? "#E8F7F7" : "white", cursor: "pointer", fontSize: 13, fontWeight: 700, color: form.deliveryDay === day.label ? "#1a6b6a" : "#2B1B12", transition: "all 0.15s" }}>
                         {day.label}
                       </button>
                     ))}
                   </div>
-
-                  {/* Weekends */}
-                  <p style={{ fontSize: 11, color: "#8a6a5a", fontWeight: 600, margin: "0 0 8px", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                    Sat & Sun · 10AM – 5PM
-                  </p>
+                  <p style={{ fontSize: 11, color: "#8a6a5a", fontWeight: 600, margin: "0 0 8px", textTransform: "uppercase", letterSpacing: "0.1em" }}>Sat & Sun · 10AM – 5PM</p>
                   <div style={{ display: "flex", gap: 8 }}>
                     {WEEKENDS.map((day) => (
-                      <button
-                        key={day.label}
-                        onClick={() => setForm(prev => ({ ...prev, deliveryDay: day.label }))}
-                        style={{
-                          padding: "10px 18px",
-                          borderRadius: 12,
-                          border: form.deliveryDay === day.label ? "2px solid #2FB7B5" : "1.5px solid #e8d8c8",
-                          background: form.deliveryDay === day.label ? "#E8F7F7" : "white",
-                          cursor: "pointer",
-                          fontSize: 13,
-                          fontWeight: 700,
-                          color: form.deliveryDay === day.label ? "#1a6b6a" : "#2B1B12",
-                          transition: "all 0.15s",
-                        }}
-                      >
+                      <button key={day.label} onClick={() => setForm(prev => ({ ...prev, deliveryDay: day.label }))} style={{ padding: "10px 18px", borderRadius: 12, border: form.deliveryDay === day.label ? "2px solid #2FB7B5" : "1.5px solid #e8d8c8", background: form.deliveryDay === day.label ? "#E8F7F7" : "white", cursor: "pointer", fontSize: 13, fontWeight: 700, color: form.deliveryDay === day.label ? "#1a6b6a" : "#2B1B12", transition: "all 0.15s" }}>
                         {day.label}
                       </button>
                     ))}
@@ -281,23 +266,7 @@ export default function CartPage() {
                   💵 Cash on delivery — pay when your treats arrive.
                 </div>
 
-                <button
-                  onClick={handleSubmit}
-                  disabled={status === "sending" || !isFormValid}
-                  style={{
-                    width: "100%",
-                    background: "#2FB7B5",
-                    color: "white",
-                    border: "none",
-                    borderRadius: 999,
-                    padding: "14px 0",
-                    fontSize: 16,
-                    fontWeight: 700,
-                    cursor: isFormValid ? "pointer" : "not-allowed",
-                    opacity: isFormValid ? 1 : 0.5,
-                    transition: "opacity 0.2s",
-                  }}
-                >
+                <button onClick={handleSubmit} disabled={status === "sending" || !isFormValid} style={{ width: "100%", background: "#2FB7B5", color: "white", border: "none", borderRadius: 999, padding: "14px 0", fontSize: 16, fontWeight: 700, cursor: isFormValid ? "pointer" : "not-allowed", opacity: isFormValid ? 1 : 0.5, transition: "opacity 0.2s" }}>
                   {status === "sending" ? "Placing order..." : "Place order"}
                 </button>
 
@@ -308,7 +277,6 @@ export default function CartPage() {
                 )}
               </div>
             </div>
-
           </div>
         )}
       </div>
