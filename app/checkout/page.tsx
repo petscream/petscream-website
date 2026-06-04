@@ -22,6 +22,7 @@ export default function CheckoutPage() {
     borough: "", address: "", apt: "",
     deliveryDay: "", note: "",
   });
+  const [paymentMethod, setPaymentMethod] = useState<"cash" | "card">("cash");
   const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
   const [error, setError] = useState("");
 
@@ -37,6 +38,14 @@ export default function CheckoutPage() {
     setStatus("sending");
     setError("");
 
+    if (paymentMethod === "card") {
+      // Stripe flow — önce payment intent oluştur, sonra Stripe sayfasına yönlendir
+      // Şimdilik placeholder, Stripe entegrasyonu sonraki adımda
+      setError("Card payment coming soon. Please use cash on delivery for now.");
+      setStatus("error");
+      return;
+    }
+
     const res = await fetch("/api/orders/create", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -51,7 +60,7 @@ export default function CheckoutPage() {
         delivery_note: form.note,
         subtotal: totalPrice,
         total: totalPrice,
-        payment_method: "cash",
+        payment_method: paymentMethod,
         payment_status: "pending",
         items,
       }),
@@ -86,6 +95,8 @@ export default function CheckoutPage() {
 
           {/* Left — Form */}
           <div style={{ flex: "1 1 420px" }}>
+
+            {/* Contact */}
             <div style={{ background: "white", borderRadius: 24, padding: 28, border: "1px solid #ecdccb", marginBottom: 20 }}>
               <h2 style={{ fontSize: 18, fontWeight: 800, margin: "0 0 20px" }}>Contact</h2>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
@@ -104,6 +115,7 @@ export default function CheckoutPage() {
               </div>
             </div>
 
+            {/* Address */}
             <div style={{ background: "white", borderRadius: 24, padding: 28, border: "1px solid #ecdccb", marginBottom: 20 }}>
               <h2 style={{ fontSize: 18, fontWeight: 800, margin: "0 0 20px" }}>Delivery address</h2>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
@@ -119,12 +131,13 @@ export default function CheckoutPage() {
                   <input name="apt" value={form.apt} onChange={handleChange} placeholder="Apt 4B" style={inputStyle} />
                 </div>
               </div>
-              <div style={{ marginBottom: 12 }}>
+              <div>
                 <label style={labelStyle}>Street address</label>
                 <input name="address" value={form.address} onChange={handleChange} placeholder="123 Main St" style={inputStyle} />
               </div>
             </div>
 
+            {/* Delivery Day */}
             <div style={{ background: "white", borderRadius: 24, padding: 28, border: "1px solid #ecdccb", marginBottom: 20 }}>
               <h2 style={{ fontSize: 18, fontWeight: 800, margin: "0 0 8px" }}>Delivery day</h2>
               <p style={{ fontSize: 12, color: "#8a6a5a", margin: "0 0 16px" }}>Tue & Thu 7–9PM · Sat & Sun 10AM–5PM</p>
@@ -143,6 +156,40 @@ export default function CheckoutPage() {
               <div style={{ marginTop: 16 }}>
                 <label style={labelStyle}>Delivery note (optional)</label>
                 <textarea name="note" value={form.note} onChange={handleChange} placeholder="Leave at door, buzz #4B..." rows={2} style={{ ...inputStyle, resize: "none" }} />
+              </div>
+            </div>
+
+            {/* Payment Method */}
+            <div style={{ background: "white", borderRadius: 24, padding: 28, border: "1px solid #ecdccb", marginBottom: 20 }}>
+              <h2 style={{ fontSize: 18, fontWeight: 800, margin: "0 0 16px" }}>Payment method</h2>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                <button onClick={() => setPaymentMethod("cash")} style={{
+                  display: "flex", alignItems: "center", gap: 14, padding: "14px 18px", borderRadius: 14, cursor: "pointer",
+                  border: paymentMethod === "cash" ? "2px solid #2FB7B5" : "1.5px solid #e8d8c8",
+                  background: paymentMethod === "cash" ? "#E8F7F7" : "white",
+                  textAlign: "left",
+                }}>
+                  <span style={{ fontSize: 24 }}>💵</span>
+                  <div>
+                    <p style={{ fontSize: 14, fontWeight: 700, color: "#2B1B12", margin: 0 }}>Cash on delivery</p>
+                    <p style={{ fontSize: 12, color: "#8a6a5a", margin: 0 }}>Pay when your treats arrive</p>
+                  </div>
+                  <div style={{ marginLeft: "auto", width: 18, height: 18, borderRadius: 999, border: paymentMethod === "cash" ? "5px solid #2FB7B5" : "2px solid #ecdccb", background: "white" }} />
+                </button>
+
+                <button onClick={() => setPaymentMethod("card")} style={{
+                  display: "flex", alignItems: "center", gap: 14, padding: "14px 18px", borderRadius: 14, cursor: "pointer",
+                  border: paymentMethod === "card" ? "2px solid #2FB7B5" : "1.5px solid #e8d8c8",
+                  background: paymentMethod === "card" ? "#E8F7F7" : "white",
+                  textAlign: "left",
+                }}>
+                  <span style={{ fontSize: 24 }}>💳</span>
+                  <div>
+                    <p style={{ fontSize: 14, fontWeight: 700, color: "#2B1B12", margin: 0 }}>Credit / Debit card</p>
+                    <p style={{ fontSize: 12, color: "#8a6a5a", margin: 0 }}>Secure payment via Stripe</p>
+                  </div>
+                  <div style={{ marginLeft: "auto", width: 18, height: 18, borderRadius: 999, border: paymentMethod === "card" ? "5px solid #2FB7B5" : "2px solid #ecdccb", background: "white" }} />
+                </button>
               </div>
             </div>
           </div>
@@ -166,8 +213,8 @@ export default function CheckoutPage() {
                   🚚 {selectedDay.label} · {selectedDay.slot}
                 </div>
               )}
-              <div style={{ background: "#FDE8C8", borderRadius: 12, padding: "10px 14px", marginBottom: 20, fontSize: 13, color: "#7a4a00", fontWeight: 500 }}>
-                💵 Cash on delivery
+              <div style={{ background: paymentMethod === "cash" ? "#FDE8C8" : "#E8F7F7", borderRadius: 12, padding: "10px 14px", marginBottom: 20, fontSize: 13, color: paymentMethod === "cash" ? "#7a4a00" : "#1a6b6a", fontWeight: 500 }}>
+                {paymentMethod === "cash" ? "💵 Cash on delivery" : "💳 Card payment via Stripe"}
               </div>
               {error && <p style={{ color: "#ef4444", fontSize: 13, marginBottom: 12 }}>{error}</p>}
               <button onClick={handleSubmit} disabled={!isValid || status === "sending"} style={{
@@ -175,7 +222,7 @@ export default function CheckoutPage() {
                 padding: "14px 0", fontSize: 16, fontWeight: 700,
                 cursor: isValid ? "pointer" : "not-allowed", opacity: isValid ? 1 : 0.5,
               }}>
-                {status === "sending" ? "Placing order..." : "Place order"}
+                {status === "sending" ? "Placing order..." : paymentMethod === "card" ? "Pay with card →" : "Place order"}
               </button>
             </div>
           </div>
