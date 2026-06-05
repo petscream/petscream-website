@@ -30,7 +30,9 @@ export default function AccountPage() {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) { router.push("/login"); return; }
       setUser(user);
-
+console.log("user.id:", user.id);
+const { data: testOrders } = await supabase.from("orders").select("id, order_number, user_id").limit(10);
+console.log("all orders:", testOrders);
       const [{ data: orders }, { data: notifs }] = await Promise.all([
         supabase.from("orders").select("*, order_items(*)").eq("user_id", user.id).order("created_at", { ascending: false }),
         supabase.from("notifications").select("*").eq("user_id", user.id).order("created_at", { ascending: false }),
