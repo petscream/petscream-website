@@ -1,9 +1,8 @@
-"use client";
-
-import { useState } from "react";
+"use client";import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useCart } from "../context/CartContext";
+import { createClient } from "../../lib/supabase";
 
 const BOROUGHS = ["Brooklyn", "Queens", "Staten Island", "Manhattan"];
 const DELIVERY_DAYS = [
@@ -16,7 +15,12 @@ const DELIVERY_DAYS = [
 export default function CheckoutPage() {
   const router = useRouter();
   const { items, totalPrice, clearCart } = useCart();
+const supabase = createClient();
+const [userId, setUserId] = useState<string | null>(null);
 
+useEffect(() => {
+  supabase.auth.getUser().then(({ data }) => setUserId(data.user?.id || null));
+}, []);
   const [form, setForm] = useState({
     name: "", email: "", phone: "",
     borough: "", address: "", apt: "",
@@ -49,7 +53,7 @@ export default function CheckoutPage() {
     const res = await fetch("/api/orders/create", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+      body: JSON.stringify({ user_id: userId,
         customer_name: form.name,
         customer_email: form.email,
         customer_phone: form.phone,
