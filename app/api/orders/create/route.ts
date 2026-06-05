@@ -9,9 +9,13 @@ const supabase = createClient(
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function POST(req: Request) {console.log("SERVICE_KEY exists:", !!process.env.SUPABASE_SERVICE_ROLE_KEY);
-  console.log("SERVICE_KEY prefix:", process.env.SUPABASE_SERVICE_ROLE_KEY?.slice(0, 10));
-  const body = await req.json();
+export async function POST(req: Request) {
+  let body: any;
+  try {
+    body = await req.json();
+  } catch (e) {
+    return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+  }
 
   const { data: order, error } = await supabase
     .from("orders")
