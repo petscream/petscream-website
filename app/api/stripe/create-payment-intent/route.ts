@@ -1,18 +1,26 @@
 import Stripe from "stripe";
 import { NextResponse } from "next/server";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
 export async function POST(req: Request) {
-  const { amount, currency = "usd", metadata } = await req.json();
-  if (!amount) return NextResponse.json({ error: "Amount required" }, { status: 400 });
+  try {
+    const { amount, currency = "usd", metadata } = await req.json();
+    if (!amount) return NextResponse.json({ error: "Amount required" }, { status: 400 });
 
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: Math.round(amount * 100),
-    currency,
-    metadata,
-    automatic_payment_methods: { enabled: true },
-  });
+    if (!process.env.STRIPE_SECRET_KEY) {
+      return NextResponse.json({ error: "Stripe key missing" }, { status: 500 });
+    }
 
-  return NextResponse.json({ clientSecret: paymentIntent.client_secret });
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: Math.round(amount * 100),
+      currency,
+      metadata,
+      automatic_payment_methods: { enabled: true },
+    });
+
+    return NextResponse.json({ clientSecret: paymentIntent.client_secret });
+  } catch (err: any) {
+    console.error("Stripe error:", err.message);
+    return NextResponse.json({ error: err.message }, { status: 500 });
+  }
 }
