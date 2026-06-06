@@ -27,7 +27,10 @@ function CheckoutForm({ onSuccess }: { onSuccess: () => void }) {
 
   return (
     <div>
-      <PaymentElement />
+      <PaymentElement options={{
+  layout: "tabs",
+  wallets: { applePay: "never", googlePay: "never" },
+}} />
       {error && <p style={{ color: "#ef4444", fontSize: 13, marginTop: 8 }}>{error}</p>}
       <button onClick={handleSubmit} disabled={loading || !stripe} style={{
         width: "100%", marginTop: 16, background: "#2FB7B5", color: "white",
@@ -62,7 +65,11 @@ export default function StripePayment({ amount, onSuccess }: { amount: number; o
   if (!clientSecret) return <p style={{ color: "#8a6a5a", fontSize: 13 }}>Loading payment form...</p>;
 
   return (
-    <Elements stripe={stripePromise} options={{ clientSecret, appearance: { theme: "stripe" } }}>
+    <Elements stripe={stripePromise} options={{ 
+  clientSecret, 
+  locale: "en",
+  appearance: { theme: "stripe" },
+}}>
       <CheckoutForm onSuccess={() => onSuccess(clientSecret)} />
     </Elements>
   );
