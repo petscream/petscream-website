@@ -107,7 +107,7 @@ console.log("all orders:", testOrders);
             ) : orders.map(order => {
               const st = ORDER_STATUS[order.status] || ORDER_STATUS.pending;
               return (
-                <div key={order.id} style={{ background: "white", borderRadius: 20, padding: 20, border: "1px solid #ecdccb" }}>
+                <Link key={order.id} href={`/account/orders/${order.id}`} style={{ background: "white", borderRadius: 20, padding: 20, border: "1px solid #ecdccb", display: "block", textDecoration: "none", color: "inherit" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
                     <div>
                       <p style={{ fontWeight: 800, fontSize: 15, margin: "0 0 2px" }}>{order.order_number}</p>
@@ -131,7 +131,7 @@ console.log("all orders:", testOrders);
                   <div style={{ display: "flex", justifyContent: "flex-end" }}>
                     <span style={{ fontSize: 15, fontWeight: 800 }}>Total: ${order.total.toFixed(2)}</span>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>
