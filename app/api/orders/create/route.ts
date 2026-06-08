@@ -109,5 +109,12 @@ export async function POST(req: Request) {
     console.error("Email error:", emailError);
   }
 
+  if (body.user_id) {
+    await supabase.from("profiles").update({
+      full_name: body.customer_name,
+      phone: body.customer_phone,
+    }).eq("id", body.user_id);
+  }
+
   return NextResponse.json({ success: true, order });
 }
