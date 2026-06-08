@@ -30,6 +30,11 @@ export default function CheckoutPage() {
     supabase.auth.getUser().then(({ data }) => {
       setUserId(data.user?.id || null);
       if (data.user?.email) setForm(prev => ({ ...prev, email: data.user!.email! }));
+      if (data.user?.id) {
+        supabase.from("profiles").select("full_name, phone").eq("id", data.user.id).single().then(({ data: profile }) => {
+          if (profile) setForm(prev => ({ ...prev, name: profile.full_name || prev.name, phone: profile.phone || prev.phone }));
+        });
+      }
     });
   }, []);
 
@@ -39,6 +44,8 @@ export default function CheckoutPage() {
 
   const selectedDay = DELIVERY_DAYS.find(d => d.label === form.deliveryDay);
   const isValid = form.name && form.email && form.phone && form.borough && form.address && form.deliveryDay;
+  const stripeFee = paymentMethod === "card" ? parseFloat((totalPrice * 0.029 + 0.30).toFixed(2)) : 0;
+  const finalTotal = parseFloat((totalPrice + stripeFee).toFixed(2));
 
   const createOrder = async (paymentIntentId?: string) => {
     const res = await fetch("/api/orders/create", {
@@ -55,7 +62,7 @@ export default function CheckoutPage() {
         delivery_time_slot: selectedDay ? `${selectedDay.label} · ${selectedDay.slot}` : "",
         delivery_note: form.note,
         subtotal: totalPrice,
-        total: totalPrice,
+        total: finalTotal,
         payment_method: paymentMethod,
         payment_status: paymentIntentId ? "paid" : "pending",
         stripe_payment_intent_id: paymentIntentId || null,
@@ -171,7 +178,7 @@ export default function CheckoutPage() {
 
               {paymentMethod === "card" && showStripe && isValid && (
                 <div style={{ marginTop: 20 }}>
-                  <StripePayment amount={totalPrice} onSuccess={handleStripeSuccess} />
+                  <StripePayment amount={finalTotal} onSuccess={handleStripeSuccess} />
                 </div>
               )}
             </div>
@@ -187,9 +194,21 @@ export default function CheckoutPage() {
                   <span style={{ fontWeight: 600 }}>${(item.price * item.quantity).toFixed(2)}</span>
                 </div>
               ))}
-              <div style={{ borderTop: "1px solid #ecdccb", margin: "16px 0", paddingTop: 16, display: "flex", justifyContent: "space-between" }}>
-                <span style={{ fontWeight: 700 }}>Total</span>
-                <span style={{ fontSize: 18, fontWeight: 800 }}>${totalPrice.toFixed(2)}</span>
+              <div style={{ borderTop: "1px solid #ecdccb", margin: "16px 0", paddingTop: 16 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
+                  <span style={{ color: "#8a6a5a", fontSize: 14 }}>Subtotal</span>
+                  <span style={{ fontSize: 14 }}>${totalPrice.toFixed(2)}</span>
+                </div>
+                {paymentMethod === "card" && (
+                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
+                    <span style={{ color: "#8a6a5a", fontSize: 14 }}>Card processing fee</span>
+                    <span style={{ fontSize: 14 }}>${stripeFee.toFixed(2)}</span>
+                  </div>
+                )}
+                <div style={{ display: "flex", justifyContent: "space-between", marginTop: 10, paddingTop: 10, borderTop: "1px solid #f1e3d3" }}>
+                  <span style={{ fontWeight: 700 }}>Total</span>
+                  <span style={{ fontSize: 18, fontWeight: 800 }}>${finalTotal.toFixed(2)}</span>
+                </div>
               </div>
               {selectedDay && (
                 <div style={{ background: "#E8F7F7", borderRadius: 12, padding: "10px 14px", marginBottom: 14, fontSize: 13 }}>
