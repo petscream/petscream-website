@@ -48,11 +48,13 @@ export default function CheckoutPage() {
   const finalTotal = parseFloat((totalPrice + stripeFee).toFixed(2));
 
   const createOrder = async (paymentIntentId?: string) => {
+    const { data: { user: freshUser } } = await supabase.auth.getUser();
+    const effectiveUserId = freshUser?.id || userId;
     const res = await fetch("/api/orders/create", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        user_id: userId,
+        user_id: effectiveUserId,
         customer_name: form.name,
         customer_email: form.email,
         customer_phone: form.phone,
