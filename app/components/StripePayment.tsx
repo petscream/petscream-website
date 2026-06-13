@@ -43,7 +43,7 @@ function CheckoutForm({ onSuccess }: { onSuccess: () => void }) {
   );
 }
 
-export default function StripePayment({ amount, onSuccess }: { amount: number; onSuccess: (paymentIntentId: string) => void }) {
+export default function StripePayment({ items, paymentMethod, onSuccess }: { items: { id: string; quantity: number }[]; paymentMethod: "cash" | "card"; onSuccess: (paymentIntentId: string) => void }) {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [error, setError] = useState("");
 
@@ -51,7 +51,7 @@ export default function StripePayment({ amount, onSuccess }: { amount: number; o
     fetch("/api/stripe/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount }),
+      body: JSON.stringify({ items, paymentMethod }),
     })
       .then(r => r.json())
       .then(data => {
@@ -59,7 +59,7 @@ export default function StripePayment({ amount, onSuccess }: { amount: number; o
         else setClientSecret(data.clientSecret);
       })
       .catch(() => setError("Failed to load payment form"));
-  }, [amount]);
+  }, [JSON.stringify(items), paymentMethod]);
 
   if (error) return <p style={{ color: "#ef4444", fontSize: 13 }}>Payment error: {error}</p>;
   if (!clientSecret) return <p style={{ color: "#8a6a5a", fontSize: 13 }}>Loading payment form...</p>;

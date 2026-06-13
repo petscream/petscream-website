@@ -1,6 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { computeServerTotals } from "../../../../lib/pricing";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -17,6 +18,14 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
   }
 
+  // Fiyatları İSTEMCİYE GÜVENMEDEN sunucuda hesapla
+  let pricing;
+  try {
+    pricing = computeServerTotals(body.items, body.payment_method === "card" ? "card" : "cash");
+  } catch (e: any) {
+    return NextResponse.json({ error: e.message || "Invalid items" }, { status: 400 });
+  }
+
   const { data: order, error } = await supabase
     .from("orders")
     .insert({
@@ -31,10 +40,10 @@ export async function POST(req: Request) {
       borough: body.borough,
       apt: body.apt || null,
       delivery_note: body.delivery_note || null,
-      subtotal: body.subtotal,
+      subtotal: pricing.subtotal,
       discount_amount: body.discount_amount || 0,
       coupon_code: body.coupon_code || null,
-      total: body.total,
+      total: pricing.total,
       payment_method: body.payment_method || "cash",
       payment_status: body.payment_status || "pending",
       stripe_payment_intent_id: body.stripe_payment_intent_id || null,
@@ -46,13 +55,9 @@ export async function POST(req: Request) {
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
   await supabase.from("order_items").insert(
-    body.items.map((item: any) => ({
+    pricing.lineItems.map((item) => ({
       order_id: order.id,
-      product_id: item.id,
-      product_name: item.name,
-      quantity: item.quantity,
-      unit_price: item.price,
-      total_price: item.price * item.quantity,
+      ...item,
     }))
   );
 
@@ -78,7 +83,7 @@ export async function POST(req: Request) {
           <div style="background:#FFF6E9;border-radius:12px;padding:16px;margin:16px 0;">
             ${itemsList}
             <hr style="border:1px solid #ecdccb;margin:12px 0"/>
-            <strong>Total: $${body.total.toFixed(2)}</strong>
+            <strong>Total: $${pricing.total.toFixed(2)}</strong>
           </div>
           <p>Delivery: <strong>${body.delivery_time_slot}</strong></p>
           <p style="color:#8a6a5a;font-size:13px;">We'll notify you when your order is on the way!</p>
@@ -89,7 +94,7 @@ export async function POST(req: Request) {
     await resend.emails.send({
       from: "PetsCream <onboarding@resend.dev>",
       to: "petscreamnyc@gmail.com",
-      subject: `New order: ${order.order_number} — $${body.total.toFixed(2)}`,
+      subject: `New order: ${order.order_number} — $${pricing.total.toFixed(2)}`,
       html: `
         <div style="font-family:sans-serif;max-width:500px;margin:0 auto;padding:32px;">
           <h1>New Order: ${order.order_number}</h1>
@@ -100,7 +105,7 @@ export async function POST(req: Request) {
           <div style="background:#f9f3ea;border-radius:12px;padding:16px;margin:16px 0;">
             ${itemsList}
             <hr style="border:1px solid #ecdccb;margin:12px 0"/>
-            <strong>Total: $${body.total.toFixed(2)}</strong>
+            <strong>Total: $${pricing.total.toFixed(2)}</strong>
           </div>
         </div>
       `,

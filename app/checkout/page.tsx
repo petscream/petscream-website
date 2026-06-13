@@ -180,7 +180,7 @@ export default function CheckoutPage() {
 
               {paymentMethod === "card" && showStripe && isValid && (
                 <div style={{ marginTop: 20 }}>
-                  <StripePayment amount={finalTotal} onSuccess={handleStripeSuccess} />
+                  <StripePayment items={items.map(i => ({ id: i.id, quantity: i.quantity }))} paymentMethod={paymentMethod} onSuccess={handleStripeSuccess} />
                 </div>
               )}
             </div>
