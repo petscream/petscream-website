@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const dogNames = [
   "Lycan","Nellie","Lilou","Wendell","Penny","Bode","Rio","Zizi","Summer","Roxy",
-  "Pati","Rolex","Denali","Cyrus","Bal","Rossie","Thor","Masky","Jeff","Max","Bella","Luna","Nilou","Bogey",
+  "Pati","Rolex","Denali","Cyrus","Bal","Rossie","Thor","Masky","Jeff","Max","Bella","Luna","Nilou","Bogey","Pearl & Vienna",
 ];
 
 export default function HomePage() {
